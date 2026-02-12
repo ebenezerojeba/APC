@@ -51,7 +51,7 @@ const Event = () => {
           viewport={{ once: true }}
         >
           <div className="flex justify-center items-center gap-2 text-amber-500 font-bold uppercase tracking-widest mb-4">
-            <AlertCircle size={20} />
+            {/* <AlertCircle size={20} /> */}
             <span>2026 Political Timetable</span>
           </div>
           <h2 className="text-5xl md:text-7xl font-black text-emerald-800 mb-6 uppercase" style={{ fontFamily: 'Impact, sans-serif' }}>
@@ -86,7 +86,7 @@ const Event = () => {
                 {/* Content Card */}
                 <div className="w-full md:w-[45%]">
                   <motion.div
-                    className="bg-white p-8 rounded-3xl shadow-xl border-t-8 border-emerald-700 hover:shadow-2xl transition-all group"
+                    className="bg-white p-8 rounded-sm shadow-xl border-x-2 border-emerald-700 hover:shadow-2xl transition-all group"
                     whileHover={{ y: -5 }}
                   >
                     <div className="flex justify-between items-start mb-4">
