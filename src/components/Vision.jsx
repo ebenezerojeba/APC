@@ -33,36 +33,7 @@ const visionItems = [
         'Vocational training in emerging green skills'
       ]
     },
-    // {
-    //   title: '21st Century Economy',
-    //   icon: BarChart3,
-    //   items: [
-    //     'Support for MSMEs via LSETF grants',
-    //     'Development of the Lekki Free Trade Zone',
-    //     'Agricultural hubs for food security',
-    //     'Promotion of ease of doing business'
-    //   ]
-    // },
-    // {
-    //   title: 'Entertainment & Tourism',
-    //   icon: Music,
-    //   items: [
-    //     'Film City Project in Ejinrin, Epe',
-    //     'Global promotion of Afrobeat & creative arts',
-    //     'Preservation of historical heritage sites',
-    //     'Modernization of beach-front tourism'
-    //   ]
-    // },
-    // {
-    //   title: 'Security & Governance',
-    //   icon: ShieldCheck,
-    //   items: [
-    //     'Strengthening of the Lagos Trust Fund',
-    //     'State-wide CCTV & command center expansion',
-    //     'Enhanced Social Inclusion (THEMES Plus)',
-    //     'Transparency via digital citizen portals'
-    //   ]
-    // }
+  
   ];
 
   return (
@@ -85,7 +56,7 @@ const visionItems = [
           transition={{ duration: 0.8 }}
         >
           <h2 className="text-5xl md:text-6xl font-black mb-4" style={{ fontFamily: 'Impact, sans-serif' }}>
-            Our Vision for Lagos
+            Our Vision <span className='text-amber-400'>for</span> Lagos
           </h2>
           <p className="text-xl opacity-90">
             A comprehensive agenda for sustainable development and inclusive growth
@@ -108,7 +79,7 @@ const visionItems = [
                 scale: 1.02
               }}
             >
-              <h3 className="text-2xl font-black text-amber-400 mb-4" style={{ fontFamily: 'Impact, sans-serif' }}>
+              <h3 className="text-2xl font-black text-amber-400 mb-4" style={{ fontFamily: 'Outfit' }}>
                 {vision.title}
               </h3>
               <ul className="space-y-3">
