@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { MapPin, Phone, Mail, Send, Facebook, Twitter, Instagram, Youtube } from 'lucide-react';
 import assets from '../assets/assets';
+import { useNavigate } from 'react-router-dom';
+
 
 const Contact = () => {
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [formStatus, setFormStatus] = useState('');
+  const navigate = useNavigate()
 
   const contactInfo = [
     { 
@@ -106,7 +109,7 @@ const Contact = () => {
             viewport={{ once: true }}
           >
             {/* Newsletter Box */}
-            <div className="bg-white p-8 md:p-10 rounded-[2rem] shadow-2xl text-gray-900">
+            <div className="bg-white p-8 md:p-10 rounded-4xl shadow-2xl text-gray-900">
               <h3 className="text-2xl font-black mb-2 uppercase tracking-tight">Join the Progress</h3>
               <p className="text-gray-600 mb-6">
                 Receive the Chairman's weekly briefing and official party updates.
@@ -131,10 +134,10 @@ const Contact = () => {
             </div>
 
             {/* Map Placeholder or Secondary CTA */}
-            <div className="bg-amber-400 p-8 rounded-[2rem] text-black">
+            <div className="bg-amber-400 p-8 rounded-4xl text-black">
                <h3 className="text-xl font-black mb-2 uppercase italic">Renewed Hope Agenda</h3>
                <p className="font-bold opacity-80 mb-6">Building a better, smarter, and more inclusive Lagos for everyone.</p>
-               <button className="w-full bg-black text-white py-4 rounded-xl font-black uppercase tracking-widest hover:bg-gray-800 transition-colors">
+               <button onClick={()=>navigate('/join')} className="w-full bg-black cursor-pointer text-white py-4 rounded-xl font-black uppercase tracking-widest hover:bg-gray-800 transition-colors">
                   Volunteer Today
                </button>
             </div>

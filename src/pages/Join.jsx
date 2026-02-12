@@ -41,10 +41,10 @@ const Join = () => {
   };
 
   return (
-    <section id="join" className="py-24 bg-white relative overflow-hidden">
+    <section id="join" className="py-24 mt-20 bg-white relative overflow-hidden">
       {/* Background Decoration */}
       <div className="absolute top-0 right-0 w-1/3 h-full bg-[#008A44]/5 skew-x-12 transform origin-top hidden lg:block" />
-
+      
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid lg:grid-cols-5 gap-16">
           
@@ -62,23 +62,7 @@ const Join = () => {
                 The Lagos APC is more than a party; it's a movement of over 4 million Lagosians. Join us to help build a greater state.
               </p>
 
-              <div className="space-y-8">
-                {[
-                  { icon: <UserPlus />, title: "Register", desc: "Fill the form to begin your membership validation." },
-                  { icon: <ShieldCheck />, title: "Verify", desc: "Your local Ward Chairman will verify your residence." },
-                  { icon: <Zap />, title: "Engage", desc: "Access exclusive party events and mobilization tools." }
-                ].map((step, i) => (
-                  <div key={i} className="flex gap-4">
-                    <div className="w-12 h-12 bg-amber-400 rounded-2xl flex items-center justify-center text-black shadow-lg shadow-amber-200 shrink-0">
-                      {step.icon}
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-gray-900 text-lg">{step.title}</h4>
-                      <p className="text-gray-500 text-sm">{step.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+            
             </motion.div>
           </div>
 
