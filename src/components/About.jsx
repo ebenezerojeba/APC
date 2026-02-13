@@ -5,7 +5,7 @@ import assets from '../assets/assets';
 
 const About = () => {
   // 1. Array of images for the slideshow
-  const slides = [assets.oj13, assets.oj10, assets.oj11, assets.oj2, assets.oj3, assets.oj4, assets.oj5, assets.oj6];
+  const slides = [assets.oj34, assets.oj26, assets.oj27, assets.oj21, assets.oj30, assets.oj32, assets.oj39, assets.oj30];
   const [currentSlide, setCurrentSlide] = useState(0);
 
   // 2. Automatic slide transition

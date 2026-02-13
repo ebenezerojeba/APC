@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import assets from '../assets/assets';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = ({ scrollToSection }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const { scrollYProgress } = useScroll();
+  const navigate = useNavigate();
   
   // Subtle transparency effect on scroll
   const headerBg = useTransform(
@@ -47,14 +49,14 @@ const Navbar = ({ scrollToSection }) => {
   return (
     <motion.header
       style={{ backgroundColor: headerBg }}
-      className="fixed top-0 left-0 right-0 z-[100] border-b-4 border-amber-400 shadow-lg backdrop-blur-md"
+      className="fixed top-0 left-0 right-0 z-100 border-b-4 border-amber-400 shadow-lg backdrop-blur-md"
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
         <div className="flex justify-between items-center">
           
           {/* LOGO & BRANDING */}
           <motion.div
-            onClick={() => handleNavClick('Home')}
+            onClick={() => navigate('/')}
             className="flex items-center gap-3 cursor-pointer"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -65,7 +67,7 @@ const Navbar = ({ scrollToSection }) => {
                 APC LAGOS
               </span>
               <span className="text-[10px] font-bold text-gray-500 uppercase tracking-tighter">
-                State Secretariat
+                State
               </span>
             </div>
           </motion.div>
@@ -92,8 +94,8 @@ const Navbar = ({ scrollToSection }) => {
 
           {/* CTA Button */}
           <motion.button
-            onClick={() => handleNavClick('Join')}
-            className="hidden lg:block bg-[#008A44] text-white px-6 py-2.5 rounded-full font-bold text-sm shadow-md hover:bg-emerald-800 transition-all"
+            onClick={() => navigate('/join')}
+            className="hidden lg:block bg-[#008A44] cursor-pointer text-white px-6 py-2.5 rounded-full font-bold text-sm shadow-md hover:bg-emerald-800 transition-all"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -124,7 +126,7 @@ const Navbar = ({ scrollToSection }) => {
                 <button
                   key={item}
                   onClick={() => handleNavClick(item)}
-                  className={`text-left py-3 text-lg font-black uppercase border-b border-gray-100 ${
+                  className={`text-left py-3 text-sm font-black uppercase border-b border-gray-100 ${
                     activeSection === item.toLowerCase() ? 'text-[#008A44]' : 'text-gray-600'
                   }`}
                 >
@@ -132,8 +134,12 @@ const Navbar = ({ scrollToSection }) => {
                 </button>
               ))}
               <button
-                onClick={() => handleNavClick('Join')}
-                className="mt-4 bg-amber-400 text-gray-900 py-4 rounded-xl font-black uppercase text-center"
+                onClick={() =>{
+                  setMobileMenuOpen(false)
+                  navigate('/join') 
+                }  }
+                className="mt-4 bg-amber-400 cursor-pointer text-gray-900 py-4 rounded-xl font-black uppercase text-center"
+              
               >
                 Become a Member
               </button>
