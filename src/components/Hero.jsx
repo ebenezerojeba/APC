@@ -49,7 +49,7 @@ const Hero = ({ scrollToSection }) => {
             </h1>
 
             <p className="text-lg md:text-xl mb-10 text-gray-100 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-light">
-              Leading the charge for a Greater Lagos. Join Pastor Cornelius Ojelabi 
+              Leading the charge for a Greater Lagos. Join Honourable Cornelius Ojelabi 
               and the APC family in building a sustainable future for all Lagosians.
             </p>
 
