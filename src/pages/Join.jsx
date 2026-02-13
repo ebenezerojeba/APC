@@ -44,7 +44,7 @@ const Join = () => {
     <section id="join" className="py-24 mt-20 bg-white relative overflow-hidden">
       {/* Background Decoration */}
       <div className="absolute top-0 right-0 w-1/3 h-full bg-[#008A44]/5 skew-x-12 transform origin-top hidden lg:block" />
-      
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid lg:grid-cols-5 gap-16">
           
@@ -176,7 +176,7 @@ const Join = () => {
 
             <motion.button
               type="submit"
-              className="w-full bg-emerald-700 text-white py-4 rounded-full font-bold text-lg shadow-xl"
+              className="w-full bg-emerald-700 cursor-pointer text-white py-4 rounded-full font-bold text-lg shadow-xl"
               whileHover={{ scale: 1.02, backgroundColor: '#065f46' }}
               whileTap={{ scale: 0.98 }}
             >
