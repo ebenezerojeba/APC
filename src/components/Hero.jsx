@@ -33,7 +33,7 @@ const Hero = ({ scrollToSection }) => {
           >
             {/* APC LOGO */}
             <motion.img 
-              src={assets.apc} // Path to the logo you attached
+              src={assets.apc2}
               alt="APC Logo"
               className="w-24 h-24 md:w-32 md:h-32 mb-8 mx-auto lg:mx-0 drop-shadow-lg"
               animate={{ y: [0, -10, 0] }}

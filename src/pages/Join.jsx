@@ -21,7 +21,7 @@ const Join = () => {
     'Mushin', 'Ojo', 'Oshodi-Isolo', 'Somolu', 'Surulere'
   ];
 
-  const interestOptions = ['Volunteer', 'Grassroots Support', 'Media & Comms', 'Polling Agent'];
+  const interestOptions = ['Volunteer', 'Grassroots Support', 'Media & Comms', 'Polling Agent', 'PVC'];
 
   const handleSubmit = (e) => {
     e.preventDefault();

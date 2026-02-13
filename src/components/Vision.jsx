@@ -4,33 +4,30 @@ import { BarChart3, BookOpen, ChevronRight, Heart, Music, ShieldCheck, Train } f
 const Vision = () => {
 const visionItems = [
     {
-      title: 'Traffic & Transport',
+      title: 'Party Vision & Mission',
       icon: Train,
       items: [
-        'Completion of the Red Line Rail network',
-        'Expansion of LagFerry water transport',
-        'Smart Traffic Management (SCATS) integration',
-        'Construction of the Fourth Mainland Bridge'
+        'Commitment to transparent governance, unity, and positive change',
+        'Focus on inclusive economic growth and job creation',
+        'Prioritization of education, healthcare, and infrastructure',
       ]
     },
     {
-      title: 'Health & Environment',
+      title: 'Leadership & Structure',
       icon: Heart,
       items: [
-        'Universal Health Coverage (Ilera Eko)',
-        'Upgrade of General Hospitals to tertiary hubs',
-        'Waste-to-Energy conversion projects',
-        'Coastal resilience and flood prevention'
+      'Strenghtening democratic institutions, grassroot mobilization, and inclusive leadership',
+      'Promoting diversity and inclusion in leadership roles',
+      'Capacity building for party members and officials',
       ]
     },
     {
-      title: 'Education & Technology',
+      title: 'Empowerment Initiatives',
       icon: BookOpen,
       items: [
-        'EKOEXCEL 2.0 digital learning expansion',
-        'Fiber optic connectivity for all public schools',
-        'Establishment of Lagos Science & Tech parks',
-        'Vocational training in emerging green skills'
+     'Youth and Women Empowerment Programs as central pillars of the APC future',
+     'Skills development and vocational training',
+     'Support for small and medium enterprises (SMEs)',
       ]
     },
   
