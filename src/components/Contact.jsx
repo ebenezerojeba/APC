@@ -83,10 +83,10 @@ const Contact = () => {
                <p className="text-sm font-bold uppercase tracking-widest mb-4 opacity-60">Follow our activities</p>
                <div className="flex gap-4">
                   {[
-                    { icon: <Facebook />, link: '#' },
-                    { icon: <Twitter />, link: '#' },
-                    { icon: <Instagram />, link: '#' },
-                    { icon: <Youtube />, link: '#' }
+                    { icon: <Facebook />, link: 'https://www.facebook.com/share/18C16eC7YF/?mibextid=wwXIfr' },
+                    { icon: <Twitter />, link: 'https://x.com/apcchairman/status/1637794537643843591?s=46' },
+                    { icon: <Instagram />, link: 'https://www.instagram.com/official_apcnigeria?igsh=c2Zsc3J0NW54ajN3' },
+                  
                   ].map((social, i) => (
                     <motion.a
                       key={i}

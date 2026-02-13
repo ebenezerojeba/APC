@@ -49,23 +49,18 @@ const Hero = ({ scrollToSection }) => {
             </h1>
 
             <p className="text-lg md:text-xl mb-10 text-gray-100 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-light">
-              Leading the charge for a Greater Lagos. Join Honourable Cornelius Ojelabi 
+              Leading the charge for a Greater Lagos. Join Pastor Cornelius Ojelabi 
               and the APC family in building a sustainable future for all Lagosians.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <button 
                 onClick={() => navigate('/join')}
-                className="bg-amber-400 text-gray-900 px-8 py-4 rounded-full font-extrabold flex items-center justify-center gap-2 hover:bg-white transition-colors duration-300"
+                className="bg-amber-400 cursor-pointer text-gray-900 px-8 py-4 rounded-full font-extrabold flex items-center justify-center gap-2 hover:bg-white transition-colors duration-300"
               >
-                JOIN THE MOVEMENT <ChevronRight size={20} />
+                JOIN THE MOVEMENT
               </button>
-              <button 
-                onClick={() => scrollToSection('vision')}
-                className="border-2 border-white px-8 py-4 rounded-full font-bold hover:bg-white/10"
-              >
-                OUR VISION
-              </button>
+             
             </div>
           </motion.div>
 
@@ -78,13 +73,13 @@ const Hero = ({ scrollToSection }) => {
           >
             {/* The Chairman's Image */}
             <div className="relative z-10">
-              <img 
-                src={assets.oj3} // Replace with actual photo
+              <img
+                src={assets.oj18} // Replace with actual photo
                 alt="Pastor Cornelius Ojelabi"
-                className="w-full object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
+                className="w-full object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] rounded-3xl"
               />
               {/* Subtle Gradient Overlay to blend bottom */}
-              <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#008A44] to-transparent lg:hidden" />
+              <div className="absolute inset-x-0 bottom-0 h-32 bg-linear-to-t from-[#008A44] to-transparent lg:hidden" />
             </div>
             
             {/* Decorative background circle */}
