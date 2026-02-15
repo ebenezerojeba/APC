@@ -40,7 +40,21 @@ import oj37 from './ojelabi37.jpeg';
 import oj38 from './ojelabi38.jpeg';
 import oj39 from './ojelabi39.jpeg';
 import oj40 from './ojelabi40.jpeg';
-
+import chair1 from './oj1.jpeg';
+import chair2 from './oj2.jpeg';
+import chair3 from './oj3.jpeg';
+import chair4 from './oj4.jpeg';
+import chair5 from './oj5.jpeg';
+import chair6 from './oj6.jpeg';
+import chair7 from './oj7.jpeg';
+import chair8 from './oj8.jpeg';
+import chair9 from './oj9.jpeg';
+import chair10 from './oj10.jpeg';
+import chair11 from './oj11.jpeg';
+import chair12 from './oj12.jpeg';
+import chair13 from './oj13.jpeg';
+import chair14 from './oj14.jpeg';
+import asiwaju from './asiwaju.jpeg';
 
 export default {
     oj,
@@ -85,5 +99,19 @@ export default {
     oj40,
     apc,
     apc2,
-
+    chair1,
+    chair2,
+    chair3,
+    chair4,
+    chair5,
+    chair6,
+    chair7,
+    chair8,
+    chair9,
+    chair10,
+    chair11,
+    chair12,
+    chair13,
+    chair14,
+    asiwaju
 }

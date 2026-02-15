@@ -5,20 +5,20 @@ import assets from '../assets/assets';
 
 const About = () => {
   // 1. Array of images for the slideshow
-  const slides = [assets.oj34, assets.oj26, assets.oj27, assets.oj21, assets.oj30, assets.oj32, assets.oj39, assets.oj30];
+  const slides = [assets.oj34, assets.oj26, assets.oj27, assets.oj21, assets.oj30, assets.oj32, assets.oj39, assets.oj30, assets.chair1, assets.chair2, assets.chair3, assets.chair4, assets.chair5, assets.chair6, assets.chair7, assets.chair8, assets.chair9, assets.chair10, assets.chair11, assets.chair12, assets.chair13, assets.chair14];
   const [currentSlide, setCurrentSlide] = useState(0);
 
   // 2. Automatic slide transition
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000); // Changes every 5 seconds
+    }, 3000); // Changes every 3 seconds
     return () => clearInterval(timer);
   }, [slides.length]);
   const achievements = [
     {
       icon: Users,
-      title: 'Grassroots Impact', 
+      title: 'Grassroots Impact',
       stat: 'Local Governance',
       desc: 'Pioneered accessible healthcare and daycare centers during his tenure as Chairman of Ojo LG.'
     },
