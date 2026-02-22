@@ -203,7 +203,7 @@ const About = () => {
               {/* Decorative background flare */}
               <div className="absolute -top-10 -left-10 w-40 h-40 bg-[#008A44]/10 rounded-full blur-3xl" />
               
-              <div className="relative z-10 rounded-[2.5rem] overflow-hidden border-8 border-white shadow-2xl aspect-[4/5] bg-gray-100">
+              <div className="relative z-10 rounded-[2.5rem] overflow-hidden border-8 border-white shadow-2xl aspect-4/5 bg-gray-100">
                 <AnimatePresence mode="wait">
                   <motion.img
                     key={currentSlide}
@@ -235,14 +235,14 @@ const About = () => {
               </div>
 
               {/* Floating Badge */}
-              <motion.div 
+              {/* <motion.div 
                 className="absolute -bottom-6 -right-6 bg-[#008A44] text-white p-6 rounded-2xl shadow-xl z-20 hidden md:block"
                 animate={{ y: [0, -10, 0] }}
                 transition={{ duration: 4, repeat: Infinity }}
               >
                 <Globe className="mb-2 opacity-80" size={24} />
                 <p className="font-black text-xl leading-tight">National<br/>Leadership</p>
-              </motion.div>
+              </motion.div> */}
             </motion.div>
           </div>
 
@@ -267,7 +267,7 @@ const About = () => {
 
               {/* The Bio Content - Clean, Professional Typography */}
               <div className="space-y-8 text-gray-700 text-lg leading-relaxed">
-                <p className="first-letter:text-6xl first-letter:font-black first-letter:text-[#008A44] first-letter:mr-3 first-letter:float-left">
+                <p className="first-letter:text-6xl first-letter:font-black first-letter:text-[#008A44] first-letter:mr-2.5 first-letter:float-left">
                   Pastor Cornelius Ojelabi is a distinguished public servant and seasoned administrator whose career reflects dedication, resilience, and a commitment to inclusive governance. A graduate of History and International Relations from Lagos State University (LASU), he has steadily risen through the ranks of leadership—beginning as a Local Government Chairman, advancing to the National Assembly as a federal lawmaker, and later serving with distinction as Lagos State Commissioner.
                 </p>
 

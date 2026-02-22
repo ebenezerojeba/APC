@@ -10,7 +10,7 @@ const EVENTS_DATA = [
     title: 'APC Ward Congresses (Lagos State)',
     desc: 'The fundamental step in electing party leadership across all 245 wards in Lagos State. A critical day for grassroots democracy.',
     location: 'Various Ward Secretariats, Lagos',
-    time: '08:00 AM - 4:00 PM',
+    time: '10:00 AM - 4:00 PM',
     type: 'Official'
   },
   {
@@ -19,7 +19,7 @@ const EVENTS_DATA = [
     title: 'LGA Congresses & Delegate Elections',
     desc: 'Election of local government party officials and the selection of three delegates from each LGA for the National Convention.',
     location: 'APC LGA Party Secretariats',
-    time: '09:00 AM - 5:00 PM',
+    time: '10:00 AM - 5:00 PM',
     type: 'Official'
   },
   {
