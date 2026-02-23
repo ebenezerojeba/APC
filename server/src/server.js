@@ -93,39 +93,105 @@ app.use(errorHandler);
 // =================================================================
 const PORT = process.env.PORT || 5000;
 
+// const startServer = async () => {
+//   await connectDB();
+
+//   const server = app.listen(PORT, () => {
+//     logger.info(`🚀 Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
+//     logger.info(`📡 API available at: http://localhost:${PORT}/api`);
+//     logger.info(`❤️  Health check at: http://localhost:${PORT}/health`);
+//   });
+
+//   // Verify SMTP at startup — surfaces credential errors immediately
+//   emailService.verify();
+
+//   const gracefulShutdown = (signal) => {
+//     logger.info(`${signal} received. Starting graceful shutdown...`);
+//     server.close(() => {
+//       logger.info('HTTP server closed.');
+//       import('mongoose').then(mongoose => {
+//         mongoose.connection.close(false, () => {
+//           logger.info('MongoDB connection closed.');
+//           process.exit(0);
+//         });
+//       });
+//     });
+//   };
+
+//   process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+//   process.on('SIGINT', () => gracefulShutdown('SIGINT'));
+//   process.on('unhandledRejection', (err) => {
+//     logger.error('UNHANDLED REJECTION:', err);
+//     gracefulShutdown('Unhandled Rejection');
+//   });
+// };
+
+
+// startServer();
+
+// export default app;
+
+
 const startServer = async () => {
   await connectDB();
-
   const server = app.listen(PORT, () => {
-    logger.info(`🚀 Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
-    logger.info(`📡 API available at: http://localhost:${PORT}/api`);
-    logger.info(`❤️  Health check at: http://localhost:${PORT}/health`);
+    logger.info(`🚀 Server running on port ${PORT} [${process.env.NODE_ENV || 'development'}]`);
+    logger.info(`📡 API: http://localhost:${PORT}/api`);
+    logger.info(`❤️  Health: http://localhost:${PORT}/health`);
   });
 
   // Verify SMTP at startup — surfaces credential errors immediately
   emailService.verify();
 
+  let isShuttingDown = false;
+
   const gracefulShutdown = (signal) => {
+    if (isShuttingDown) return;
+    isShuttingDown = true;
+
     logger.info(`${signal} received. Starting graceful shutdown...`);
-    server.close(() => {
+    server.close(async () => {
       logger.info('HTTP server closed.');
-      import('mongoose').then(mongoose => {
-        mongoose.connection.close(false, () => {
-          logger.info('MongoDB connection closed.');
-          process.exit(0);
-        });
-      });
+      try {
+        await mongoose.connection.close(); // Mongoose 8: no arguments
+        logger.info('MongoDB connection closed.');
+      } catch (err) {
+        logger.error('Error closing MongoDB:', err.message);
+      }
+      process.exit(0);
     });
+
+    // Force exit if graceful shutdown takes too long
+    setTimeout(() => {
+      logger.error('Forced shutdown after timeout.');
+      process.exit(1);
+    }, 10_000).unref();
   };
 
   process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
-  process.on('SIGINT', () => gracefulShutdown('SIGINT'));
+  process.on('SIGINT',  () => gracefulShutdown('SIGINT'));
   process.on('unhandledRejection', (err) => {
-    logger.error('UNHANDLED REJECTION:', err);
-    gracefulShutdown('Unhandled Rejection');
+    // Log but do NOT shut down — an unhandled rejection shouldn't kill the server
+    logger.error('UNHANDLED REJECTION:', err?.message || err);
+    logger.error(err?.stack || '');
+  });
+  process.on('uncaughtException', (err) => {
+    logger.error('UNCAUGHT EXCEPTION:', err.message);
+    logger.error(err.stack);
+    gracefulShutdown('Uncaught Exception');
   });
 };
 
 startServer();
 
 export default app;
+
+
+
+
+
+
+
+
+
+
