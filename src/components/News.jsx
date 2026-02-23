@@ -60,14 +60,15 @@ const News = () => {
             viewport={{ once: true }}
           >
             <div className="group relative rounded-3xl overflow-hidden shadow-2xl bg-black aspect-video">
-              <iframe
-                className="absolute inset-0 w-full h-full opacity-80 group-hover:opacity-100 transition-opacity"
-                src="https://www.youtube-nocookie.com/embed/M4o-bai6SxU?rel=0"
-                title="Lagos APC Chairman"
-                allowFullScreen
-              ></iframe>
+        <iframe
+  className="absolute inset-0 w-full h-full opacity-80 group-hover:opacity-100 transition-opacity"
+  src="https://www.youtube-nocookie.com/embed/RFKid4BdQbg?rel=0&modestbranding=1"
+  title="Lagos APC Chairman"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+/>
               {/* Custom Overlay (Shows before play) */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none p-8 flex flex-col justify-end">
+              <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent pointer-events-none p-8 flex flex-col justify-end">
                 <span className="bg-amber-400 text-black text-xs font-black px-3 py-1 rounded-md w-fit mb-3">FEATURED VIDEO</span>
                 <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 italic">Building a Greater Lagos Together</h3>
                 <p className="text-gray-300 text-sm max-w-lg">Pastor Cornelius Ojelabi outlines the strategic vision for the 2026-2027 political cycle.</p>
