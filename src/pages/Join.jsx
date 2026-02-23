@@ -213,7 +213,7 @@ import { UserPlus, CheckCircle, AlertCircle, Loader2, ChevronDown } from 'lucide
 const _raw = import.meta.env.VITE_API_URL;
 const API_URL = (_raw && _raw !== 'undefined')
   ? _raw.replace(/\/$/, '')        // strip any trailing slash
-  : 'http://localhost:5000/api'; 
+  : 'https://apcbackend.onrender.com/api'; 
 
 const LGA_LIST = [
   'Agege', 'Ajeromi-Ifelodun', 'Alimosho', 'Amuwo-Odofin', 'Apapa',
