@@ -35,18 +35,18 @@ app.use(helmet());
 app.use(mongoSanitize());
 app.set('trust proxy', 1);
 
-app.use(cors())
+// app.use(cors())
 
-// app.use(cors({
-//   origin: (origin, callback) => {
-//     const allowed = [process.env.CLIENT_URL, process.env.ADMIN_URL].filter(Boolean);
-//     if (!origin || allowed.includes(origin)) return callback(null, true);
-//     callback(new Error(`CORS: Origin ${origin} not allowed`));
-//   },
-//   credentials: true,
-//   methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
-//   allowedHeaders: ['Content-Type', 'Authorization'],
-// }));
+app.use(cors({
+  origin: (origin, callback) => {
+    const allowed = [process.env.CLIENT_URL, process.env.ADMIN_URL, 'http://localhost:5173', 'http://localhost:5174','https://apc-inky.vercel.app'].filter(Boolean);
+    if (!origin || allowed.includes(origin)) return callback(null, true);
+    callback(new Error(`CORS: Origin ${origin} not allowed`));
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 
 // ── General Middleware ────────────────────────────────────────────
 app.use(compression());
