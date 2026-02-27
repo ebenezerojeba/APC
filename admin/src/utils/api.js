@@ -95,7 +95,7 @@
 
 import axios from 'axios';
 
-const BASE_URL = import.meta.env.VITE_API_URL || 'https://apcbackend.onrender.com/api';
+const BASE_URL = import.meta.env.VITE_API_URL || 'https://apcbackend.vercel.app//api';
 
 const api = axios.create({
   baseURL: BASE_URL,
