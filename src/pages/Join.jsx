@@ -8,7 +8,7 @@ import { UserPlus, CheckCircle, AlertCircle, Loader2, ChevronDown } from 'lucide
 const _raw = import.meta.env.VITE_API_URL;
 const API_URL = (_raw && _raw !== 'undefined')
   ? _raw.replace(/\/$/, '')        // strip any trailing slash
-  : 'https://apcbackend.vercel.app//api'; 
+  : 'https://apcbackend.vercel.app/api'; 
 
 const LGA_LIST = [
   'Agege', 'Ajeromi-Ifelodun', 'Alimosho', 'Amuwo-Odofin', 'Apapa',
