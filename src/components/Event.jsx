@@ -27,7 +27,7 @@ const EVENTS_DATA = [
     date: '2026-03-03',
     title: 'Lagos State APC Congress',
     desc: 'Pastor Cornelius Ojelabi presides over the state-wide congress to elect the State Executive Committee at the Party Secretariat.',
-    location: 'Acme Road, Ogba, Ikeja',
+    location: 'Mobolaji Johnson Stadium, Lagos Island, Lagos state',
     time: '10:00 AM Prompt',
     type: 'Official'
   },
