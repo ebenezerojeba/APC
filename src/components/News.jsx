@@ -789,7 +789,7 @@ const News = () => {
                   onClick={() => setSelectedArticle(newsArticles[0])}
                   className="w-full bg-gray-900 hover:bg-[#008A44] text-white py-4 rounded-xl font-bold text-sm uppercase tracking-wider transition-colors flex items-center justify-center gap-2"
                 >
-                  All Press Releases <ArrowUpRight size={15} aria-hidden="true" />
+                  Latest Press Release <ArrowUpRight size={15} aria-hidden="true" />
                 </button>
               </div>
             </div>
