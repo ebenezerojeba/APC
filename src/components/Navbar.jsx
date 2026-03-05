@@ -152,3 +152,5 @@ const Navbar = ({ scrollToSection }) => {
 }
 
 export default Navbar;
+
+

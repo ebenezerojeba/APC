@@ -390,7 +390,7 @@ const Join = () => {
                       {/* Interests */}
                       <div id="field-interests">
                         <label className="block font-semibold text-emerald-700 mb-3">
-                          I want to: <span className="text-red-500">*</span>
+                          How would you like to contribute? <span className="text-red-500">*</span>
                         </label>
                         <div className="flex flex-wrap gap-3">
                           {INTEREST_OPTIONS.map((option) => {
