@@ -1,26 +1,3 @@
-// import React from 'react'
-// import { Route, Routes } from 'react-router-dom'
-// import Dashboard from './pages/Dashboard'
-// import Ananlytics from './pages/Ananlytics'
-// import Members from './pages/Members'
-
-// const App = () => {
-//   return (
-//     <div>
-//       <Routes>
-//         <Route path="/" element={<Dashboard/>} />
-//         <Route path="/analytics" element={<Ananlytics/>} />
-//         <Route path="/users" element={<AdminUsers/>} />
-//         <Route path="/audit-logs" element={<AuditLogs/>} />
-//         <Route path="/members" element={<Members/>} />
-//       </Routes>
-//     </div>
-//   )
-// }
-
-// export default App
-
-
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import useAuthStore from './store/authStore';
