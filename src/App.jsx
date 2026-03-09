@@ -4,6 +4,7 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Home from './pages/Home'
 import Join from './pages/Join'
+import Appointment from './pages/Appointment'
 
 const App = () => {
   const navigate = useNavigate();
@@ -40,6 +41,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/join" element={<Join />} />
+        <Route path="/appointment" element={<Appointment />} />
       </Routes>
       
       <Footer />

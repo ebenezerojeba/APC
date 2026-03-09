@@ -7,6 +7,7 @@ import CongratsTicker from './CongratsTicker';
 
 // ── Animated counter ──────────────────────────────────────────────────────────
 const useCounter = (target, duration = 2000, start = false) => {
+  const navigate = useNavigate();
   const [count, setCount] = useState(0);
   useEffect(() => {
     if (!start) return;
@@ -227,12 +228,16 @@ const Hero = ({ scrollToSection }) => {
               </span>
             </button>
 
+               {/* Book Appointment CTA */}
             <button
-              onClick={() => scrollToSection('about')}
-              className="group relative overflow-hidden border border-white/15 text-white/70 hover:text-white px-7 py-3.5 rounded-full font-black text-[11px] uppercase tracking-[0.2em] flex items-center gap-2 cursor-pointer transition-all duration-200 backdrop-blur-sm hover:border-white/30"
+              onClick={() => navigate('/appointment')}
+              className="group relative overflow-hidden bg-[#008A44] text-white px-7 py-3.5 rounded-full font-black text-[11px] uppercase tracking-[0.2em] flex items-center gap-2 cursor-pointer shadow-lg shadow-[#008A44]/30 transition-all duration-200"
             >
-              <span className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-              <span className="relative z-10">Discover More</span>
+              <span className="absolute inset-0 bg-[#005e2c] translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-300 ease-out" />
+              <span className="relative z-10 flex items-center gap-2">
+                Book Appointment
+                <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform duration-200" />
+              </span>
             </button>
           </motion.div>
 
