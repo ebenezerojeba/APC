@@ -1,15 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
@@ -27,6 +15,8 @@ import { errorHandler, AppError } from './middleware/errorHandler.js';
 import memberRoutes from './routes/memberRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
+import appointmentRouter from './routes/appointmentRoute.js';
+
 
 const app = express();
 
@@ -67,6 +57,8 @@ app.use('/api', rateLimit({
 app.use('/api/members', memberRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/admin/members', adminRoutes);
+app.use('/api/appointments',appointmentRouter );  // public POST
+app.use('/api/admin/appointments', appointmentRouter);  
 
 // Root + Health
 app.get('/', (req, res) => res.send('API Working Perfectly'));
