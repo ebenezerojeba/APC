@@ -12,6 +12,7 @@ import Members from './pages/Members';
 import MemberDetail from './pages/MemberDetail';
 import AdminsPage from './pages/AdminsPage';
 import Settings from './pages/Settings';
+import Appointment from './pages/Appointment';
 
 const ProtectedRoute = ({ children }) => {
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
@@ -39,6 +40,7 @@ const App = () => {
         <Route path="members/:id" element={<MemberDetail />} />
         <Route path="admins" element={<AdminsPage />} />
         <Route path="settings" element={<Settings />} />
+        <Route path="appointment" element={<Appointment />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

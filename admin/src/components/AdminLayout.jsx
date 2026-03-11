@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   LayoutDashboard, Users, Shield, Settings, LogOut,
   Menu, X, Bell, ChevronRight,
+  BriefcaseIcon,
 } from 'lucide-react';
 import useAuthStore from '../store/authStore';
 import toast from 'react-hot-toast';
@@ -36,6 +37,7 @@ const navItems = [
   { to: '/members', label: 'Members',     icon: Users },
   { to: '/admins',  label: 'Admin Users', icon: Shield, role: 'super_admin' },
   { to: '/settings',label: 'Settings',    icon: Settings },
+  { to: '/appointment',label: 'Appointments',    icon: BriefcaseIcon },
 ];
 
 /* ── NAV ITEM ────────────────────────────── */

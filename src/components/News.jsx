@@ -2,6 +2,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronRight, Calendar, ArrowUpRight, Play, X, Share2, Clock } from 'lucide-react';
+import { newsArticles } from '../utils/newsArticcle';
 
 // ============================================================================
 // Constants & Configuration
@@ -15,109 +16,7 @@ const CATEGORY_STYLES = {
 };
 
 
-const newsArticles = [
-  {
-    id: 0,
-    date: 'Mar 7, 2026',
-    category: 'Official Statement',
-    title: 'From e-Registration to Congresses: Lagos APC Sets the Benchmark in Democratic Excellence',
-    excerpt: 'The Lagos State Chapter of the APC has once again demonstrated why it remains the undisputed standard-bearer of party organization and democratic discipline in Nigeria.',
-    fullContent: {
-      author: 'Mogaji (Hon) Seye Oladejo',
-      role: 'Lagos APC Spokesman',
-      date: '07/03/2026',
-      paragraphs: [
-        'The Lagos State Chapter of the All Progressives Congress (APC) has once again demonstrated why it remains the undisputed standard-bearer of party organization and democratic discipline in Nigeria.',
-        'From the resounding success of our electronic membership registration exercise to the seamless conduct of our Party Congresses, the APC has proven that structure, innovation, and order are not mere slogans — they are our culture.',
-        'While others trade in confusion and press statements, we build systems. While others quarrel over factions, we strengthen institutions. While others manufacture propaganda, we consolidate progress.',
-        'Across wards and local governments in Lagos State, our Congresses were conducted peacefully, transparently, and in strict compliance with constitutional guidelines. Participation was massive. The process was orderly. The outcome was clear: a united and forward-looking party ready for the tasks ahead.',
-        'Beyond the successful conduct of the Congresses, the quality of members elected into the State Executive of the Party speaks volumes. The new leadership embodies a rare and strategic blend of experience and youthfulness, continuity and renewal, as well as deliberate gender balancing. It is a team forged from institutional memory and fresh energy — a combination designed not just to sustain progress, but to accelerate it.',
-        'It is time for opposition parties to dismount from their high horses and enroll in the elementary school of politics where discipline, cohesion, organization, and unity of purpose are taught. Politics is not noise-making. It is not social media agitation. It is not perpetual internal crisis. It is structure. It is coordination. It is leadership.',
-        'These enduring values remain the bedrock of the progressive movement\'s dominance in Lagos State and across Nigeria. They explain why the APC continues to grow stronger while others grow louder — and weaker.',
-        'Above all, this moment once again affirms the absolute trust that Lagosians place in the APC as a serious, competent, and result-driven political platform worthy of their mandate. The people of Lagos have consistently chosen stability over chaos, progress over bitterness, and performance over empty rhetoric.',
-        'We will not be distracted by noise. We will not be slowed by cynicism. And we will certainly not take lectures on organization from parties that cannot organize themselves.',
-        'The APC in Lagos stands disciplined. It stands cohesive. It stands battle-ready. And when the time comes, the verdict of the people will once again be emphatic.',
-      ],
-    },
-  },
-  {
-    id: 1,
-    date: 'Mar 4, 2026',
-    category: 'Obituary',
-    title: 'Lagos APC Mourns the Sudden Passing of Hon. Karamo Yesiro',
-    excerpt: 'The Lagos State Chapter of the APC received with profound shock and deep sorrow the news of the sudden demise of our newly elected Assistant Publicity Secretary, Hon. Karamo Yesiro.',
-    fullContent: {
-      author: 'Mogaji (Hon) Seye Oladejo',
-      role: 'Lagos APC Spokesman',
-      date: '04/03/26',
-      paragraphs: [
-        'The Lagos State Chapter of the All Progressives Congress (APC) received with profound shock and deep sorrow the news of the sudden demise of our newly elected Assistant Publicity Secretary, Hon. Karamo Yesiro.',
-        'Hon. Yesiro\'s passing is a painful and tragic loss to our great party at a time when his energy, commitment, and passion for progressive politics were most needed. Having just been entrusted with the responsibility of serving in the State Executive Council, he embodied dedication, loyalty, and an unwavering belief in the ideals of our party.',
-        'Though his tenure was tragically cut short, his enthusiasm, humility, and readiness to serve left a lasting impression on colleagues and members alike. He was a vibrant party man whose contributions to the growth and stability of the APC in Lagos State will not be forgotten.',
-        'On behalf of the leadership and entire membership of the Lagos APC, we extend our heartfelt condolences to his immediate family, political associates, friends, and supporters during this difficult time. We pray that Almighty God grants his family the strength to bear this irreparable loss and grants his soul eternal rest.',
-        'The Lagos APC stands united in mourning this painful departure. Hon. Karamo Yesiro will be remembered for his service, commitment, and belief in the progressive cause.',
-        'May his soul rest in perfect peace.',
-      ],
-    },
-  },
-  {
-    id: 2,
-    date: 'Mar 4, 2026',
-    category: 'Official Statement',
-    title: 'Lagos APC Debunks False Report on SLG Recall',
-    excerpt: 'The Lagos State APC has categorically denied reports claiming the State Chairman recalled all SLGs and supervisors to Acme in connection with alleged Villa directives.',
-    fullContent: {
-      author: 'Mogaji (Hon) Seye Oladejo',
-      role: 'Lagos APC Spokesman',
-      date: '04/03/26',
-      paragraphs: [
-        'The Lagos State Chapter of the All Progressives Congress (APC) has been made aware of reports claiming that the State Chairman has recalled all SLGs and supervisors to Acme in connection with directives allegedly issued at the Villa.',
-        'We wish to categorically state that this report is false, misleading, and clearly intended to create unnecessary tension within our party and among the public.',
-        'At no time did the State Chairman issue any such directive, nor is there any emergency meeting scheduled as being speculated. The Lagos APC remains a disciplined, transparent, and law-abiding political party, guided strictly by due process and collective decision-making.',
-        'Our primary focus at this critical time remains putting every necessary structure in place as we count down to the forthcoming national elections. We are fully committed to strengthening our internal processes and mobilizing effectively to ensure continued progress and victory at the polls.',
-        'We therefore advise party members, supporters, and the general public to desist from spreading or entertaining rumors capable of needlessly heating up the polity. The party will continue to keep the public informed of any official updates through our usual and recognized communication channels.',
-      ],
-    },
-  },
-  {
-    id: 3,
-    date: 'Feb 10, 2026',
-    category: 'Mobilization',
-    title: 'Ojelabi Urges Unity at Lagos East Mega Rally',
-    excerpt: "Lagos APC Chairman, Pastor Cornelius Ojelabi, calls for internal cohesion and grassroots mobilization to consolidate the party's achievements ahead of 2027.",
-    fullContent: {
-      author: 'Lagos APC Media Unit',
-      role: 'Official Press Release',
-      date: '10/02/26',
-      paragraphs: [
-        'Lagos APC Chairman, Pastor Cornelius Ojelabi, delivered a powerful address at the Lagos East Mega Rally, calling on all party members to close ranks and present a united front ahead of the 2027 general elections.',
-        "Speaking before thousands of APC faithful gathered at the rally grounds, the Chairman emphasized that the party's greatest strength lies in its unity and its deep roots in every ward across Lagos State.",
-        '"Our party is built on a foundation of service, discipline, and shared vision. The time for division is over — the time for victory is now," Chairman Ojelabi declared to thunderous applause.',
-        'He also commended ward and local government leaders for their dedication to the Renewed Hope agenda, and urged all members to intensify voter mobilization in their respective areas.',
-        "The rally, which drew participants from all 20 LGAs, was a testament to the party's organizational strength and its readiness to deliver results in the upcoming electoral cycle.",
-      ],
-    },
-  },
-  {
-    id: 4,
-    date: 'Feb 5, 2026',
-    category: 'Registration',
-    title: 'Lagos Leads in Nationwide APC E-Registration',
-    excerpt: 'The Chairman commends the Ikorodu division for record-breaking numbers in the ongoing digital party membership enrollment drive.',
-    fullContent: {
-      author: 'Lagos APC Secretariat',
-      role: 'Official Statement',
-      date: '05/02/26',
-      paragraphs: [
-        'Lagos State has emerged as the leading chapter in the All Progressives Congress nationwide digital membership enrollment exercise, with the Ikorodu division recording the highest numbers in the ongoing e-registration drive.',
-        "State Chairman Pastor Cornelius Ojelabi praised the remarkable achievement, noting that Lagos's performance reflects the party's deep grassroots penetration and the enthusiasm of Lagosians to participate in the democratic process.",
-        'The e-registration exercise leverages a new digital platform developed by the national party secretariat, allowing members to update their details, register new members, and obtain digital party cards.',
-        'Over 250,000 new and returning members have been enrolled in Lagos State alone in the first two weeks of the exercise. The Ikorodu, Alimosho, and Ikeja divisions have been recognized as top performers.',
-        'Chairman Ojelabi urged all LGA chairmen and ward coordinators to sustain the momentum and ensure that every APC member in Lagos is captured in the new digital register before the deadline.',
-      ],
-    },
-  },
-];
+
 
 const VIDEO_CONFIG = {
   url: 'https://youtu.be/xiwPuBR8pCo?si=MQr2iKJUAWLn82Cp',
@@ -388,7 +287,7 @@ const News = () => {
               onClick={() => setSelectedArticle(newsArticles[0])}
               className="hidden sm:flex items-center gap-2 text-[#008A44] font-semibold text-sm uppercase tracking-wider group pb-1 border-b-2 border-[#008A44]/30 hover:border-[#008A44] transition-colors"
             >
-              All Press Releases
+              Latest Press Release
               <ArrowUpRight size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </button>
           </motion.div>
