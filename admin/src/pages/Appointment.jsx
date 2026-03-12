@@ -44,18 +44,26 @@ const PURPOSE_OPTIONS = [
 // Reads accessToken directly from the Zustand store (persisted under 'apc-admin-auth')
 /* ── API HELPER ─────────────────────────── */
 const _raw = import.meta.env.VITE_API_URL;
-const API_URL = (_raw && _raw !== 'undefined')
+const API_BASE = (_raw && _raw !== 'undefined')
   ? _raw.replace(/\/$/, '')
   : 'https://apcbackend.vercel.app/api';
 
 const api = async (path, options = {}) => {
   const token = useAuthStore.getState().accessToken;
+
+  // path comes in as '/api/admin/appointments/stats'
+  // API_BASE is    'https://apcbackend.vercel.app/api'
+  // We want:       'https://apcbackend.vercel.app/api/admin/appointments/stats'
+  // So strip ONLY the leading '/api' prefix from path
+  const cleanPath = path.startsWith('/api/')
+    ? path.slice(4)          // '/api/admin/...' → '/admin/...'
+    : path;                  // already clean
+
+  const url = `${API_BASE}${cleanPath}`;
   
-  // Normalize: path may be '/api/admin/...' or just '/admin/...'
-  // Strip leading '/api' since API_URL already ends with '/api'
-  const normalizedPath = path.replace(/^\/api/, '');
-  
-  const res = await fetch(`${API_URL}${normalizedPath}`, {
+  console.log('[api] →', url); // remove after confirming fix
+
+  const res = await fetch(url, {
     ...options,
     headers: {
       'Content-Type': 'application/json',
@@ -64,7 +72,7 @@ const api = async (path, options = {}) => {
     },
     credentials: 'include',
   });
-  
+
   const data = await res.json();
   if (!res.ok) throw new Error(data.message || 'Request failed');
   return data;
