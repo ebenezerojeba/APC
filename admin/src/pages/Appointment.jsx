@@ -657,6 +657,11 @@ const PURPOSE_OPTIONS = [
   'Personal Matter', 'Other',
 ];
 
+  const _raw = import.meta.env.VITE_API_URL;
+const API_URL = (_raw && _raw !== 'undefined')
+  ? _raw.replace(/\/$/, '')        // strip any trailing slash
+  : 'https://apcbackend.vercel.app/api'; 
+
 /* ── API HELPER ─────────────────────────── */
 // Reads accessToken directly from the Zustand store (persisted under 'apc-admin-auth')
 const api = async (url, options = {}) => {
@@ -720,7 +725,7 @@ const DetailModal = ({ appt, onClose, onStatusUpdate, onDelete, isAdmin }) => {
   const handleStatus = async (status) => {
     setLoading(status);
     try {
-      const data = await api(`/api/admin/appointments/${appt._id}/status`, {
+      const data = await api(`${API_URL}/admin/appointments/${appt._id}/status`, {
         method: 'PATCH',
         body: JSON.stringify({ status, adminNote: note }),
       });
@@ -736,7 +741,7 @@ const DetailModal = ({ appt, onClose, onStatusUpdate, onDelete, isAdmin }) => {
     if (!window.confirm('Permanently delete this appointment?')) return;
     setLoading('delete');
     try {
-      await api(`/api/admin/appointments/${appt._id}`, { method: 'DELETE' });
+      await api(`${API_URL}/admin/appointments/${appt._id}`, { method: 'DELETE' });
       onDelete(appt._id);
       onClose();
     } catch (e) {
