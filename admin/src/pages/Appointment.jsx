@@ -46,9 +46,20 @@ const PURPOSE_OPTIONS = [
 
 /* ── API HELPER ─────────────────────────── */
 // Reads accessToken directly from the Zustand store (persisted under 'apc-admin-auth')
-const api = async (url, options = {}) => {
+/* ── API HELPER ─────────────────────────── */
+const _raw = import.meta.env.VITE_API_URL;
+const API_URL = (_raw && _raw !== 'undefined')
+  ? _raw.replace(/\/$/, '')
+  : 'https://apcbackend.vercel.app/api';
+
+const api = async (path, options = {}) => {
   const token = useAuthStore.getState().accessToken;
-  const res = await fetch(url, {
+  
+  // Normalize: path may be '/api/admin/...' or just '/admin/...'
+  // Strip leading '/api' since API_URL already ends with '/api'
+  const normalizedPath = path.replace(/^\/api/, '');
+  
+  const res = await fetch(`${API_URL}${normalizedPath}`, {
     ...options,
     headers: {
       'Content-Type': 'application/json',
@@ -57,11 +68,11 @@ const api = async (url, options = {}) => {
     },
     credentials: 'include',
   });
+  
   const data = await res.json();
   if (!res.ok) throw new Error(data.message || 'Request failed');
   return data;
 };
-
 /* ── STAT CARD ──────────────────────────── */
 const StatCard = ({ label, value, color, icon: Icon }) => (
   <div style={{
