@@ -1,7 +1,3 @@
-
-
-
-
 import React, { useState, useEffect, useCallback } from 'react';
 import {
   Calendar, Clock, User, Phone, Mail, Building2,
@@ -118,7 +114,7 @@ const DetailModal = ({ appt, onClose, onStatusUpdate, onDelete, isAdmin }) => {
   const handleStatus = async (status) => {
     setLoading(status);
     try {
-      const data = await api(`/api/admin/appointments/${appt._id}/status`, {
+      const data = await api(`${API_URL}/admin/appointments/${appt._id}/status`, {
         method: 'PATCH',
         body: JSON.stringify({ status, adminNote: note }),
       });
@@ -134,7 +130,7 @@ const DetailModal = ({ appt, onClose, onStatusUpdate, onDelete, isAdmin }) => {
     if (!window.confirm('Permanently delete this appointment?')) return;
     setLoading('delete');
     try {
-      await api(`/api/admin/appointments/${appt._id}`, { method: 'DELETE' });
+      await api(`${API_URL}/admin/appointments/${appt._id}`, { method: 'DELETE' });
       onDelete(appt._id);
       onClose();
     } catch (e) {
@@ -321,7 +317,7 @@ const Appointment = () => {
   /* fetch stats */
   const fetchStats = useCallback(async () => {
     try {
-      const data = await api('/api/admin/appointments/stats');
+      const data = await api(`${API_URL}/admin/appointments/stats`);
       setStats(data.data);
     } catch (e) {
       console.error(e);
@@ -338,7 +334,7 @@ const Appointment = () => {
       if (purposeFilter) params.set('purpose', purposeFilter);
       if (search.trim()) params.set('search', search.trim());
 
-      const data = await api(`/api/admin/appointments?${params}`);
+      const data = await api(`${API_URL}/admin/appointments?${params}`);
       setAppointments(data.data);
       setPagination(data.pagination);
     } catch (e) {
