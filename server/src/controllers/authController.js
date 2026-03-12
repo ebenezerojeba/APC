@@ -4,6 +4,8 @@ import { signAccessToken, signRefreshToken, verifyRefreshToken } from '../utils/
 import { AppError } from '../middleware/errorHandler.js';
 import logger from '../utils/logger.js';
 import crypto from 'crypto';
+import { ROLES } from '../models/Admin.js';
+
 
 
 const catchAsync = (fn) => (req, res, next) => fn(req, res, next).catch(next);
@@ -148,8 +150,6 @@ const getAdmins = catchAsync(async (req, res) => {
 // POST /api/auth/admins
 const createAdmin = catchAsync(async (req, res, next) => {
   const { name, email, password, role, assignedLGA } = req.body;
-
-  const { ROLES } = require('../models/Admin');
 
   if (role === ROLES.LGA_ADMIN && !assignedLGA) {
     return next(new AppError('LGA admin must have an assigned LGA.', 422));
