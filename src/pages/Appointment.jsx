@@ -445,7 +445,7 @@ const API_URL = (_raw && _raw !== 'undefined')
     setError('')
 
     try {
-      const res = await fetch(`${API_URL}/api/appointments`, {
+      const res = await fetch(`${API_URL}/appointments`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
