@@ -619,10 +619,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import {
   Calendar, Clock, User, Phone, Mail, Building2,
-  CheckCircle, XCircle, Trash2, Search, Filter,
+  CheckCircle, XCircle, Trash2, Search,
   ChevronLeft, ChevronRight, RefreshCw, Eye,
   TrendingUp, AlertCircle, X,
 } from 'lucide-react';
+import useAuthStore from '../store/authStore.js';
 
 /* ── TOKENS (matches AdminLayout) ────────── */
 const C = {
@@ -657,21 +658,9 @@ const PURPOSE_OPTIONS = [
 ];
 
 /* ── API HELPER ─────────────────────────── */
-// Reads the access token from localStorage (set by your authStore on login).
-// Adjust the key name to match whatever your authStore uses.
-const getToken = () => {
-  try {
-    const raw = localStorage.getItem('auth-storage'); // Zustand persist key
-    if (!raw) return null;
-    const parsed = JSON.parse(raw);
-    return parsed?.state?.token || parsed?.state?.accessToken || null;
-  } catch {
-    return null;
-  }
-};
-
+// Reads accessToken directly from the Zustand store (persisted under 'apc-admin-auth')
 const api = async (url, options = {}) => {
-  const token = getToken();
+  const token = useAuthStore.getState().accessToken;
   const res = await fetch(url, {
     ...options,
     headers: {
@@ -928,15 +917,8 @@ const Appointment = () => {
   const [pagination, setPagination] = useState(null);
   const LIMIT = 15;
 
-  // Pull role from your Zustand auth store
-  // If your store shape differs, adjust the destructure below
-  // import useAuthStore from '../store/authStore';
-  const authRaw = localStorage.getItem('auth-storage');
-  const adminRole = (() => {
-    try { return JSON.parse(authRaw)?.state?.admin?.role || ''; }
-    catch { return ''; }
-  })();
-  const isSuperAdmin = adminRole === 'super_admin';
+  const { admin, accessToken } = useAuthStore();
+  const isSuperAdmin = admin?.role === 'super_admin';
 
   /* fetch stats */
   const fetchStats = useCallback(async () => {
