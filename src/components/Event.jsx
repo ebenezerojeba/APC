@@ -44,7 +44,7 @@ const EVENTS_DATA = [
     subtitle: 'Eagle Square, Abuja',
     desc: "The grand finale in Abuja where national leaders are elected and the party's direction for the 2027 general elections is ratified.",
     location: 'Eagle Square, Abuja (FCT)',
-    time: 'Day & Night Session',
+    time: '11:00 AM',
     type: 'National',
     typeColor: 'bg-amber-100 text-amber-700',
   }
