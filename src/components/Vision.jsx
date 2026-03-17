@@ -499,7 +499,7 @@ const Vision = () => {
               </div>
               {/* Name badge — narrower on mobile so it doesn't overflow */}
               <div className="absolute -bottom-9 left-1/2 -translate-x-1/2 bg-amber-400 text-[#008A44] text-[8px] sm:text-[9px] font-black uppercase tracking-[0.12em] sm:tracking-[0.15em] px-3 sm:px-5 py-1.5 sm:py-2 rounded-2xl whitespace-nowrap shadow-xl text-center leading-tight w-max max-w-[90vw]">
-                <span className="block">Bola Ahmed Tinubu, GCFR</span>
+                <span className="block">H.E Bola Ahmed Tinubu, GCFR</span>
                 <span className="block text-[7px] sm:text-[7.5px] font-bold tracking-widest text-[#005a2b] mt-0.5">
                   President, Federal Republic of Nigeria
                 </span>

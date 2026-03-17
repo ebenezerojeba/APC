@@ -54,7 +54,7 @@ app.use('/api', rateLimit({
   standardHeaders: true, legacyHeaders: false,
 }));
 
-// ── Routes ────────────────────────────────────────────────────────
+
 app.use('/api/members', memberRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/admin/members', adminRoutes);
