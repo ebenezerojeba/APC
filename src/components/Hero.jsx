@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useRef, useEffect, useState } from 'react';
 import CongratsTicker from './CongratsTicker';
 
-// ── Animated counter ──────────────────────────────────────────────────────────
+// ── Animated counter ────
 const useCounter = (target, duration = 2000, start = false) => {
   const navigate = useNavigate();
   const [count, setCount] = useState(0);
@@ -25,7 +25,7 @@ const useCounter = (target, duration = 2000, start = false) => {
 };
 
 
-// ── Main Hero ─────────────────────────────────────────────────────────────────
+// ── Main Hero ──
 const Hero = ({ scrollToSection }) => {
   const navigate = useNavigate();
   const ref = useRef(null);
@@ -193,9 +193,6 @@ const Hero = ({ scrollToSection }) => {
               <p className="text-white text-xl sm:text-2xl font-black leading-snug">
                 Pastor Cornelius Ojelabi
               </p>
-              <p className="text-white/40 text-[11px] font-bold uppercase tracking-[0.2em] mt-1 leading-snug">
-                Re-elected Lagos State APC Chairman&nbsp;·&nbsp;Chairman of APC Chairmen Nationwide
-              </p>
             </div>
           </motion.div>
 
@@ -243,7 +240,6 @@ const Hero = ({ scrollToSection }) => {
 
         </div>
       </motion.div>
-
 
       {/* Bottom white fade into next section */}
       <div className="absolute bottom-0 left-0 right-0 h-24 bg-linear-to-t from-white to-transparent z-10 pointer-events-none" />
