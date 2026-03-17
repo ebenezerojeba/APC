@@ -30,8 +30,7 @@ app.set('trust proxy', 1);
 
 app.use(cors({
   origin: (origin, callback) => {
-    const allowed = [process.env.CLIENT_URL, process.env.ADMIN_URL, 'http://localhost:5173', 'http://localhost:5174','https://apc-inky.vercel.app', 'https://apc-lbo4.vercel.app', 'https://admin.honcorneliusojelabi.com', 'https://honcorneliusojelabi.com',      // ← add this
-  'https://www.honcorneliusojelabi.com'].filter(Boolean);
+    const allowed = [process.env.CLIENT_URL, process.env.ADMIN_URL, 'http://localhost:5173', 'http://localhost:5174','https://apc-inky.vercel.app', 'https://apc-lbo4.vercel.app', 'https://admin.honcorneliusojelabi.com', 'https://honcorneliusojelabi.com', 'https://www.honcorneliusojelabi.com'].filter(Boolean);
     if (!origin || allowed.includes(origin)) return callback(null, true);
     callback(new Error(`CORS: Origin ${origin} not allowed`));
   },
