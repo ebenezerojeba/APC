@@ -1,22 +1,16 @@
-
 import React, { useState, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRight, Calendar, ArrowUpRight, Play, X, Share2, Clock } from 'lucide-react';
-import { newsArticles } from '../utils/newsArticcle';
+import { ChevronRight, Calendar, ArrowUpRight, Play, X, Share2, Clock, Loader2 } from 'lucide-react';
 
 // ============================================================================
-// Constants & Configuration
+// Constants
 // ============================================================================
-
 const CATEGORY_STYLES = {
-  'Official Statement': { bg: 'bg-red-50', text: 'text-red-700' },
+  'Official Statement': { bg: 'bg-red-50',     text: 'text-red-700' },
   'Mobilization':       { bg: 'bg-emerald-50', text: 'text-emerald-700' },
-  'Registration':       { bg: 'bg-amber-50', text: 'text-amber-700' },
-  'Obituary':           { bg: 'bg-gray-100', text: 'text-gray-700' },
+  'Registration':       { bg: 'bg-amber-50',   text: 'text-amber-700' },
+  'Obituary':           { bg: 'bg-gray-100',   text: 'text-gray-700' },
 };
-
-
-
 
 const VIDEO_CONFIG = {
   url: 'https://youtu.be/xiwPuBR8pCo?si=MQr2iKJUAWLn82Cp',
@@ -28,10 +22,15 @@ const VIDEO_CONFIG = {
   },
 };
 
-// ============================================================================
-// Utility Components
-// ============================================================================
+// Public API base (no auth needed for reading news)
+const _raw = import.meta.env.VITE_API_URL;
+const API_BASE = (_raw && _raw !== 'undefined')
+  ? _raw.replace(/\/$/, '')
+  : 'https://apcbackend.vercel.app/api';
 
+// ============================================================================
+// Utilities
+// ============================================================================
 const CategoryBadge = ({ category }) => {
   const styles = CATEGORY_STYLES[category] || CATEGORY_STYLES['Official Statement'];
   return (
@@ -43,7 +42,6 @@ const CategoryBadge = ({ category }) => {
 
 const ShareButton = ({ title, text }) => {
   const [showTooltip, setShowTooltip] = useState(false);
-
   const handleShare = useCallback(async () => {
     const shareData = { title, text, url: window.location.href };
     if (navigator.share && window.innerWidth < 768) {
@@ -76,19 +74,13 @@ const ShareButton = ({ title, text }) => {
 
 // ============================================================================
 // Video Player
-// The iframe is ALWAYS mounted so the YouTube preview thumbnail is visible.
-// Clicking the overlay removes it and passes autoplay=1 to the src.
 // ============================================================================
-
 const VideoPlayer = () => {
   const [playing, setPlaying] = useState(false);
-
   if (!VIDEO_CONFIG.id) return null;
 
   return (
     <div className="relative rounded-3xl overflow-hidden bg-[#041a0b] shadow-2xl aspect-video">
-
-      {/* iframe always present — this renders the YouTube preview */}
       <iframe
         className="absolute inset-0 w-full h-full"
         src={`https://www.youtube-nocookie.com/embed/${VIDEO_CONFIG.id}?rel=0&modestbranding=1${playing ? '&autoplay=1' : ''}`}
@@ -96,27 +88,12 @@ const VideoPlayer = () => {
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
       />
-
-      {/* Overlay — visible before play, removed on click */}
       {!playing && (
         <div
           className="absolute inset-0 z-10 cursor-pointer"
           onClick={() => setPlaying(true)}
-          style={{
-            background:
-              'linear-gradient(to top, rgba(4,26,11,0.92) 0%, rgba(4,26,11,0.5) 55%, rgba(4,26,11,0.15) 100%)',
-          }}
+          style={{ background: 'linear-gradient(to top, rgba(4,26,11,0.92) 0%, rgba(4,26,11,0.5) 55%, rgba(4,26,11,0.15) 100%)' }}
         >
-          {/* Noise grain */}
-          <div
-            className="absolute inset-0 opacity-[0.04] pointer-events-none"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
-              backgroundSize: '128px',
-            }}
-          />
-
-          {/* Play button */}
           <div className="absolute inset-0 flex items-center justify-center">
             <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }} className="relative">
               <div className="absolute inset-0 rounded-full border-2 border-white/20 animate-ping" />
@@ -125,21 +102,13 @@ const VideoPlayer = () => {
               </div>
             </motion.div>
           </div>
-
-          {/* Info — desktop */}
           <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 hidden sm:block">
             <span className="inline-block bg-amber-400 text-gray-900 text-[10px] font-black uppercase tracking-[0.25em] px-3 py-1.5 rounded-full mb-4">
               Featured Video
             </span>
-            <h3 className="text-xl sm:text-2xl font-black text-white leading-tight mb-2">
-              {VIDEO_CONFIG.title}
-            </h3>
-            <p className="text-white/50 text-sm max-w-md leading-relaxed">
-              {VIDEO_CONFIG.description}
-            </p>
+            <h3 className="text-xl sm:text-2xl font-black text-white leading-tight mb-2">{VIDEO_CONFIG.title}</h3>
+            <p className="text-white/50 text-sm max-w-md leading-relaxed">{VIDEO_CONFIG.description}</p>
           </div>
-
-          {/* Info — mobile */}
           <div className="absolute bottom-4 left-4 sm:hidden">
             <span className="inline-block bg-amber-400 text-gray-900 text-[10px] font-black uppercase tracking-[0.2em] px-3 py-1.5 rounded-full">
               Featured Video
@@ -152,33 +121,33 @@ const VideoPlayer = () => {
 };
 
 // ============================================================================
-// Article Modal — shared content, split layout per breakpoint
+// Article Modal
 // ============================================================================
-
 const ArticleModal = ({ article, onClose }) => {
   useEffect(() => {
     const onKey = (e) => { if (e.key === 'Escape') onClose(); };
     document.addEventListener('keydown', onKey);
     document.body.style.overflow = 'hidden';
-    return () => {
-      document.removeEventListener('keydown', onKey);
-      document.body.style.overflow = '';
-    };
+    return () => { document.removeEventListener('keydown', onKey); document.body.style.overflow = ''; };
   }, [onClose]);
 
-  const mobileVariants = {
+  // Normalise: support both direct shape and nested fullContent shape
+  const paragraphs = article.fullContent?.paragraphs ?? article.paragraphs ?? [];
+  const author     = article.fullContent?.author     ?? article.author     ?? '';
+  const role       = article.fullContent?.role       ?? article.role       ?? '';
+  const date       = article.fullContent?.date       ?? article.date       ?? '';
+
+  const mobileVariants  = {
     hidden:  { opacity: 0, y: '100%' },
     visible: { opacity: 1, y: 0, transition: { type: 'spring', damping: 30, stiffness: 300 } },
     exit:    { opacity: 0, y: '100%', transition: { duration: 0.2, ease: 'easeIn' } },
   };
-
   const desktopVariants = {
     hidden:  { opacity: 0, scale: 0.95, y: 16 },
     visible: { opacity: 1, scale: 1, y: 0, transition: { type: 'spring', damping: 25, stiffness: 280 } },
     exit:    { opacity: 0, scale: 0.95, y: 8, transition: { duration: 0.15, ease: 'easeIn' } },
   };
 
-  // Shared inner content — avoids duplication
   const ModalContent = ({ headingId }) => (
     <>
       <div className="flex items-start justify-between px-4 sm:px-6 pt-4 pb-4 border-b border-gray-100 shrink-0">
@@ -196,24 +165,22 @@ const ArticleModal = ({ article, onClose }) => {
           <X size={16} className="text-gray-600" />
         </button>
       </div>
-
       <div className="flex items-center gap-3 sm:gap-4 px-4 sm:px-6 py-2.5 sm:py-3 bg-gray-50 border-b border-gray-100 shrink-0">
         <div className="flex items-center gap-1.5 text-xs font-medium text-gray-500">
           <Clock size={11} /><span>{article.date}</span>
         </div>
         <div className="w-px h-3 bg-gray-200" />
-        <div className="text-xs font-medium text-[#008A44] truncate flex-1">{article.fullContent.author}</div>
+        <div className="text-xs font-medium text-[#008A44] truncate flex-1">{author}</div>
         <ShareButton title={article.title} text={article.excerpt} />
       </div>
-
       <div className="overflow-y-auto flex-1 overscroll-contain px-4 sm:px-6 py-5 sm:py-6">
-        {article.fullContent.paragraphs.map((p, i) => (
+        {paragraphs.filter(Boolean).map((p, i) => (
           <p key={i} className="text-gray-700 text-sm sm:text-base leading-relaxed mb-4 sm:mb-5 last:mb-0">{p}</p>
         ))}
         <div className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-gray-100">
-          <p className="text-sm font-bold text-gray-900">{article.fullContent.author}</p>
-          <p className="text-xs text-gray-500 mt-0.5">{article.fullContent.role}</p>
-          <p className="text-xs text-gray-400 mt-0.5">{article.fullContent.date}</p>
+          <p className="text-sm font-bold text-gray-900">{author}</p>
+          {role && <p className="text-xs text-gray-500 mt-0.5">{role}</p>}
+          <p className="text-xs text-gray-400 mt-0.5">{date}</p>
         </div>
       </div>
     </>
@@ -226,7 +193,6 @@ const ArticleModal = ({ article, onClose }) => {
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
       role="presentation"
     >
-      {/* Mobile: bottom sheet */}
       <motion.div
         className="sm:hidden relative bg-white w-full rounded-t-2xl overflow-hidden flex flex-col shadow-2xl"
         style={{ maxHeight: '92dvh' }}
@@ -239,7 +205,6 @@ const ArticleModal = ({ article, onClose }) => {
         <ModalContent headingId="modal-m" />
       </motion.div>
 
-      {/* Desktop: centered */}
       <motion.div
         className="hidden sm:flex relative bg-white w-full max-w-2xl rounded-2xl overflow-hidden flex-col shadow-2xl"
         style={{ maxHeight: '90vh' }}
@@ -253,12 +218,46 @@ const ArticleModal = ({ article, onClose }) => {
 };
 
 // ============================================================================
+// Skeleton loader for articles
+// ============================================================================
+const ArticleSkeleton = () => (
+  <div className="py-5 first:pt-0 last:pb-0 border-b border-gray-200 last:border-0 animate-pulse">
+    <div className="flex items-center gap-2 mb-2">
+      <div className="w-20 h-5 bg-gray-200 rounded-full" />
+      <div className="w-16 h-4 bg-gray-100 rounded-full" />
+    </div>
+    <div className="w-full h-4 bg-gray-200 rounded mb-1" />
+    <div className="w-3/4 h-4 bg-gray-200 rounded mb-3" />
+    <div className="w-full h-3 bg-gray-100 rounded mb-1" />
+    <div className="w-2/3 h-3 bg-gray-100 rounded" />
+  </div>
+);
+
+// ============================================================================
 // Main News Component
 // ============================================================================
-
 const News = () => {
+  const [articles, setArticles]       = useState([]);
+  const [loading, setLoading]         = useState(true);
+  const [error, setError]             = useState('');
   const [selectedArticle, setSelectedArticle] = useState(null);
-  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [hoveredIndex, setHoveredIndex]       = useState(null);
+
+  useEffect(() => {
+    const fetchNews = async () => {
+      try {
+        const res = await fetch(`${API_BASE}/news?limit=5`);
+        if (!res.ok) throw new Error('Failed to load news');
+        const data = await res.json();
+        setArticles(data.data || []);
+      } catch (e) {
+        setError(e.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchNews();
+  }, []);
 
   return (
     <>
@@ -282,14 +281,15 @@ const News = () => {
                 <span className="text-[#008A44]">The Secretariat</span>
               </h2>
             </div>
-
-            <button
-              onClick={() => setSelectedArticle(newsArticles[0])}
-              className="hidden sm:flex items-center gap-2 text-[#008A44] font-semibold text-sm uppercase tracking-wider group pb-1 border-b-2 border-[#008A44]/30 hover:border-[#008A44] transition-colors"
-            >
-              Latest Press Release
-              <ArrowUpRight size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-            </button>
+            {articles[0] && (
+              <button
+                onClick={() => setSelectedArticle(articles[0])}
+                className="hidden sm:flex items-center gap-2 text-[#008A44] font-semibold text-sm uppercase tracking-wider group pb-1 border-b-2 border-[#008A44]/30 hover:border-[#008A44] transition-colors"
+              >
+                Latest Press Release
+                <ArrowUpRight size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              </button>
+            )}
           </motion.div>
 
           {/* Grid */}
@@ -313,9 +313,21 @@ const News = () => {
             {/* Articles */}
             <div className="lg:col-span-5">
               <div className="divide-y divide-gray-200" role="feed" aria-label="News articles">
-                {newsArticles.map((article, index) => (
+
+                {/* Loading skeletons */}
+                {loading && Array.from({ length: 4 }).map((_, i) => <ArticleSkeleton key={i} />)}
+
+                {/* Error state */}
+                {error && !loading && (
+                  <div className="py-8 text-center text-gray-400 text-sm">
+                    Could not load articles. Please try again later.
+                  </div>
+                )}
+
+                {/* Articles */}
+                {!loading && !error && articles.map((article, index) => (
                   <motion.article
-                    key={article.id}
+                    key={article._id || article.id}
                     initial={{ opacity: 0, x: 20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
@@ -348,16 +360,25 @@ const News = () => {
                     </button>
                   </motion.article>
                 ))}
+
+                {/* Empty state */}
+                {!loading && !error && articles.length === 0 && (
+                  <div className="py-12 text-center text-gray-400 text-sm">
+                    No articles published yet.
+                  </div>
+                )}
               </div>
 
-              <div className="mt-6 sm:hidden">
-                <button
-                  onClick={() => setSelectedArticle(newsArticles[0])}
-                  className="w-full bg-gray-900 hover:bg-[#008A44] text-white py-4 rounded-xl font-bold text-sm uppercase tracking-wider transition-colors flex items-center justify-center gap-2"
-                >
-                  Latest Press Release <ArrowUpRight size={15} aria-hidden="true" />
-                </button>
-              </div>
+              {articles[0] && (
+                <div className="mt-6 sm:hidden">
+                  <button
+                    onClick={() => setSelectedArticle(articles[0])}
+                    className="w-full bg-gray-900 hover:bg-[#008A44] text-white py-4 rounded-xl font-bold text-sm uppercase tracking-wider transition-colors flex items-center justify-center gap-2"
+                  >
+                    Latest Press Release <ArrowUpRight size={15} aria-hidden="true" />
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>

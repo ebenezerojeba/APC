@@ -6,6 +6,7 @@ import {
   LayoutDashboard, Users, Shield, Settings, LogOut,
   Menu, X, Bell, ChevronRight,
   BriefcaseIcon,
+  Newspaper,
 } from 'lucide-react';
 import useAuthStore from '../store/authStore';
 import toast from 'react-hot-toast';
@@ -38,6 +39,7 @@ const navItems = [
   { to: '/admins',  label: 'Admin Users', icon: Shield, role: 'super_admin' },
   { to: '/settings',label: 'Settings',    icon: Settings },
   { to: '/appointment',label: 'Appointments',    icon: BriefcaseIcon },
+  { to: '/news', label: 'News', icon: Newspaper },
 ];
 
 /* ── NAV ITEM ────────────────────────────── */
