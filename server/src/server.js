@@ -16,6 +16,7 @@ import memberRoutes from './routes/memberRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
 import appointmentRouter from './routes/appointmentRoute.js';
+import newsRouter from './routes/newsRoute.js';
 
 
 const app = express();
@@ -34,7 +35,7 @@ app.use(cors({
     callback(new Error(`CORS: Origin ${origin} not allowed`));
   },
   credentials: true,
-  methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
@@ -59,6 +60,11 @@ app.use('/api/auth', authRoutes);
 app.use('/api/admin/members', adminRoutes);
 app.use('/api/appointments',appointmentRouter );  // public POST
 app.use('/api/admin/appointments', appointmentRouter);  
+
+// Public read
+app.use('/api/news', newsRouter);
+// Admin CRUD
+app.use('/api/admin/news', newsRouter);
 
 // Root + Health
 app.get('/', (req, res) => res.send('API Working Perfectly'));

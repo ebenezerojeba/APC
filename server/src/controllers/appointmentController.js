@@ -1,10 +1,6 @@
 import Appointment from '../models/Appointment.js';
 import emailService from '../services/emailService.js';
 
-/* ─────────────────────────────────────────
-   PUBLIC
-───────────────────────────────────────── */
-
 export const createAppointment = async (req, res) => {
   try {
     const {
