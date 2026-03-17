@@ -24,7 +24,6 @@ const useCounter = (target, duration = 2000, start = false) => {
   return count;
 };
 
-
 // ── Main Hero ──
 const Hero = ({ scrollToSection }) => {
   const navigate = useNavigate();
@@ -180,21 +179,6 @@ const Hero = ({ scrollToSection }) => {
               State
             </motion.h1>
           </div>
-
-          {/* Name card */}
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.0 }}
-            className="flex items-center gap-4 mt-8 mb-8"
-          >
-            <div className="w-0.5 h-14 bg-linear-to-b from-amber-400 to-amber-400/0 shrink-0" />
-            <div>
-              <p className="text-white text-xl sm:text-2xl font-black leading-snug">
-                Pastor Cornelius Ojelabi
-              </p>
-            </div>
-          </motion.div>
 
           {/* Description */}
           <motion.p
