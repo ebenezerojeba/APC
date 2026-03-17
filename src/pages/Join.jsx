@@ -24,7 +24,7 @@ const EMPTY_FORM = {
   lga: '', ward: '', interests: [], message: '',
 };
 
-// ── Helpers ──────────────────────────────────────────────────────────────────
+// ── Helpers ────
 const NIGERIAN_PHONE = /^(\+234|0)[789][01]\d{8}$/;
 
 const validate = (form) => {
@@ -61,8 +61,6 @@ const FieldError = ({ message }) =>
     </p>
   ) : null;
 
-// ── Success Screen ────────────────────────────────────────────────────────────
-// Feels earned — like a party membership card moment, not a generic "thank you"
 const SuccessScreen = ({ name, lga, onReset }) => {
   const [showCard, setShowCard] = useState(false);
 
@@ -300,7 +298,7 @@ const Join = () => {
   return (
     <section id="join" className="py-24 mt-20 bg-white relative overflow-hidden">
       {/* Subtle background texture */}
-      <div className="absolute top-0 right-0 w-1/3 h-full bg-[#006B3F]/[0.04] skew-x-12 transform origin-top hidden lg:block" />
+      <div className="absolute top-0 right-0 w-1/3 h-full bg-[#006B3F]/4 skew-x-12 transform origin-top hidden lg:block" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid lg:grid-cols-5 gap-16">
@@ -408,7 +406,7 @@ const Join = () => {
                               value={formData.firstName}
                               onChange={(e) => setField('firstName', e.target.value)}
                               className={inputCls(!!fieldErrors.firstName)}
-                              placeholder="Amaka"
+                              placeholder="Ajayi"
                               disabled={isLoading}
                               autoComplete="given-name"
                             />
@@ -423,7 +421,7 @@ const Join = () => {
                               value={formData.lastName}
                               onChange={(e) => setField('lastName', e.target.value)}
                               className={inputCls(!!fieldErrors.lastName)}
-                              placeholder="Okonkwo"
+                              placeholder="Tunde"
                               disabled={isLoading}
                               autoComplete="family-name"
                             />
