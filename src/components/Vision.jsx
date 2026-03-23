@@ -318,9 +318,9 @@ const Vision = () => {
           className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4"
         >
           {[
-            { stat: '20',   label: 'LGAs' },
-            { stat: '245',  label: 'Party Wards' },
-            { stat: '4M+',  label: 'Members' },
+            { stat: '20/37',   label: 'LGAs/LCDAs' },
+            { stat: '13,325',  label: 'Polling Units' },
+            { stat: '1.2M+',  label: 'Members' },
             { stat: '2027', label: 'General Election' },
           ].map(({ stat, label }) => (
             <div

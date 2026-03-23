@@ -204,7 +204,7 @@ const Hero = ({ scrollToSection }) => {
             >
               <span className="absolute inset-0 bg-white translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-300 ease-out" />
               <span className="relative z-10 flex items-center gap-2">
-                Join the Movement
+                Volunteer
                 <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform duration-200" />
               </span>
             </button>

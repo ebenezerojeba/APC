@@ -322,7 +322,7 @@ const Join = () => {
               </h2>
               <p className="text-lg text-gray-500 mb-10 leading-relaxed">
                 The Lagos APC is more than a party — it is a movement of over 4 million
-                Lagosians. Join us and help shape a greater state.
+                Lagosians. Volunteer and help shape a greater state.
               </p>
 
             </motion.div>

@@ -134,22 +134,12 @@ const About = () => {
 
               <div className="space-y-8 text-gray-700 text-lg leading-relaxed">
                 <p className="first-letter:text-6xl first-letter:font-black first-letter:text-[#008A44] first-letter:mr-2.5 first-letter:float-left">
-                  Pastor Cornelius Ojelabi is a distinguished public servant and seasoned
-                  administrator whose career reflects dedication, resilience, and a commitment
-                  to inclusive governance. A graduate of History and International Relations
-                  from Lagos State University (LASU), he has steadily risen through the ranks
-                  of leadership—beginning as a Local Government Chairman, advancing to the
-                  National Assembly as a federal lawmaker, and later serving with distinction
-                  as Lagos State Commissioner.
+               Pastor Cornelius Ojelabi is a respected public servant and seasoned administrator whose life’s work embodies dedication, resilience, and a strong commitment to inclusive governance. Before venturing into politics, he distinguished himself as a great teacher, shaping minds and inspiring many. A graduate of History and International Relations from Lagos State University (LASU), he steadily advanced through the ranks of leadership—beginning as a Local Government Chairman, moving on to the National Assembly as a federal lawmaker, and later serving with distinction as Lagos State Commissioner. His journey reflects both his passion for education and his remarkable contributions to public service.
                 </p>
 
                 <div className="bg-gray-50 p-8 rounded-3xl border border-gray-100 flex gap-6 items-start">
                   <p className="italic font-medium text-gray-800">
-                    With decades of experience in both legislative and executive roles,
-                    Pastor Ojelabi has earned a reputation as a builder—one who unites
-                    diverse interests, strengthens institutions, and lays foundations for
-                    sustainable progress. His leadership is defined by vision, competence,
-                    and a deep commitment to service.
+                   With decades of experience in both legislative and executive roles, Pastor Ojelabi has earned a reputation as an omoluabi—a person of integrity who unites diverse interests, strengthens institutions, and lays foundations for sustainable progress. His leadership is defined by vision, competence, and a deep commitment to service.
                   </p>
                 </div>
 
