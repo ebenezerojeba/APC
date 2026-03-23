@@ -1067,8 +1067,7 @@ const ElectoralGuidelines = () => {
             }}
           >
             Key provisions from the Nigerian Constitution, Electoral Act 2026, and APC
-            Constitution 2022 — covering disqualifications, nominations, withdrawals,
-            consensus rules, and election offences.
+            Constitution 2022
           </p>
         </motion.div>
 
