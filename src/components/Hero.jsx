@@ -181,7 +181,7 @@ const Hero = ({ scrollToSection }) => {
           </div>
 
           {/* Description */}
-          <motion.p
+          {/* <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 1.1 }}
@@ -189,7 +189,7 @@ const Hero = ({ scrollToSection }) => {
           >
             Leading the charge for a Greater Lagos — building a sustainable,
             inclusive future for all&nbsp;22 million Lagosians under the Renewed Hope agenda.
-          </motion.p>
+          </motion.p> */}
 
           {/* CTAs */}
           <motion.div

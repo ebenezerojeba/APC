@@ -36,6 +36,17 @@ const EVENTS_DATA = [
     type: 'Official',
     typeColor: 'bg-emerald-100 text-emerald-700',
   },
+{
+  id: 'southwest zone-congress',
+  date: '2026-03-25',
+  title: 'Southwest Zone Congress',
+  subtitle: 'Zonal Executive Committee',
+  desc: 'Delegates across the zone gather to elect the Zonal Executive Committee and strengthen party structure at the zonal level.',
+  location: 'Mobolaji Johnson Arena, Onikan Lagos',
+  time: '10:00 AM Prompt',
+  type: 'Official',
+  typeColor: 'bg-emerald-100 text-emerald-700',
+},
   {
     id: 'national-convention',
     date: '2026-03-27',

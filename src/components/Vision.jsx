@@ -320,7 +320,7 @@ const Vision = () => {
           {[
             { stat: '20/37',   label: 'LGAs/LCDAs' },
             { stat: '13,325',  label: 'Polling Units' },
-            { stat: '1.2M+',  label: 'Members' },
+            { stat: '1.2M+',  label: 'Registered Voters' },
             { stat: '2027', label: 'General Election' },
           ].map(({ stat, label }) => (
             <div
