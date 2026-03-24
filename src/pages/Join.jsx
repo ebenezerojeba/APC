@@ -364,7 +364,7 @@ const Join = () => {
                           <p className="text-[11px] font-bold uppercase tracking-widest text-[#006B3F]">
                             Lagos State Chapter
                           </p>
-                          <p className="text-sm font-semibold text-gray-800">Registration Form</p>
+                          <p className="text-sm font-semibold text-gray-800">Volunteer Form</p>
                         </div>
                       </div>
                     </div>
