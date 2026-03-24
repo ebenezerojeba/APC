@@ -63,10 +63,10 @@ const Footer = ({ scrollToSection }) => {
   const currentYear = new Date().getFullYear();
   const footerLinks = ['Home', 'About', 'Vision', 'News', 'Events', 'Join Us'];
 
-  const developers = [
-    { name: 'Alabi', url: 'https://portfolio-website-opal-nine-30.vercel.app/' },
-    { name: 'Ojeba', url: 'https://ebenezerojeba.vercel.app/' },
-  ];
+  // const developers = [
+  //   { name: 'Alabi', url: 'https://portfolio-website-opal-nine-30.vercel.app/' },
+  //   { name: 'Ojeba', url: 'https://ebenezerojeba.vercel.app/' },
+  // ];
 
   return (
     <footer className="bg-[#0a0f0d] text-white py-12 border-t border-white/5">
@@ -104,12 +104,10 @@ const Footer = ({ scrollToSection }) => {
             <p className="text-gray-500 text-xs uppercase tracking-[0.2em]">
               &copy; {currentYear} APC Lagos State. All Rights Reserved.
             </p>
-            {/* <p className="text-[10px] text-gray-600 uppercase tracking-tighter">
-              Built for the people, by the people.
-            </p> */}
+       
 
             {/* Developer Credits */}
-            <p className="text-[10px] text-gray-600 uppercase tracking-tighter pt-1">
+            {/* <p className="text-[10px] text-gray-600 uppercase tracking-tighter pt-1">
               Designed &amp; Built by{' '}
               {developers.map((dev, index) => (
                 <React.Fragment key={dev.name}>
@@ -127,7 +125,7 @@ const Footer = ({ scrollToSection }) => {
                   )}
                 </React.Fragment>
               ))}
-            </p>
+            </p> */}
           </div>
 
         </div>

@@ -31,7 +31,7 @@ const EVENTS_DATA = [
     title: 'Lagos State APC Congress',
     subtitle: 'State Executive Committee',
     desc: 'Pastor Cornelius Ojelabi presides over the state-wide congress to elect the State Executive Committee.',
-    location: 'Mobolaji Johnson Stadium, Lagos Island',
+    location: 'Mobolaji Johnson Arena, Onikan Lagos',
     time: '10:00 AM Prompt',
     type: 'Official',
     typeColor: 'bg-emerald-100 text-emerald-700',

@@ -207,16 +207,7 @@ const Vision = () => {
           </div>
         </motion.div>
 
-        {/* ── Description ── */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-white/50 text-base sm:text-lg lg:text-xl max-w-2xl mb-8 sm:mb-10 lg:mb-14 leading-relaxed font-light border-l-2 border-[#008A44] pl-4 sm:pl-6"
-        >
-          A comprehensive agenda for sustainable development and inclusive growth under the leadership
-          of the APC and the Renewed Hope administration — rooted in the party's founding constitution.
-        </motion.p>
+   
 
         {/* ── Accordions ── */}
         <div className="space-y-3 sm:space-y-4 mb-10 sm:mb-12 lg:mb-16">
