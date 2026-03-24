@@ -258,9 +258,9 @@ const Hero = ({ scrollToSection }) => {
     target: ref,
     offset: ['start start', 'end start'],
   });
-  const imageScale    = useTransform(scrollYProgress, [0, 1],    [1.05, 1.18]);
-  const imageOpacity  = useTransform(scrollYProgress, [0, 0.8],  [0.55, 0.18]);
-  const textY         = useTransform(scrollYProgress, [0, 1],    ['0%', '18%']);
+  const imageScale     = useTransform(scrollYProgress, [0, 1],    [1.05, 1.18]);
+  const imageOpacity   = useTransform(scrollYProgress, [0, 0.8],  [0.55, 0.18]);
+  const textY          = useTransform(scrollYProgress, [0, 1],    ['0%', '18%']);
   const contentOpacity = useTransform(scrollYProgress, [0, 0.65], [1, 0]);
 
   useEffect(() => {
@@ -283,15 +283,13 @@ const Hero = ({ scrollToSection }) => {
       ref={ref}
       id="home"
       className="relative min-h-screen flex flex-col overflow-hidden bg-[#030f06]"
-      // pt handled per breakpoint below via the content div
     >
-      {/* ── Ticker — sits just below navbar ── */}
+      {/* ── Ticker — offset below fixed navbar ── */}
       <motion.div
         initial={{ opacity: 0, y: -16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, delay: 0.4 }}
-        // Push below a fixed navbar; adjust the top value to match your navbar height
-        className="relative z-20 w-full mt-16 sm:mt-[72px]"
+        className="relative z-20 w-full mt-16 sm:mt-18"
       >
         <CongratsTicker speed={50} />
       </motion.div>
@@ -304,19 +302,17 @@ const Hero = ({ scrollToSection }) => {
         <img
           src={assets.oj25}
           alt=""
-          // On mobile keep the subject centred; shift right on larger screens
           className="w-full h-full object-cover object-[center_top] sm:object-[65%_top] lg:object-[75%_top]"
           aria-hidden="true"
           fetchPriority="high"
         />
       </motion.div>
 
-      {/* ── Layered gradients ── */}
+      {/* ── Layered gradients — stronger left veil on mobile ── */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        {/* Stronger left fade on mobile so text always readable */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#030f06] via-[#030f06]/85 to-[#030f06]/40 sm:via-[#030f06]/75 sm:to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#030f06] via-transparent to-[#030f06]/40" />
-        <div className="absolute top-0 left-0 right-0 h-48 bg-gradient-to-b from-[#030f06]/70 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-r from-[#030f06] via-[#030f06]/90 to-[#030f06]/60 sm:via-[#030f06]/75 sm:to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-[#030f06] via-transparent to-[#030f06]/40" />
+        <div className="absolute top-0 left-0 right-0 h-48 bg-linear-to-b from-[#030f06]/70 to-transparent" />
       </div>
 
       {/* ── Noise grain ── */}
@@ -328,9 +324,9 @@ const Hero = ({ scrollToSection }) => {
         }}
       />
 
-      {/* ── Ambient glow orbs — reduced on mobile to avoid covering text ── */}
-      <div className="absolute top-1/4 left-[5%] sm:left-[15%] w-[280px] sm:w-[500px] h-[280px] sm:h-[500px] bg-[#008A44]/15 rounded-full blur-[100px] sm:blur-[140px] pointer-events-none z-0" />
-      <div className="absolute bottom-1/3 right-[5%] sm:right-[10%] w-[180px] sm:w-[300px] h-[180px] sm:h-[300px] bg-amber-400/8 rounded-full blur-[80px] sm:blur-[100px] pointer-events-none z-0" />
+      {/* ── Ambient glow orbs ── */}
+      <div className="absolute top-1/4 left-[5%] sm:left-[15%] w-64 h-64 sm:w-125 sm:h-125 bg-[#008A44]/15 rounded-full blur-[80px] sm:blur-[140px] pointer-events-none z-0" />
+      <div className="absolute bottom-1/3 right-[5%] sm:right-[10%] w-44 h-44 sm:w-75 sm:h-75 bg-amber-400/8 rounded-full blur-[60px] sm:blur-[100px] pointer-events-none z-0" />
 
       {/* ── Vertical accent rule — desktop only ── */}
       <motion.div
@@ -343,15 +339,9 @@ const Hero = ({ scrollToSection }) => {
       {/* ── Main content ── */}
       <motion.div
         style={{ y: textY, opacity: contentOpacity }}
-        className="
-          relative z-10 flex flex-col justify-end flex-1 w-full
-          max-w-7xl mx-auto
-          px-5 sm:px-8 lg:px-14
-          pb-10 sm:pb-14 lg:pb-16
-          pt-6  sm:pt-10 lg:pt-16
-        "
+        className="relative z-10 flex flex-col justify-end flex-1 w-full max-w-7xl mx-auto px-5 sm:px-8 lg:px-14 pb-10 sm:pb-14 lg:pb-16 pt-6 sm:pt-10 lg:pt-16"
       >
-        <div className="max-w-xs xs:max-w-sm sm:max-w-xl lg:max-w-3xl">
+        <div className="w-full max-w-3xl">
 
           {/* ── Kicker ── */}
           <motion.div
@@ -367,19 +357,19 @@ const Hero = ({ scrollToSection }) => {
               animate={{ rotate: [0, 2, -2, 0] }}
               transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
             />
-            <div className="h-px w-8 sm:w-12 bg-gradient-to-r from-amber-400/70 to-transparent" />
+            <div className="h-px w-8 sm:w-12 bg-linear-to-r from-amber-400/70 to-transparent" />
             <span className="text-amber-400 text-[9px] sm:text-[10px] font-black uppercase tracking-[0.3em] sm:tracking-[0.35em]">
               Official Website
             </span>
           </motion.div>
 
-          {/* ── Eyebrow label ── */}
+          {/* ── Eyebrow ── */}
           <div className="overflow-hidden mb-1">
             <motion.p
               initial={{ y: '110%' }}
               animate={{ y: 0 }}
               transition={{ duration: 0.9, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              className="text-white/40 text-xs sm:text-sm font-black uppercase tracking-[0.35em] sm:tracking-[0.4em] mb-2 sm:mb-3"
+              className="text-white/40 text-[11px] sm:text-sm font-black uppercase tracking-[0.35em] mb-2 sm:mb-3"
             >
               APC Chairman
             </motion.p>
@@ -394,8 +384,7 @@ const Hero = ({ scrollToSection }) => {
               className="font-black leading-[0.88] uppercase text-white"
               style={{
                 fontFamily: "'Bebas Neue', 'Arial Black', sans-serif",
-                // clamp: 3rem on very small (≈48px) → scales with vw → caps at 10rem
-                fontSize: 'clamp(3rem, 14vw, 10rem)',
+                fontSize: 'clamp(3.2rem, 15vw, 10rem)',
               }}
             >
               Lagos
@@ -410,8 +399,8 @@ const Hero = ({ scrollToSection }) => {
               className="font-black leading-[0.88] uppercase"
               style={{
                 fontFamily: "'Bebas Neue', 'Arial Black', sans-serif",
-                fontSize: 'clamp(3rem, 14vw, 10rem)',
-                WebkitTextStroke: 'clamp(1px, 0.2vw, 2px) #008A44',
+                fontSize: 'clamp(3.2rem, 15vw, 10rem)',
+                WebkitTextStroke: 'clamp(1px, 0.25vw, 2px) #008A44',
                 color: 'transparent',
               }}
             >
@@ -424,20 +413,11 @@ const Hero = ({ scrollToSection }) => {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 1.2 }}
-            className="flex flex-col xs:flex-row flex-wrap gap-3 mt-6 sm:mt-8 mb-10 sm:mb-14"
+            className="flex flex-col min-[480px]:flex-row flex-wrap gap-3 mt-6 sm:mt-8 mb-10 sm:mb-14"
           >
             <button
               onClick={() => navigate('/join')}
-              className="
-                group relative overflow-hidden
-                bg-amber-400 text-gray-900
-                px-6 sm:px-7 py-3 sm:py-3.5
-                rounded-full font-black text-[10px] sm:text-[11px]
-                uppercase tracking-[0.2em]
-                flex items-center justify-center gap-2
-                cursor-pointer shadow-lg shadow-amber-400/25
-                w-full xs:w-auto
-              "
+              className="group relative overflow-hidden bg-amber-400 text-gray-900 px-6 sm:px-7 py-3 sm:py-3.5 rounded-full font-black text-[10px] sm:text-[11px] uppercase tracking-[0.2em] flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-amber-400/25 w-full min-[480px]:w-auto"
             >
               <span className="absolute inset-0 bg-white translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-300 ease-out" />
               <span className="relative z-10 flex items-center gap-2">
@@ -448,20 +428,25 @@ const Hero = ({ scrollToSection }) => {
 
             <button
               onClick={() => navigate('/appointment')}
-              className="
-                group relative overflow-hidden
-                bg-[#008A44] text-white
-                px-6 sm:px-7 py-3 sm:py-3.5
-                rounded-full font-black text-[10px] sm:text-[11px]
-                uppercase tracking-[0.2em]
-                flex items-center justify-center gap-2
-                cursor-pointer shadow-lg shadow-[#008A44]/30
-                transition-all duration-200
-                w-full xs:w-auto
-              "
+              className="group relative overflow-hidden bg-[#008A44] text-white px-6 sm:px-7 py-3 sm:py-3.5 rounded-full font-black text-[10px] sm:text-[11px] uppercase tracking-[0.2em] flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-[#008A44]/30 transition-all duration-200 w-full min-[480px]:w-auto"
             >
               <span className="absolute inset-0 bg-[#005e2c] translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-300 ease-out" />
               <span className="relative z-10 flex items-center gap-2">
                 Book Appointment
                 <ChevronRight size={13} className="group-hover:translate-x-1 transition-transform duration-200" />
               </span>
+            </button>
+          </motion.div>
+
+         
+
+        </div>
+      </motion.div>
+
+      {/* ── Bottom fade ── */}
+      <div className="absolute bottom-0 left-0 right-0 h-16 sm:h-24 bg-linear-to-t from-white to-transparent z-10 pointer-events-none" />
+    </section>
+  );
+};
+
+export default Hero;
