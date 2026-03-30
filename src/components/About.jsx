@@ -3,13 +3,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle2 } from 'lucide-react';
 import assets from '../assets/assets';
 
-const DISPLAY_MS   = 1200;  // how long each slide is fully visible
+// Replace the single constant with a function
+const DISPLAY_MS = (index) => index < 1 ? 4000 : 1200;  // 4s for first two, 1.2s for rest  // how long each slide is fully visible
 const TRANSITION_S = 0.25;  // crossfade duration in seconds (must be < DISPLAY_MS/1000)
 
 const About = () => {
   const slides = useMemo(() => [
-    assets.oj34, assets.oj26, assets.oj27, assets.oj21, assets.oj30,
-    assets.oj32, assets.oj39, assets.chair1, assets.chair2, assets.chair3,
+    assets.ojtinubu, assets.ojgroup, assets.oj34, assets.oj26, assets.oj27, assets.oj21, assets.oj30, assets.chair1, assets.chair2, assets.chair3,
     assets.chair4, assets.chair5, assets.chair6, assets.chair7, assets.chair8,
     assets.chair9, assets.chair10, assets.chair11, assets.chair12, assets.chair13, assets.chair14,
   ], []);
@@ -21,17 +21,16 @@ const About = () => {
   const startRef = useRef(null);
 
   useEffect(() => {
-    // Animate progress bar with requestAnimationFrame for silky smoothness
     const animate = (ts) => {
       if (!startRef.current) startRef.current = ts;
       const elapsed = ts - startRef.current;
-      const p = Math.min(elapsed / DISPLAY_MS, 1);
+      const duration = DISPLAY_MS(currentSlide);          // ← use function
+      const p = Math.min(elapsed / duration, 1);          // ← use duration
       setProgress(p);
 
       if (p < 1) {
         rafRef.current = requestAnimationFrame(animate);
       } else {
-        // Advance slide
         setCurrentSlide((prev) => (prev + 1) % slides.length);
       }
     };

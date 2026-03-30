@@ -55,8 +55,12 @@ import chair12 from './oj12.jpeg';
 import chair13 from './oj13.jpeg';
 import chair14 from './oj14.jpeg';
 import asiwaju from './asiwaju.jpeg';
+import ojtinubu from './ojtinubu.jpeg';
+import ojgroup from './ojgroup.jpeg';
 
 export default {
+    ojtinubu,
+    ojgroup,
     oj,
     oj2,
     oj3,
