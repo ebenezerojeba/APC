@@ -510,7 +510,7 @@ const Hero = ({ scrollToSection }) => {
                 flex items-center justify-center gap-2
                 cursor-pointer shadow-lg shadow-amber-400/25
                 w-full min-[400px]:w-auto
-                min-h-[40px] xs:min-h-[44px]
+                min-h-10 xs:min-h-[44px]
               "
             >
               <span className="absolute inset-0 bg-white translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-300 ease-out" />
@@ -550,7 +550,7 @@ const Hero = ({ scrollToSection }) => {
 
       {/* ── Bottom fade ── */}
       {/* Taller on mobile so it doesn't clip the CTAs */}
-      <div className="absolute bottom-0 left-0 right-0 h-20 xs:h-16 sm:h-24 bg-linear-to-t from-white to-transparent z-10 pointer-events-none" />
+      {/* <div className="absolute bottom-0 left-0 right-0 h-20 xs:h-16 sm:h-24 bg-linear-to-t from-white to-transparent z-10 pointer-events-none" /> */}
     </section>
   );
 };
