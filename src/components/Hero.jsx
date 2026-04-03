@@ -321,7 +321,7 @@ const Hero = ({ scrollToSection }) => {
         initial={{ opacity: 0, y: -16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, delay: 0.4 }}
-        className="relative z-20 w-full mt-14 sm:mt-16"
+        className="relative z-20 w-full mt-20 sm:mt-16"
       >
         <CongratsTicker speed={50} />
       </motion.div>
