@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { MapPin, Clock, Calendar, CheckCircle2, Circle } from 'lucide-react';
-
 const EVENTS_DATA = [
   {
     id: 'ward-congress',
@@ -99,7 +98,7 @@ const EVENTS_DATA = [
     dateEnd: '2026-05-08',
     title: 'Screening of Aspirants',
     subtitle: 'State Assembly, Reps, Senate, Governorship',
-    desc: 'Screening of aspirants for State House of Assembly, House of Representatives, Senate, and Governorship positions from Wednesday 6th to Friday 8th May. Presidential screening holds Saturday 9th May.',
+    desc: 'Screening of aspirants for State House of Assembly, House of Representatives, Senate, and Governorship positions from Wednesday 6th to Friday 8th May.',
     location: 'APC National Secretariat, Abuja',
     time: '9:00 AM',
     type: 'Screening',
@@ -155,7 +154,7 @@ const EVENTS_DATA = [
     date: '2026-05-18',
     title: 'Primary Election — Senate',
     subtitle: 'Senatorial Districts Nationwide',
-    desc: 'Conduct of APC primary elections for Senate candidates across all 109 senatorial districts. Election appeals for House of Representatives also begin today.',
+    desc: 'Conduct of APC primary elections for Senate candidates across all 109 senatorial districts.',
     location: 'Senatorial Districts Nationwide',
     time: '9:00 AM',
     type: 'Primary',
@@ -166,7 +165,7 @@ const EVENTS_DATA = [
     date: '2026-05-20',
     title: 'Primary Election — State House of Assembly',
     subtitle: 'State Constituencies Nationwide',
-    desc: 'Conduct of APC primary elections for State House of Assembly candidates across all states. Senate election appeals also hold today.',
+    desc: 'Conduct of APC primary elections for State House of Assembly candidates across all states.',
     location: 'State Constituencies Nationwide',
     time: '9:00 AM',
     type: 'Primary',
@@ -174,10 +173,10 @@ const EVENTS_DATA = [
   },
   {
     id: 'primary-governorship',
-    date: '2026-05-21',
+    date: '2026-05-23',
     title: 'Primary Election — Governorship',
     subtitle: 'All APC States',
-    desc: 'Governorship primary elections across APC-controlled states. State House of Assembly election appeals also hold today.',
+    desc: 'Governorship primary elections across APC-controlled states.',
     location: 'State Party Secretariats Nationwide',
     time: '9:00 AM',
     type: 'Primary',
@@ -185,25 +184,14 @@ const EVENTS_DATA = [
   },
   {
     id: 'primary-presidential',
-    date: '2026-05-23',
+    date: '2026-05-25',
     title: 'Primary Election — Presidential',
     subtitle: 'APC Presidential Primary',
-    desc: "The pinnacle of the party's primary process — election of the APC Presidential candidate ahead of the 2027 General Elections. Governorship election appeals also hold today.",
+    desc: "Election of the APC Presidential candidate ahead of the 2027 General Elections.",
     location: 'TBC — Abuja, FCT',
     time: '10:00 AM',
     type: 'Primary',
     typeColor: 'bg-purple-100 text-purple-700',
-  },
-  {
-    id: 'appeal-presidential',
-    date: '2026-05-25',
-    title: 'Presidential Election Appeal',
-    subtitle: 'Final Appeals Window',
-    desc: 'Last window for appeals arising from the Presidential primary election.',
-    location: 'APC National Secretariat, Abuja',
-    time: 'End of Business Day',
-    type: 'Deadline',
-    typeColor: 'bg-red-100 text-red-700',
   },
 ];
 const isPast = (dateStr) => {
