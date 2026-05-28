@@ -8,6 +8,7 @@ import Event from '../components/Event'
 // import DocumentsViewer from '../components/DocumentsViewer'
 import Contact from '../components/Contact'
 import ElectoralGuildlines from '../components/ElectoralGuildlines'
+import GovernorshipPrimaryResults from '../components/GovernorshipPrimaryResult'
 
 
 const Home = () => {
@@ -18,7 +19,8 @@ const Home = () => {
         <Vision />
         <Leadership />
         <News />
-        <ElectoralGuildlines />
+        <GovernorshipPrimaryResults />
+        {/* <ElectoralGuildlines /> */}
         {/* <DocumentsViewer /> */}
         <Event />
         <Contact />
