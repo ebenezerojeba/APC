@@ -7,24 +7,26 @@ import News from '../components/News'
 import Event from '../components/Event'
 // import DocumentsViewer from '../components/DocumentsViewer'
 import Contact from '../components/Contact'
+// import C from '../components/ElectionTimetable'
 import ElectoralGuildlines from '../components/ElectoralGuildlines'
 import GovernorshipPrimaryResults from '../components/GovernorshipPrimaryResult'
+import ElectionTimetable from '../components/ElectionTimetable'
 
 
 const Home = () => {
   return (
     <div>
-        <Hero />
-        <About />
-        <Vision />
-        <Leadership />
-        <News />
-        <ElectionTimetable />
-        {/* <GovernorshipPrimaryResults /> */}
-        {/* <ElectoralGuildlines /> */}
-        {/* <DocumentsViewer /> */}
-        <Event />
-        <Contact />
+      <Hero />
+      <About />
+      <Vision />
+      <Leadership />
+      <News />
+      <ElectionTimetable />
+      {/* <GovernorshipPrimaryResults /> */}
+      {/* <ElectoralGuildlines /> */}
+      {/* <DocumentsViewer /> */}
+      <Event />
+      <Contact />
     </div>
   )
 }
