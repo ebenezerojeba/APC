@@ -19,7 +19,8 @@ const Home = () => {
         <Vision />
         <Leadership />
         <News />
-        <GovernorshipPrimaryResults />
+        <ElectionTimetable />
+        {/* <GovernorshipPrimaryResults /> */}
         {/* <ElectoralGuildlines /> */}
         {/* <DocumentsViewer /> */}
         <Event />

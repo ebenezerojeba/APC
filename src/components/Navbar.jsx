@@ -54,24 +54,19 @@ const Navbar = ({ scrollToSection }) => {
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
         <div className="flex justify-between items-center">
           
-          {/* LOGO & BRANDING */}
-          <motion.div
-            onClick={() => navigate('/')}
-            className="flex items-center gap-3 cursor-pointer"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-          >
-            <img src={assets.apc2} alt="APC Logo" className="h-12 w-auto" />
-            <div className="flex flex-col">
-              <span className="text-xl font-black leading-none text-[#008A44]" style={{ fontFamily: 'Impact, sans-serif' }}>
-                APC LAGOS
-              </span>
-              <span className="text-[10px] font-bold text-gray-500 uppercase tracking-tighter">
-                State
-              </span>
-            </div>
-          </motion.div>
-
+         {/* LOGO & BRANDING */}
+<motion.div
+  onClick={() => navigate('/')}
+  className="flex items-center gap-3 cursor-pointer flex-shrink-0"
+  initial={{ opacity: 0, x: -20 }}
+  animate={{ opacity: 1, x: 0 }}
+>
+  <img
+    src={assets.logo1}
+    alt="APC Logo"
+    className="h-20 w-auto sm:h-18 md:h-16 lg:h-18 transition-all duration-200"
+  />
+</motion.div>
           {/* Desktop Navigation */}
           <ul className="hidden lg:flex space-x-6">
             {navLinks.map((item) => (

@@ -1,3 +1,5 @@
+import logo1 from './logo1.jpeg';
+import logo2 from './logo2.jpeg';
 import apc from './apc.jpeg';
 import apc2 from './apc2.jpeg';
 import oj from './ojelabi1.jpeg';
@@ -59,6 +61,8 @@ import ojtinubu from './ojtinubu.jpeg';
 import ojgroup from './ojgroup.jpeg';
 
 export default {
+    logo1,
+    logo2,
     ojtinubu,
     ojgroup,
     oj,
