@@ -22,9 +22,7 @@ const Home = () => {
       <Leadership />
       <News />
       <ElectionTimetable />
-      {/* <GovernorshipPrimaryResults /> */}
-      {/* <ElectoralGuildlines /> */}
-      {/* <DocumentsViewer /> */}
+     
       <Event />
       <Contact />
     </div>
