@@ -61,7 +61,7 @@ import assets from '../assets/assets';
 
 const Footer = ({ scrollToSection }) => {
   const currentYear = new Date().getFullYear();
-  const footerLinks = ['Home', 'About', 'Vision', 'News', 'Events', 'Join Us'];
+  const footerLinks = ['Home', 'About', 'Priorities', 'News', 'Events', 'Join Us'];
 
   // const developers = [
   //   { name: 'Alabi', url: 'https://portfolio-website-opal-nine-30.vercel.app/' },

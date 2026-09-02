@@ -1,28 +1,29 @@
-import React from 'react'
 import Hero from '../components/Hero'
 import About from '../components/About'
-import Vision from '../components/Vision'
-import Leadership from '../components/Leadership'
+import Priorities from '../components/Priorities'
 import News from '../components/News'
 import Event from '../components/Event'
-// import DocumentsViewer from '../components/DocumentsViewer'
 import Contact from '../components/Contact'
-// import C from '../components/ElectionTimetable'
-import ElectoralGuildlines from '../components/ElectoralGuildlines'
-import GovernorshipPrimaryResults from '../components/GovernorshipPrimaryResult'
-import ElectionTimetable from '../components/ElectionTimetable'
 
+/*
+  This is the Chairman's site, so it carries only what is about him.
 
+  The party-institutional sections are still in src/components/ and still
+  work — they are unmounted here, not deleted, ready to lift into the party
+  site: Vision (the APC constitution), Leadership (executive officers),
+  ElectionTimetable, ElectoralGuildlines, GovernorshipPrimaryResult,
+  DocumentsViewer and CongratsTicker.
+
+  News and Event are judgement calls — keep them here if they cover his
+  press and his engagements, move them if they are secretariat output.
+*/
 const Home = () => {
   return (
     <div>
       <Hero />
       <About />
-      <Vision />
-      <Leadership />
+      <Priorities />
       <News />
-      <ElectionTimetable />
-     
       <Event />
       <Contact />
     </div>

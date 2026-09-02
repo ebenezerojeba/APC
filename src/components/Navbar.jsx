@@ -19,7 +19,7 @@ const Navbar = ({ scrollToSection }) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'about', 'vision', 'news', 'events', 'contact'];
+      const sections = ['home', 'about', 'priorities', 'news', 'events', 'contact'];
       const current = sections.find(section => {
         const element = document.getElementById(section);
         if (element) {
@@ -36,7 +36,7 @@ const Navbar = ({ scrollToSection }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = ['Home', 'About', 'Vision', 'News', 'Events', 'Contact'];
+  const navLinks = ['Home', 'About', 'Priorities', 'News', 'Events', 'Contact'];
 
   // FIXED: Explicitly handle scrolling and state
   const handleNavClick = (item) => {
