@@ -1,3 +1,4 @@
+import hero from './hero.jpeg';
 import logo1 from './logo1.jpeg';
 import logo2 from './logo2.jpeg';
 import apc from './apc.jpeg';
@@ -57,12 +58,15 @@ import chair12 from './oj12.jpeg';
 import chair13 from './oj13.jpeg';
 import chair14 from './oj14.jpeg';
 import asiwaju from './asiwaju.jpeg';
+// Cropped from hero.jpeg for the hero section: subject-only, watermark removed.
+import heroPortrait from './hero-portrait.jpeg';
 import ojtinubu from './ojtinubu.jpeg';
 import ojgroup from './ojgroup.jpeg';
 
 export default {
     logo1,
     logo2,
+    hero,
     ojtinubu,
     ojgroup,
     oj,
@@ -121,5 +125,6 @@ export default {
     chair12,
     chair13,
     chair14,
-    asiwaju
+    asiwaju,
+    heroPortrait
 }
