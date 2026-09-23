@@ -315,7 +315,7 @@ const Join = () => {
               <div className="w-10 h-0.5 bg-[#006B3F] mb-6" />
               <h2
                 className="text-5xl md:text-6xl font-black text-gray-900 mb-6 uppercase leading-none tracking-tight"
-                style={{ fontFamily: 'Impact, "Arial Narrow", sans-serif' }}
+                style={{ fontFamily: "'Bebas Neue', 'Arial Black', sans-serif" }}
               >
                 Be Part Of<br />
                 <span className="text-[#006B3F]">The Progress</span>

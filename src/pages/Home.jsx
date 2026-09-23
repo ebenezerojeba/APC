@@ -5,6 +5,7 @@ import Priorities from '../components/Priorities'
 import Gallery from '../components/Gallery'
 import News from '../components/News'
 import Event from '../components/Event'
+import Resources from '../components/Resources'
 import Contact from '../components/Contact'
 
 /*
@@ -29,6 +30,7 @@ const Home = () => {
       <Gallery />
       <News />
       <Event />
+      <Resources />
       <Contact />
     </div>
   )

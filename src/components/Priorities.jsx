@@ -55,7 +55,7 @@ const Priorities = () => (
         </div>
         <h2
           className="text-4xl font-black uppercase leading-tight text-gray-900 md:text-6xl"
-          style={{ fontFamily: 'Impact, sans-serif' }}
+          style={{ fontFamily: "'Bebas Neue', 'Arial Black', sans-serif" }}
         >
           Priorities
         </h2>

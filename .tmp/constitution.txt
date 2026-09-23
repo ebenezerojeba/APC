@@ -1,0 +1,77 @@
+[BOLD] MOTTO: JUSTICE, PEACE AND UNITY
+[BOLD] SLOGAN: CHANGE
+[Heading1] AIMS AND OBJECTIVES
+The aims and objectives of the Party shall be:
+[ListParagraph] To promote and foster the unity, political stability and national consciousness of the people of Nigeria.
+[ListParagraph] To promote true federalism in the Federal Republic of Nigeria.
+[ListParagraph] To organize Chapters of the Party throughout the Federal Republic of Nigeria and beyond.
+[ListParagraph] To sponsor eligible candidates and canvass for votes for election into all elective offices in all tiers of government.
+[ListParagraph] To consciously pursue the implementation of the policies and programmes of the Party through its members appointed or elected into government, legislative houses and Boards throughout the Federation.
+[ListParagraph] To evolve, develop and promote an economic policy direction which guarantees public participation in, and where necessary, control of the major means of production, distribution and exchange.
+[ListParagraph] To protect the interest of farmers, workers, women, youth and persons with Disabilities in Nigeria and to faithfully strive to obtain for them the greatest possible return for their labour and full participation in the Nigerian enterprise.
+[ListParagraph] To promote and uphold the practice of internal democracy at all levels of the Party's organisation.
+[ListParagraph] To institutionalise, maintain and foster representative democracy, discipline and strict observance of rule of law in the Federation of Nigeria.
+[ListParagraph] To co-operate with any political or other organisations whose aims and objectives are in harmony with those of the Party and in conformity with the provisions of the Constitution of the Federal Republic of Nigeria.
+[ListParagraph] To actively condemn and resist all forms of oppression and exploitation of Nigerians.
+[ListParagraph] To promote social, political and economic freedoms and the general welfare of the people, with a view to permanently ensuring the establishment of peace, freedom, dignity of labour, equity, fraternity and happiness for all the people of Nigeria.
+[ListParagraph] To foster and defend the freedom of the Press and the fundamental freedoms and human rights of all Nigerians and the people of the world in general.
+[ListParagraph] To pursue a dynamic foreign policy aimed at:
+[ListParagraph] Friendly and reciprocal relations with other countries.
+[ListParagraph] Good governance and democratic freedom for people of African descent and all other oppressed peoples throughout the world.
+[ListParagraph] Promotion of cultural values of black peoples all over the world; and
+[ListParagraph] Maintenance of international peace, harmony and cooperation.
+[ListParagraph] To work consciously to promote the development of science, technology and local expertise.
+[ListParagraph] To do anything ancillary or conducive to the promotion of the aforementioned aims and objectives.
+[Heading1] RULES AND OBLIGATIONS
+[ListParagraph] Members of the Party shall be obliged to affirm the Party's aims and objectives and conduct themselves in a manner that shall not bring the Party to public odium and disrepute. Members of the Party shall also observe the rules and regulations embedded in this Constitution.
+[ListParagraph] Members shall pay, as at and when due, all dues and levies as may be prescribed by any organ of the Party authorised so to do.
+[ListParagraph] Members shall participate in the activities of the Party, e.g. election campaigns, rallies, fund raising, functions, meetings, etc.
+[Heading1] RIGHTS AND PRIVILEGES
+[ListParagraph] Only fully registered and financially up-to-date members of the Party shall have the right to vote and be voted for into any of the elective positions, subject to the provisions made for such elections pursuant to this Constitution or other laws or regulations. Consequently, non-financial members shall not enjoy the above rights.
+[ListParagraph] Subject to (i) above, members shall enjoy the privileges of the Party and shall be entitled to be appointed to any committee of the Party on the approval of the Executive Committees of the Party at the various levels.
+[ListParagraph] Upon resignation or expulsion, a member shall be legally obliged to return to the Party all its properties in his or her possession.
+[Heading1] PARTY ORGANISATION
+[ListParagraph] There shall be seven levels of Party organization, namely:
+[ListParagraph] The Polling Unit
+[ListParagraph] The Ward
+[ListParagraph] The Local Government Area/Area Council
+[ListParagraph] The Senatorial District
+[ListParagraph] The State
+[ListParagraph] The Zone
+[ListParagraph] The National.
+[ListParagraph] Each of these levels shall have a functional secretariat, except the Senatorial District and Polling Unit.
+[Heading1] PARTY ORGANS
+[ListParagraph] The Party shall have the following fourteen principal organs:
+[ListParagraph] National Convention
+[ListParagraph] Board of Trustees
+[ListParagraph] National Executive Committee
+[ListParagraph] National Working Committee
+[ListParagraph] Zonal Committee
+[ListParagraph] State Congress
+[ListParagraph] State Executive Committee
+[ListParagraph] State Working Committee
+[ListParagraph] Senatorial District Committee
+[ListParagraph] Local Government Area/Area Council Congress
+[ListParagraph] The Local Government Area/Area Council Executive Committee
+[ListParagraph] The Ward Congress
+[ListParagraph] The Ward Executive Committee
+[ListParagraph] The Polling Unit Committee
+[Heading1] OTHER BODIES
+[ListParagraph] The Party shall have the following other bodies:
+[ListParagraph] Board of Trustees
+[ListParagraph] National Caucus
+[ListParagraph] Zonal Caucus
+[ListParagraph] State Caucus
+[ListParagraph] Local Government Area/Area Council Caucus
+[Heading1] POWERS OF PARTY ORGANS
+The final authority of the Party shall rest with the National Convention, which shall have the powers to:
+[ListParagraph] Ratify policies and programmes of the Party.
+[ListParagraph] Elect or remove National Officers of the Party.
+[ListParagraph] Elect the Presidential Candidate of the Party.
+[ListParagraph] Receive reports from the National Executive Committee and from any other Committee and/or organ of the Party, and take appropriate decisions on the reports and/or recommendations.
+[ListParagraph] Amend the Constitution of the Party from time to time as the need may arise.
+[ListParagraph] Delegate any of its powers to the Board of Trustees, National Executive Committee or to any other organ of the Party.
+[ListParagraph] Take any action as may be conducive to the promotion of the aims and objectives of the Party as laid down in this Constitution.
+[ListParagraph] Appoint External Auditors to audit the Party's accounts for its consideration.
+[ListParagraph] Exercise such other powers and authority as are vested in it by this Constitution.
+[ListParagraph] Ratify the minimum rate of annual subscription to be paid by Members and the proportion of income from subscriptions to be remitted to the National Office of the Party.

@@ -122,7 +122,7 @@ const Hero = () => {
         </div>
 
         {/* ── Detail layer: chapter readout + progress ───────────────── */}
-        <div className="mt-10 flex items-end justify-between gap-6 border-t border-white/12 pt-5 sm:mt-12 sm:pt-6">
+        <div className="mt-10 flex flex-col gap-4 border-t border-white/12 pt-5 sm:mt-12 sm:flex-row sm:items-end sm:justify-between sm:gap-6 sm:pt-6">
           <div className="min-w-0">
             <div className="flex items-baseline gap-2">
               <span className="text-lg font-black tabular-nums text-white sm:text-xl">
@@ -139,7 +139,7 @@ const Hero = () => {
           </div>
 
           {/* Chapter selector. Real buttons, so it is keyboard reachable. */}
-          <div className="flex shrink-0 items-center gap-2">
+          <div className="flex w-full shrink-0 items-center gap-1.5 sm:w-auto sm:gap-2">
             {HERO_SLIDES.map((s, i) => {
               const active = i === index;
               return (
@@ -149,7 +149,7 @@ const Hero = () => {
                   onClick={() => go(i)}
                   aria-label={`Show chapter ${i + 1}: ${s.category}`}
                   aria-current={active ? 'true' : undefined}
-                  className="group relative h-11 w-7 outline-none sm:w-10"
+                  className="group relative h-11 flex-1 outline-none sm:w-10 sm:flex-none"
                 >
                   <span className="absolute inset-x-0 top-1/2 h-0.5 -translate-y-1/2 overflow-hidden bg-white/20 transition-colors group-hover:bg-white/45 group-focus-visible:bg-white">
                     <span

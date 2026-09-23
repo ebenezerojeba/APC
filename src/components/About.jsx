@@ -1,29 +1,35 @@
 import { motion } from 'framer-motion';
-import assets from '../assets/assets';
 
-// TODO: add real detail to each step — years, the Local Government, the
-// constituency, the ministry. Titles alone read as vague; dates and places are
-// what make this a record rather than a list.
+import lead800 from '../assets/gallery/ojtinubu-800.jpg';
+import lead1280 from '../assets/gallery/ojtinubu-1280.jpg';
+
+/*
+  TODO: this section is capped by missing facts, not layout. Each step needs
+  its years, the Local Government, the constituency and the ministry. Titles
+  alone read as vague; dates and places are what turn a list into a record.
+
+  The layout below is built to absorb that detail — each row has room for a
+  `detail` line — so adding it is a data edit, not a redesign.
+*/
 const PATH = [
-  { title: 'Local Government Chairman' },
-  { title: 'Member, National Assembly' },
-  { title: 'Lagos State Commissioner' },
-  { title: 'APC Chairman, Lagos State', current: true },
+  { title: 'Local Government Chairman', detail: null },
+  { title: 'Member, National Assembly', detail: null },
+  { title: 'Lagos State Commissioner', detail: null },
+  { title: 'APC Chairman, Lagos State', detail: null, current: true },
 ];
 
-// Four chosen for what they each show — proximity to the President, the party
-// leadership, and him actually working a room. TODO: captions naming the event,
-// place and date would add more than any amount of prose.
+/*
+  One photograph, not four. The Gallery below carries 45 with a lightbox, so
+  repeating a grid here only made the page look like it had less to show than
+  it does. This is the frame that earns its place: him with the President.
+*/
 const LEAD = {
-  src: assets.ojtinubu,
+  src: lead1280,
+  srcSet: `${lead800} 800w, ${lead1280} 1280w`,
   alt: 'Pastor Cornelius Ojelabi with President Bola Ahmed Tinubu',
+  width: 1280,
+  height: 852,
 };
-
-const PHOTOS = [
-  { src: assets.ojgroup, alt: 'Pastor Cornelius Ojelabi with President Tinubu and party leaders' },
-  { src: assets.chair1, alt: "Pastor Cornelius Ojelabi addressing a party stakeholders' meeting" },
-  { src: assets.oj34, alt: 'Pastor Cornelius Ojelabi speaking at a party gathering' },
-];
 
 const reveal = {
   initial: { opacity: 0, y: 16 },
@@ -33,105 +39,103 @@ const reveal = {
 };
 
 const About = () => (
-  <section id="about" className="overflow-hidden bg-white py-20 sm:py-24">
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+  <section id="about" className="bg-white py-20 sm:py-28">
+    <div className="mx-auto max-w-[1500px] px-5 sm:px-8 lg:px-20">
 
-      {/* ── Header ── */}
-      <motion.div {...reveal} className="max-w-3xl">
-        <div className="mb-4 flex items-center gap-3 text-sm font-bold uppercase tracking-widest text-[#008A44]">
-          <span className="h-1 w-8 bg-[#008A44]" />
+      <motion.div {...reveal} className="mb-12 flex items-center gap-3 sm:mb-16">
+        <span className="h-px w-7 bg-[#008A44] sm:w-10" />
+        <h2 className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#008A44] sm:text-[11px]">
           Profile
-        </div>
-        <h2
-          className="text-4xl font-black uppercase leading-tight text-gray-900 md:text-6xl"
-          style={{ fontFamily: 'Impact, sans-serif' }}
-        >
-          Pastor <span className="text-[#008A44]">Cornelius Ojelabi</span>
         </h2>
-        <p className="mt-4 border-l-4 border-amber-400 pl-4 text-base font-bold text-[#008A44] sm:text-lg">
-          APC Chairman, Lagos State
-          <span className="block font-medium text-gray-500">
-            Chairman, Forum of APC State Chairmen of Nigeria
-          </span>
-        </p>
       </motion.div>
 
-      {/* ── The path ──────────────────────────────────────────────────────
-          Four short steps laid out wide rather than stacked in a tall column,
-          so the shape of the block matches the amount of content in it. */}
-      <motion.div {...reveal} className="mt-12 sm:mt-16">
-        <p className="mb-5 text-sm font-bold uppercase tracking-widest text-gray-400">
-          The path
-        </p>
+      <div className="lg:flex lg:items-start lg:gap-16">
 
-        {/* gap-px over a grey ground draws the hairline dividers */}
-        <ol className="grid gap-px overflow-hidden rounded-2xl border border-gray-200 bg-gray-200 sm:grid-cols-2 lg:grid-cols-4">
-          {PATH.map(({ title, current }, i) => (
-            <li
-              key={title}
-              className={`flex flex-col justify-between gap-6 p-6 ${
-                current ? 'bg-[#008A44]' : 'bg-white'
-              }`}
-            >
-              <span
-                className={`text-sm font-black tabular-nums ${
-                  current ? 'text-white/60' : 'text-gray-300'
-                }`}
-                aria-hidden="true"
+        {/* ── Identity + record ── */}
+        <motion.div {...reveal} className="lg:w-[52%] lg:shrink-0">
+          <p className="text-[11px] font-bold uppercase tracking-[0.45em] text-gray-400">
+            Pastor
+          </p>
+
+          <h3
+            className="mt-2 font-black uppercase leading-[0.88] text-gray-900"
+            style={{
+              fontFamily: "'Bebas Neue', 'Arial Black', sans-serif",
+              fontSize: 'clamp(2.5rem, 7vw, 5.5rem)',
+            }}
+          >
+            <span className="block">Cornelius</span>
+            <span className="block text-[#008A44]">Ojelabi</span>
+          </h3>
+
+          <div className="mt-6 border-l-2 border-[#D4A574] pl-4">
+            <p className="text-sm font-bold uppercase tracking-[0.18em] text-gray-900 sm:text-base">
+              APC Chairman, Lagos State
+            </p>
+            <p className="mt-1 text-sm text-gray-500">
+              Chairman, Forum of APC State Chairmen of Nigeria
+            </p>
+          </div>
+
+          {/* The record: hairlines and numerals, no cards. */}
+          <p className="mt-12 text-[10px] font-bold uppercase tracking-[0.25em] text-gray-400">
+            The path
+          </p>
+
+          <ol className="mt-5 border-t border-gray-200">
+            {PATH.map(({ title, detail, current }, i) => (
+              <li
+                key={title}
+                className="flex items-baseline gap-5 border-b border-gray-200 py-5"
               >
-                {String(i + 1).padStart(2, '0')}
-              </span>
-
-              <div>
-                <h3
-                  className={`text-lg font-bold leading-snug ${
-                    current ? 'text-white' : 'text-gray-900'
+                <span
+                  className={`shrink-0 text-xs font-black tabular-nums ${
+                    current ? 'text-[#008A44]' : 'text-gray-300'
                   }`}
+                  aria-hidden="true"
                 >
-                  {title}
-                </h3>
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+
+                <div className="min-w-0 flex-1">
+                  <h4
+                    className={`text-base font-bold leading-snug sm:text-lg ${
+                      current ? 'text-[#008A44]' : 'text-gray-900'
+                    }`}
+                  >
+                    {title}
+                  </h4>
+                  {detail && <p className="mt-1 text-sm text-gray-500">{detail}</p>}
+                </div>
+
                 {current && (
-                  <span className="mt-2 inline-block rounded-full bg-white/20 px-2.5 py-1 text-[10px] font-black uppercase tracking-widest text-white">
+                  <span className="shrink-0 text-[10px] font-black uppercase tracking-[0.2em] text-[#008A44]">
                     Now
                   </span>
                 )}
-              </div>
-            </li>
-          ))}
-        </ol>
-      </motion.div>
+              </li>
+            ))}
+          </ol>
+        </motion.div>
 
-      {/* ── Photographs ── */}
-      <motion.div {...reveal} className="mt-12 sm:mt-16">
-        <p className="mb-5 text-sm font-bold uppercase tracking-widest text-gray-400">
-          In office
-        </p>
-
-        <figure className="group overflow-hidden rounded-2xl bg-gray-100">
+        {/* ── The photograph ── */}
+        <motion.figure {...reveal} className="mt-12 min-w-0 flex-1 lg:sticky lg:top-28 lg:mt-0">
           <img
             src={LEAD.src}
+            srcSet={LEAD.srcSet}
+            sizes="(max-width: 1024px) 100vw, 45vw"
             alt={LEAD.alt}
+            width={LEAD.width}
+            height={LEAD.height}
             loading="lazy"
             decoding="async"
-            className="aspect-3/2 w-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.03] lg:aspect-2/1"
+            className="h-auto w-full object-cover"
           />
-        </figure>
-
-        <div className="mt-3 grid gap-3 sm:grid-cols-3">
-          {PHOTOS.map(({ src, alt }) => (
-            <figure key={src} className="group overflow-hidden rounded-2xl bg-gray-100">
-              <img
-                src={src}
-                alt={alt}
-                loading="lazy"
-                decoding="async"
-                className="aspect-3/2 w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-              />
-            </figure>
-          ))}
-        </div>
-      </motion.div>
-
+          <figcaption className="mt-3 border-t border-gray-200 pt-3 text-xs leading-relaxed text-gray-500">
+            {LEAD.alt}
+          </figcaption>
+        </motion.figure>
+      </div>
     </div>
   </section>
 );
