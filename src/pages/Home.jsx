@@ -1,6 +1,8 @@
 import Hero from '../components/Hero'
+import LagosData from '../components/LagosData'
 import About from '../components/About'
 import Priorities from '../components/Priorities'
+import Gallery from '../components/Gallery'
 import News from '../components/News'
 import Event from '../components/Event'
 import Contact from '../components/Contact'
@@ -21,8 +23,10 @@ const Home = () => {
   return (
     <div>
       <Hero />
+      <LagosData />
       <About />
       <Priorities />
+      <Gallery />
       <News />
       <Event />
       <Contact />

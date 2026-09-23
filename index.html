@@ -25,6 +25,52 @@
     <link href="/src/index.css" rel="stylesheet" />
     
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!--
+      Structured data. Only facts already published elsewhere on the site are
+      asserted here - no dates, no counts, no claims that cannot be sourced.
+      Add `birthDate`, `alumniOf` or `award` once they are verified.
+    -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://www.apclagos.org/#chairman",
+          "name": "Cornelius Ojelabi",
+          "honorificPrefix": "Pastor",
+          "jobTitle": "State Chairman",
+          "description": "State Chairman of the All Progressives Congress, Lagos State.",
+          "image": "https://www.apclagos.org/apc-og-image.jpg",
+          "url": "https://www.apclagos.org/",
+          "nationality": "Nigerian",
+          "worksFor": { "@id": "https://www.apclagos.org/#apclagos" },
+          "sameAs": [
+            "https://x.com/apcchairman",
+            "https://www.instagram.com/apcchairmanlagos"
+          ]
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://www.apclagos.org/#apclagos",
+          "name": "All Progressives Congress, Lagos State",
+          "alternateName": "APC Lagos State",
+          "url": "https://www.apclagos.org/",
+          "logo": "https://www.apclagos.org/logo1.jpeg",
+          "areaServed": { "@type": "State", "name": "Lagos State, Nigeria" },
+          "employee": { "@id": "https://www.apclagos.org/#chairman" }
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://www.apclagos.org/#website",
+          "url": "https://www.apclagos.org/",
+          "name": "Pastor Cornelius Ojelabi | APC Lagos State Chairman",
+          "publisher": { "@id": "https://www.apclagos.org/#apclagos" }
+        }
+      ]
+    }
+    </script>
   </head>
   <body>
     <a href="#root" class="sr-only" style="position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden;">Skip to content</a>

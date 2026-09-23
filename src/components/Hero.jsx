@@ -1,152 +1,187 @@
-import { ChevronRight, Facebook, Twitter, Instagram } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useCallback, useEffect, useState } from 'react';
+import { ArrowDown } from 'lucide-react';
 
-import assets from '../assets/assets';
+import { HERO_SLIDES, SLIDE_MS } from '../data/heroSlides';
+import usePrefersReducedMotion from '../hooks/usePrefersReducedMotion';
+import HeroBackdrop from './hero/HeroBackdrop';
 
-// Same destinations already published in the Contact section.
-const SOCIALS = [
-  { icon: Facebook, label: 'Facebook', href: 'https://www.facebook.com/share/18C16eC7YF/?mibextid=wwXIfr' },
-  { icon: Twitter, label: 'Twitter/X', href: 'https://x.com/apcchairman' },
-  { icon: Instagram, label: 'Instagram', href: 'https://www.instagram.com/apcchairmanlagos?igsh=dHpiNzBuczFveXE5' },
-];
-
-// The photograph is already cropped to the subject, so the only treatment left
-// is dissolving its lower edge into the section background instead of ending
-// on a hard rectangle.
-const PORTRAIT_FADE = {
-  maskImage: 'linear-gradient(to bottom, #000 0%, #000 68%, transparent 97%)',
-  WebkitMaskImage: 'linear-gradient(to bottom, #000 0%, #000 68%, transparent 97%)',
-};
+const scrollTo = (id) =>
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
 const Hero = () => {
-  const navigate = useNavigate();
+  const reducedMotion = usePrefersReducedMotion();
+  const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
 
+  const slide = HERO_SLIDES[index];
+
+  const go = useCallback((i) => setIndex(((i % HERO_SLIDES.length) + HERO_SLIDES.length) % HERO_SLIDES.length), []);
+
+  /*
+    Auto-advance, but never against the visitor: it stops while the pointer is
+    over the hero or a control has focus, and does not run at all when the OS
+    asks for reduced motion.
+  */
+  useEffect(() => {
+    if (reducedMotion || paused) return undefined;
+    const t = setTimeout(() => go(index + 1), SLIDE_MS);
+    return () => clearTimeout(t);
+  }, [index, paused, reducedMotion, go]);
+
+  /*
+    No overflow-hidden on the section: on short landscape phones the copy is
+    taller than 100dvh, and clipping would cut the CTAs off. The backdrop
+    clips its own Ken Burns scale instead.
+  */
   return (
     <section
       id="home"
-      className="relative overflow-hidden bg-[#06170D]"
+      className="relative isolate flex flex-col bg-[#04100A]"
       style={{ minHeight: '100dvh' }}
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocusCapture={() => setPaused(true)}
+      onBlurCapture={() => setPaused(false)}
     >
-      {/* ── Ambient wash ──────────────────────────────────────────────── */}
-      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-        <div className="absolute -right-[10%] top-[4%] h-[62vh] w-[62vh] rounded-full bg-[#00A651]/15 blur-[120px]" />
-        <div className="absolute bottom-[8%] left-[-8%] h-[38vh] w-[38vh] rounded-full bg-[#D4A574]/10 blur-[110px]" />
+      <HeroBackdrop index={index} reducedMotion={reducedMotion} />
+
+      {/* Vertical rule + place marker, left edge (desktop only) */}
+      <div className="pointer-events-none absolute inset-y-0 left-7 z-10 hidden items-center lg:flex" aria-hidden="true">
+        <div className="flex flex-col items-center gap-5">
+          <span className="h-24 w-px bg-gradient-to-b from-transparent to-white/30" />
+          <span
+            className="text-[10px] font-bold uppercase tracking-[0.42em] text-white/40"
+            style={{ writingMode: 'vertical-rl' }}
+          >
+            Lagos State
+          </span>
+          <span className="h-24 w-px bg-gradient-to-t from-transparent to-white/30" />
+        </div>
       </div>
 
-      {/* ── Portrait ──────────────────────────────────────────────────────
-          A background layer at every breakpoint, inset below the fixed navbar
-          so his cap and face are never covered.
+      {/* ── Composition ─────────────────────────────────────────────── */}
+      <div className="relative z-10 mx-auto flex w-full max-w-[1500px] flex-1 flex-col justify-end px-5 pb-10 pt-28 sm:px-8 sm:pb-12 lg:px-20 lg:pb-16">
 
-          Narrow screens go full-bleed. From lg the viewport is far wider than
-          this 0.47 portrait, so filling it would show only a vertical sliver —
-          instead he sits right-anchored at a readable size with the copy
-          clear of him on the left. */}
-      <div
-        className="absolute inset-x-0 bottom-0 top-20 lg:left-auto lg:right-[3%] lg:top-24 lg:w-[min(40vw,540px)] xl:right-[6%]"
-        aria-hidden="true"
-      >
-        <img
-          src={assets.heroPortrait}
-          alt=""
-          fetchPriority="high"
-          decoding="async"
-          className="h-full w-full object-cover object-[50%_6%] contrast-[1.04] saturate-[0.96] sm:object-[50%_8%] lg:object-[50%_10%]"
-          style={PORTRAIT_FADE}
-        />
-        {/* Settle the photograph into the green ground so the red carpet stops
-            reading as a separate block of colour. */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#06170D] via-[#06170D]/25 to-transparent" />
-        {/* Dissolve the side edges from lg up, where the photo no longer bleeds
-            off-screen — without these it reads as a pasted rectangle. */}
-        <div className="absolute inset-0 hidden bg-[linear-gradient(to_right,#06170D_0%,transparent_30%)] lg:block" />
-        <div className="absolute inset-0 hidden bg-[linear-gradient(to_left,#06170D_0%,transparent_16%)] lg:block" />
-      </div>
-
-      {/* ── Legibility scrim ──────────────────────────────────────────── */}
-      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-        <div className="absolute inset-0 bg-gradient-to-t from-[#06170D] via-[#06170D]/88 to-[#06170D]/40 lg:bg-gradient-to-r lg:from-[#06170D] lg:via-[#06170D]/88 lg:to-transparent" />
-        <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#06170D] to-transparent" />
-      </div>
-
-      {/* ── Content ───────────────────────────────────────────────────── */}
-      <div
-        className="relative z-10 mx-auto flex w-full max-w-7xl flex-col justify-end px-5 pb-20 pt-28 sm:px-8 sm:pb-24 lg:justify-center lg:px-14 lg:pb-24 lg:pt-32"
-        style={{ minHeight: '100dvh' }}
-      >
-        <div className="w-full lg:max-w-[46%] xl:max-w-[48%]">
-          {/* Affiliation */}
-          <div className="mb-5 flex flex-wrap items-center gap-3 sm:mb-7">
-            <img src={assets.apc2} alt="" aria-hidden="true" className="h-7 w-auto sm:h-8" />
-            <span className="h-px w-8 bg-gradient-to-r from-[#D4A574]/80 to-transparent sm:w-10" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#D4A574] sm:text-[11px]">
-              Chairman · APC Lagos State
+        <div className="max-w-3xl">
+          <div className="mb-6 flex items-center gap-3 sm:mb-8">
+            <span className="h-px w-7 bg-[#D4A574] sm:w-10" />
+            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#D4A574] sm:text-[11px]">
+              APC Lagos State
             </span>
           </div>
 
-          {/* Name */}
+          {/* Editorial scale: three deliberately different weights and sizes. */}
+          <p className="text-[11px] font-bold uppercase tracking-[0.5em] text-white/55 sm:text-sm">
+            Pastor
+          </p>
+
           <h1
-            className="font-black leading-[0.92] text-white"
+            className="mt-2 font-black uppercase leading-[0.85] text-white sm:mt-3"
             style={{
               fontFamily: "'Bebas Neue', 'Arial Black', sans-serif",
-              fontSize: 'clamp(2.75rem, 9.5vw, 7rem)',
+              /* 2.5rem floor, not 3rem: if Bebas Neue fails the fallback is
+                 Arial Black, which is far wider and overruns 320px screens. */
+              fontSize: 'clamp(2.5rem, 10.5vw, 9.5rem)',
             }}
           >
             <span className="block">Cornelius</span>
             <span className="block text-[#4ADE80]">Ojelabi</span>
           </h1>
 
-          <span className="mt-5 block h-px w-24 bg-gradient-to-r from-[#00A651] to-transparent sm:mt-6 sm:w-32" />
-
-          {/* National role */}
-          <div className="mt-6 border-l-2 border-[#00A651] pl-4 sm:mt-8">
-            <p className="text-[10px] uppercase tracking-[0.2em] text-white/45">Also serving as</p>
-            <p className="mt-1 text-sm font-bold leading-snug text-white sm:text-base">
-              Chairman, Forum of APC State Chairmen of Nigeria
-            </p>
+          <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 sm:mt-7">
+            <span className="text-sm font-bold uppercase tracking-[0.28em] text-white sm:text-base">
+              State Chairman
+            </span>
+            <span className="hidden h-3.5 w-px bg-white/25 sm:block" />
+            <span className="text-[11px] uppercase tracking-[0.2em] text-white/55 sm:text-xs">
+              All Progressives Congress
+            </span>
           </div>
 
-          {/* CTAs */}
-          <div className="mt-8 flex flex-col gap-3 min-[400px]:flex-row min-[400px]:flex-wrap sm:mt-10">
-            <button
-              type="button"
-              onClick={() => navigate('/join')}
-              className="group flex min-h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-full bg-[#D4A574] px-7 py-3.5 text-[10px] font-black uppercase tracking-[0.2em] text-[#111] outline-none transition-colors duration-200 hover:bg-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#06170D] min-[400px]:w-auto sm:text-[11px]"
-            >
-              Volunteer
-              <ChevronRight size={13} className="transition-transform duration-200 group-hover:translate-x-1" />
-            </button>
+          <p className="mt-5 max-w-lg text-sm leading-relaxed text-white/65 sm:mt-6 sm:text-[15px]">
+            Leading the party&apos;s structure across Lagos State, and Chairman of the Forum of
+            APC State Chairmen of Nigeria.
+          </p>
 
+          <div className="mt-8 flex flex-col gap-3 min-[420px]:flex-row sm:mt-10">
             <button
               type="button"
-              onClick={() => navigate('/appointment')}
-              className="group flex min-h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-full border border-white/25 px-7 py-3.5 text-[10px] font-black uppercase tracking-[0.2em] text-white outline-none transition-colors duration-200 hover:border-[#00A651] hover:bg-[#00A651] focus-visible:ring-2 focus-visible:ring-[#00A651] focus-visible:ring-offset-2 focus-visible:ring-offset-[#06170D] min-[400px]:w-auto sm:text-[11px]"
+              onClick={() => scrollTo('about')}
+              className="group inline-flex min-h-11 items-center justify-center gap-2 rounded-none border border-[#D4A574] bg-[#D4A574] px-6 py-3 text-[10px] font-black uppercase tracking-[0.22em] text-[#0b0b0b] outline-none transition-colors duration-200 hover:bg-transparent hover:text-[#D4A574] focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#04100A]"
             >
-              Book Appointment
-              <ChevronRight size={13} className="transition-transform duration-200 group-hover:translate-x-1" />
+              Explore the Journey
+            </button>
+            <button
+              type="button"
+              onClick={() => scrollTo('gallery')}
+              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-none border border-white/30 px-6 py-3 text-[10px] font-black uppercase tracking-[0.22em] text-white outline-none transition-colors duration-200 hover:border-white hover:bg-white hover:text-[#0b0b0b] focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#04100A]"
+            >
+              Leadership Moments
             </button>
           </div>
+        </div>
 
-          {/* Socials */}
-          <div className="mt-8 flex items-center gap-4 sm:mt-10">
-            <span className="h-px w-6 bg-white/25" />
-            {SOCIALS.map(({ icon: Icon, label, href }) => (
-              <a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={label}
-                className="rounded-full p-1.5 text-white/50 outline-none transition-colors duration-200 hover:text-[#D4A574] focus-visible:ring-2 focus-visible:ring-[#D4A574]"
-              >
-                <Icon size={17} />
-              </a>
-            ))}
+        {/* ── Detail layer: chapter readout + progress ───────────────── */}
+        <div className="mt-10 flex items-end justify-between gap-6 border-t border-white/12 pt-5 sm:mt-12 sm:pt-6">
+          <div className="min-w-0">
+            <div className="flex items-baseline gap-2">
+              <span className="text-lg font-black tabular-nums text-white sm:text-xl">
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              <span className="text-[11px] tabular-nums text-white/35">
+                / {String(HERO_SLIDES.length).padStart(2, '0')}
+              </span>
+              <span className="ml-1 truncate text-[10px] font-bold uppercase tracking-[0.25em] text-[#D4A574] sm:text-[11px]">
+                {slide.category}
+              </span>
+            </div>
+            <p className="mt-1.5 truncate text-xs text-white/45">{slide.caption}</p>
+          </div>
+
+          {/* Chapter selector. Real buttons, so it is keyboard reachable. */}
+          <div className="flex shrink-0 items-center gap-2">
+            {HERO_SLIDES.map((s, i) => {
+              const active = i === index;
+              return (
+                <button
+                  key={s.id}
+                  type="button"
+                  onClick={() => go(i)}
+                  aria-label={`Show chapter ${i + 1}: ${s.category}`}
+                  aria-current={active ? 'true' : undefined}
+                  className="group relative h-11 w-7 outline-none sm:w-10"
+                >
+                  <span className="absolute inset-x-0 top-1/2 h-0.5 -translate-y-1/2 overflow-hidden bg-white/20 transition-colors group-hover:bg-white/45 group-focus-visible:bg-white">
+                    <span
+                      className="block h-full bg-[#D4A574]"
+                      style={{
+                        width: active ? '100%' : '0%',
+                        transition:
+                          active && !reducedMotion && !paused
+                            ? `width ${SLIDE_MS}ms linear`
+                            : 'width 200ms ease',
+                      }}
+                    />
+                  </span>
+                </button>
+              );
+            })}
           </div>
         </div>
       </div>
 
-      {/* Hand-off into the white About section */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-b from-transparent to-white sm:h-20" />
+      {/* Scroll cue */}
+      <button
+        type="button"
+        onClick={() => scrollTo('lagos-data')}
+        className="group relative z-10 mx-auto flex w-full items-center justify-center gap-2 pb-6 text-[9px] font-bold uppercase tracking-[0.35em] text-white/40 outline-none transition-colors hover:text-white focus-visible:text-white sm:text-[10px]"
+      >
+        Scroll to explore
+        <ArrowDown
+          size={12}
+          className="transition-transform duration-300 group-hover:translate-y-0.5 motion-reduce:transition-none"
+        />
+      </button>
     </section>
   );
 };

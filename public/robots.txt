@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Admin surface is a separate app and should never be indexed.
+Disallow: /admin
+Disallow: /api/
+
+Sitemap: https://www.apclagos.org/sitemap.xml

@@ -123,32 +123,21 @@ const VideoPlayer = () => {
 // ============================================================================
 // Article Modal
 // ============================================================================
-const ArticleModal = ({ article, onClose }) => {
-  useEffect(() => {
-    const onKey = (e) => { if (e.key === 'Escape') onClose(); };
-    document.addEventListener('keydown', onKey);
-    document.body.style.overflow = 'hidden';
-    return () => { document.removeEventListener('keydown', onKey); document.body.style.overflow = ''; };
-  }, [onClose]);
 
-  // Normalise: support both direct shape and nested fullContent shape
+/*
+  Module scope, deliberately. Declared inside ArticleModal's body this got a
+  fresh component identity on every render, so React tore down and rebuilt the
+  whole modal body each time - losing the reader's scroll position mid-article
+  and restarting the entry animation.
+*/
+const ModalContent = ({ headingId, article, onClose }) => {
+  // Supports both the direct shape and the nested fullContent shape.
   const paragraphs = article.fullContent?.paragraphs ?? article.paragraphs ?? [];
   const author     = article.fullContent?.author     ?? article.author     ?? '';
   const role       = article.fullContent?.role       ?? article.role       ?? '';
   const date       = article.fullContent?.date       ?? article.date       ?? '';
 
-  const mobileVariants  = {
-    hidden:  { opacity: 0, y: '100%' },
-    visible: { opacity: 1, y: 0, transition: { type: 'spring', damping: 30, stiffness: 300 } },
-    exit:    { opacity: 0, y: '100%', transition: { duration: 0.2, ease: 'easeIn' } },
-  };
-  const desktopVariants = {
-    hidden:  { opacity: 0, scale: 0.95, y: 16 },
-    visible: { opacity: 1, scale: 1, y: 0, transition: { type: 'spring', damping: 25, stiffness: 280 } },
-    exit:    { opacity: 0, scale: 0.95, y: 8, transition: { duration: 0.15, ease: 'easeIn' } },
-  };
-
-  const ModalContent = ({ headingId }) => (
+  return (
     <>
       <div className="flex items-start justify-between px-4 sm:px-6 pt-4 pb-4 border-b border-gray-100 shrink-0">
         <div className="flex-1 pr-3">
@@ -185,6 +174,26 @@ const ArticleModal = ({ article, onClose }) => {
       </div>
     </>
   );
+};
+
+const ArticleModal = ({ article, onClose }) => {
+  useEffect(() => {
+    const onKey = (e) => { if (e.key === 'Escape') onClose(); };
+    document.addEventListener('keydown', onKey);
+    document.body.style.overflow = 'hidden';
+    return () => { document.removeEventListener('keydown', onKey); document.body.style.overflow = ''; };
+  }, [onClose]);
+
+  const mobileVariants  = {
+    hidden:  { opacity: 0, y: '100%' },
+    visible: { opacity: 1, y: 0, transition: { type: 'spring', damping: 30, stiffness: 300 } },
+    exit:    { opacity: 0, y: '100%', transition: { duration: 0.2, ease: 'easeIn' } },
+  };
+  const desktopVariants = {
+    hidden:  { opacity: 0, scale: 0.95, y: 16 },
+    visible: { opacity: 1, scale: 1, y: 0, transition: { type: 'spring', damping: 25, stiffness: 280 } },
+    exit:    { opacity: 0, scale: 0.95, y: 8, transition: { duration: 0.15, ease: 'easeIn' } },
+  };
 
   return (
     <motion.div
@@ -202,7 +211,7 @@ const ArticleModal = ({ article, onClose }) => {
         <div className="flex justify-center pt-3 pb-1 shrink-0">
           <div className="w-12 h-1 bg-gray-300 rounded-full" />
         </div>
-        <ModalContent headingId="modal-m" />
+        <ModalContent headingId="modal-m" article={article} onClose={onClose} />
       </motion.div>
 
       <motion.div
@@ -211,7 +220,7 @@ const ArticleModal = ({ article, onClose }) => {
         variants={desktopVariants} initial="hidden" animate="visible" exit="exit"
         role="dialog" aria-modal="true" aria-labelledby="modal-d"
       >
-        <ModalContent headingId="modal-d" />
+        <ModalContent headingId="modal-d" article={article} onClose={onClose} />
       </motion.div>
     </motion.div>
   );

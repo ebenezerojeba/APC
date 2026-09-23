@@ -5,6 +5,8 @@ import Footer from './components/Footer'
 import Home from './pages/Home'
 import Join from './pages/Join'
 import Appointment from './pages/Appointment'
+import NotFound from './pages/NotFound'
+import ScrollToTop from './components/ScrollToTop'
 
 const App = () => {
   const navigate = useNavigate();
@@ -36,12 +38,14 @@ const App = () => {
 
   return (
     <>
+      <ScrollToTop />
       <Navbar scrollToSection={scrollToSection} />
 
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/join" element={<Join />} />
         <Route path="/appointment" element={<Appointment />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       
       <Footer />

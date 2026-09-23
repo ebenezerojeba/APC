@@ -23,7 +23,18 @@ export default defineConfig([
       },
     },
     rules: {
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      /*
+        Base no-unused-vars cannot see JSX usage, so `motion` (used only as
+        <motion.div>) was reported as unused in 14 files, and `Icon` — pulled
+        out of props, so an arg rather than a var — fell outside
+        varsIgnorePattern. Between them, 22 false positives were burying two
+        genuine errors. eslint-plugin-react's jsx-uses-vars is the principled
+        fix; these patterns avoid the extra dependency.
+      */
+      'no-unused-vars': ['error', {
+        varsIgnorePattern: '^([A-Z_]|motion$)',
+        argsIgnorePattern: '^([A-Z_]|_)',
+      }],
     },
   },
 ])
