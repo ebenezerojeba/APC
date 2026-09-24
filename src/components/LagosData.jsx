@@ -4,11 +4,15 @@
   Shaped for the CMS the brief describes (label / value / context / source /
   year / order / isActive) so these can move to MongoDB without a rewrite.
 
-  The voter and polling-unit counts are INEC's 2023 general election records.
-  They are historical and are labelled as such on screen: continuous voter
-  registration means the current roll differs, and presenting a 2023 count as
-  today's electorate would be a false claim. Replace `value` and `year` only
-  with a figure that can be sourced.
+  Figures are labelled INEC 2026 at the client's instruction — they confirmed
+  these are 2026 records, not 2023 ones.
+
+  WORTH CHECKING: 7,060,195 and 13,325 are the counts most widely published
+  for the 2023 general election. If the 2026 roll differs, the VALUES need
+  updating too, not just the year — a 2023 number under a 2026 label is the
+  one failure mode this section exists to avoid. Per the timetable, INEC
+  publishes the official register for 2027 on 15 Dec 2026, so the roll is
+  still moving.
 */
 const FIGURES = [
   {
@@ -17,8 +21,8 @@ const FIGURES = [
     unit: 'M',
     label: 'Registered voters',
     context: 'Lagos State',
-    source: 'INEC · 2023 general election',
-    historical: true,
+    source: 'INEC — 2026 Voters in Lagos State',
+    historical: false,
     order: 1,
     isActive: true,
   },
@@ -28,8 +32,8 @@ const FIGURES = [
     unit: '',
     label: 'Polling units',
     context: 'Lagos State',
-    source: 'INEC · 2023 general election',
-    historical: true,
+    source: 'INEC — 2026, Lagos State',
+    historical: false,
     order: 2,
     isActive: true,
   },
@@ -96,12 +100,11 @@ const LagosData = () => (
         ))}
       </dl>
 
-      {active.some((f) => f.historical) && (
-        <p className="mt-8 max-w-2xl text-[11px] leading-relaxed text-white/30">
-          Voter and polling-unit figures are INEC records from the 2023 general election and are
-          shown for scale. Continuous voter registration means the current roll differs.
-        </p>
-      )}
+      <p className="mt-8 max-w-2xl text-[11px] leading-relaxed text-white/30">
+        Voter and polling-unit figures are INEC records for Lagos State. Continuous voter
+        registration remains open — the official register for the 2027 general election is
+        published by the Commission on 15 December 2026.
+      </p>
     </div>
 
     {/* Hand-off into the white section below, so the cut is not abrupt. */}

@@ -13,7 +13,6 @@ import oj7 from './ojelabi7.jpeg';
 import oj8 from './ojelabi8.jpeg';
 import oj9 from './ojelabi9.jpeg';
 import oj10 from './ojelabi10.jpg';
-import oj11 from './ojelabi11.jpeg';
 import oj12 from './ojelabi12.jpg';
 import oj13 from './ojelabi13.jpg';
 import oj14 from './ojelabi14.jpeg';
@@ -42,7 +41,6 @@ import oj36 from './ojelabi36.jpeg';
 import oj37 from './ojelabi37.jpeg';
 import oj38 from './ojelabi38.jpeg';
 import oj39 from './ojelabi39.jpeg';
-import oj40 from './ojelabi40.jpeg';
 import chair1 from './oj1.jpeg';
 import chair2 from './oj2.jpeg';
 import chair3 from './oj3.jpeg';
@@ -79,7 +77,6 @@ export default {
     oj8,
     oj9,
     oj10,
-    oj11,
     oj12,
     oj13,
     oj14,
@@ -108,7 +105,6 @@ export default {
     oj37,
     oj38,
     oj39,
-    oj40,
     apc,
     apc2,
     chair1,

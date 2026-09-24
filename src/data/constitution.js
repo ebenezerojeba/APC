@@ -1,6 +1,18 @@
 /*
-  APC Constitution — content transcribed verbatim from the supplied document,
-  public/APC-Constitution-Refined.docx.
+  APC Constitution.
+
+  TWO DOCUMENTS ARE IN PLAY, AND THE DIFFERENCE MATTERS:
+
+  - public/APC-Constitution.pdf is the authoritative full text, 49 pages. It
+    is what visitors read in the embedded viewer and what they download.
+  - The SECTIONS below were transcribed verbatim from the earlier supplied
+    summary (APC-Constitution-Refined.docx, since removed). They are an
+    overview of key provisions, NOT the complete Constitution.
+
+  So SECTIONS must never be presented as the whole document. The page labels
+  them as an overview and points to the PDF for the full text. The PDF's own
+  text could not be extracted for comparison — it uses subset-embedded fonts
+  with CID encoding — so the two have not been reconciled line by line.
 
   Rules this file follows, and that edits should keep following:
 
@@ -19,12 +31,72 @@ export const CONSTITUTION_META = {
   title: 'APC Constitution',
   description:
     'The constitutional framework of the All Progressives Congress — its aims and objectives, the obligations and rights of members, how the Party is organised, and the powers of its organs.',
-  fileName: 'APC-Constitution-Refined.docx',
-  fileUrl: '/APC-Constitution-Refined.docx',
-  fileType: 'DOCX',
-  fileSize: '17.8 KB',
+  fileName: 'APC-Constitution.pdf',
+  fileUrl: '/APC-Constitution.pdf',
+  fileType: 'PDF',
+  fileSize: '242 KB',
+  pages: 49,
   category: 'Official Party Document',
 };
+
+/*
+  Other documents held in public/. Listed only because the files exist —
+  nothing here is aspirational. Sizes are the real byte counts.
+*/
+export const DOCUMENTS = [
+  {
+    id: 'final-publication',
+    title: 'APC Lagos State — Final Publication',
+    fileUrl: '/APC-Lagos-Final-Publication.pdf',
+    fileName: 'APC-Lagos-Final-Publication.pdf',
+    fileType: 'PDF',
+    fileSize: '12.4 MB',
+    order: 1,
+    isActive: true,
+  },
+  {
+    id: 'ra-composition',
+    title: 'Lagos State RA Composition',
+    description: 'Registration Area (ward) composition across Lagos State.',
+    fileUrl: '/Lagos-State-RA-Composition.xlsx',
+    fileName: 'Lagos-State-RA-Composition.xlsx',
+    fileType: 'XLSX',
+    fileSize: '21 KB',
+    order: 2,
+    isActive: true,
+  },
+  {
+    id: 'election-timetable',
+    title: '2027 General Election Timetable',
+    description: 'INEC timetable of activities for the 2027 general election.',
+    fileUrl: '/General-Election-Timetable-2027.docx',
+    fileName: 'General-Election-Timetable-2027.docx',
+    fileType: 'DOCX',
+    fileSize: '16 KB',
+    order: 3,
+    isActive: true,
+  },
+  {
+    id: 'electoral-act',
+    title: 'Electoral Act',
+    fileUrl: '/ElectoralAct2026.pdf',
+    fileName: 'ElectoralAct2026.pdf',
+    fileType: 'PDF',
+    fileSize: '1.4 MB',
+    order: 4,
+    isActive: true,
+  },
+  {
+    id: 'state-officers',
+    title: '2026 State Officers',
+    fileUrl: '/LIST_OF_2026_STATE_OFFICERS.pdf',
+    fileName: 'LIST_OF_2026_STATE_OFFICERS.pdf',
+    fileType: 'PDF',
+    fileSize: '47 KB',
+    order: 5,
+    isActive: true,
+  },
+].filter((d) => d.isActive).sort((a, b) => a.order - b.order);
 
 export const MOTTO = 'JUSTICE, PEACE AND UNITY';
 export const SLOGAN = 'CHANGE';

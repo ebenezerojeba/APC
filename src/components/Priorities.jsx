@@ -16,8 +16,7 @@ import { ArrowRight } from 'lucide-react';
 */
 
 const LEAD =
-  'A party is only as strong as its weakest ward. My job is not to speak for Lagos — the people we elect do that. It is to make sure the structure that puts them there is honest, organised, and answerable.';
-
+ 'I have a responsibility to safeguard the party, promote unity and cohesion, and ensure that we remain focused and fully prepared for the 2027 General Elections.';
 const PRIORITIES = [
   {
     title: 'Structure to the last polling unit',
@@ -28,8 +27,9 @@ const PRIORITIES = [
     body: 'A verified register, kept current and held digitally, so the party knows who its members are and where they vote. A party that cannot count its own members cannot plan for them.',
   },
   {
-    title: 'Primaries that settle arguments',
-    body: 'Congresses and primaries run to a published rulebook, with results aspirants can accept. Most defections begin with a primary somebody could not trust; a grievance heard early costs far less than a court case later.',
+    title: 'Effective Dispute Resolution Mechanism',
+    body: 'We have a system for resolving issues within our party. Our congress and primaries are conducted transparently in line with established rules and procedures, mechanisms for addressing grievances promptly and fairly. By resolving disputes early and maintaining confidence in our processes, we can strengthen unity, cohesion, and trust within the party'
+    // body: 'Congresses and primaries run to a published rulebook, with results aspirants can accept. Most defections begin with a primary somebody could not trust; a grievance heard early costs far less than a court case later.',
   },
   {
     title: 'A party that answers to Lagosians',

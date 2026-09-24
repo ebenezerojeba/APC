@@ -129,8 +129,8 @@ const ConstitutionPage = () => {
             <div className="flex items-center gap-3 text-white/55">
               <FileText size={18} className="shrink-0 text-[#D4A574]" />
               <span className="text-xs">
-                {CONSTITUTION_META.fileType} · {CONSTITUTION_META.fileSize} ·{' '}
-                {CONSTITUTION_META.category}
+                {CONSTITUTION_META.fileType} · {CONSTITUTION_META.pages} pages ·{' '}
+                {CONSTITUTION_META.fileSize} · {CONSTITUTION_META.category}
               </span>
             </div>
             <a
@@ -145,8 +145,64 @@ const ConstitutionPage = () => {
         </div>
       </header>
 
-      {/* ── Body ────────────────────────────────────────────────────── */}
+      {/* ── The document itself ─────────────────────────────────────────
+          A PDF, so it can be read in place. Nobody should have to download a
+          49-page file to find out what is in it. */}
+      <section aria-label="Constitution document viewer" className="bg-gray-100 px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+        <div className="mx-auto max-w-5xl">
+          <div className="mb-4 flex flex-wrap items-baseline justify-between gap-2">
+            <h2 className="text-[10px] font-bold uppercase tracking-[0.25em] text-gray-500">
+              Read the full document
+            </h2>
+            <a
+              href={CONSTITUTION_META.fileUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[11px] font-bold uppercase tracking-[0.15em] text-[#008A44] underline-offset-4 outline-none hover:underline focus-visible:underline"
+            >
+              Open in new tab
+            </a>
+          </div>
+
+          <object
+            data={`${CONSTITUTION_META.fileUrl}#view=FitH`}
+            type="application/pdf"
+            aria-label={`${CONSTITUTION_META.title}, ${CONSTITUTION_META.pages} pages`}
+            className="h-[60vh] max-h-[760px] min-h-[420px] w-full border border-gray-300 bg-white"
+          >
+            {/* Shown when the browser has no inline PDF plugin — common on
+                older mobile browsers, so it must stay useful, not decorative. */}
+            <div className="flex h-full flex-col items-center justify-center gap-4 p-8 text-center">
+              <FileText size={28} className="text-gray-400" />
+              <p className="max-w-sm text-sm leading-relaxed text-gray-600">
+                Your browser cannot display PDFs inline. Open or download the document to read it.
+              </p>
+              <a
+                href={CONSTITUTION_META.fileUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-11 items-center gap-2 bg-[#008A44] px-6 py-3 text-[11px] font-black uppercase tracking-[0.2em] text-white"
+              >
+                Open the document
+              </a>
+            </div>
+          </object>
+        </div>
+      </section>
+
+      {/* ── Overview of key provisions ──────────────────────────────── */}
       <div className="mx-auto max-w-5xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
+        <div className="mb-10 border-l-2 border-[#D4A574] pl-4">
+          <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-gray-900">
+            Overview of key provisions
+          </h2>
+          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-gray-500">
+            A structured summary of the Party&apos;s aims, the obligations and rights of members,
+            how it is organised and the powers of its organs. This is an overview — the full
+            Constitution is the {CONSTITUTION_META.pages}-page document above.
+          </p>
+        </div>
+
         <div className="lg:flex lg:gap-14">
 
           {/* Contents — sticky on desktop, a native disclosure on mobile */}
@@ -229,8 +285,9 @@ const ConstitutionPage = () => {
             ))}
 
             <p className="mt-10 border-t border-gray-200 pt-6 text-xs leading-relaxed text-gray-400">
-              Provisions reproduced from {CONSTITUTION_META.fileName}. Text is presented as supplied,
-              without paraphrase or interpretation. Download the document above for the source.
+              Provisions are reproduced as supplied, without paraphrase or interpretation. This
+              overview does not reproduce the Constitution in full — refer to{' '}
+              {CONSTITUTION_META.fileName} above for the complete text.
             </p>
           </div>
         </div>

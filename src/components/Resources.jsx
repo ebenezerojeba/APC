@@ -1,29 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, Download, FileText } from 'lucide-react';
 
-import { CONSTITUTION_META, SECTIONS } from '../data/constitution';
-
-/*
-  Only documents that actually exist in the project are listed. The two PDFs
-  ship in public/ alongside the Constitution; anything else belongs here only
-  once its file does.
-*/
-const OTHER_DOCUMENTS = [
-  {
-    title: 'Electoral Act',
-    fileUrl: '/ElectoralAct2026.pdf',
-    fileName: 'ElectoralAct2026.pdf',
-    fileType: 'PDF',
-    fileSize: '1.4 MB',
-  },
-  {
-    title: '2026 State Officers',
-    fileUrl: '/LIST_OF_2026_STATE_OFFICERS.pdf',
-    fileName: 'LIST_OF_2026_STATE_OFFICERS.pdf',
-    fileType: 'PDF',
-    fileSize: '47 KB',
-  },
-];
+import { CONSTITUTION_META, SECTIONS, DOCUMENTS } from '../data/constitution';
 
 const Resources = () => (
   <section id="resources" className="bg-white py-20 sm:py-28">
@@ -58,8 +36,8 @@ const Resources = () => (
           <div className="mt-7 flex items-center gap-3 border-y border-gray-200 py-3.5 text-xs text-gray-500">
             <FileText size={16} className="shrink-0 text-[#008A44]" />
             <span>
-              {CONSTITUTION_META.fileType} · {CONSTITUTION_META.fileSize} ·{' '}
-              {CONSTITUTION_META.category}
+              {CONSTITUTION_META.fileType} · {CONSTITUTION_META.pages} pages ·{' '}
+              {CONSTITUTION_META.fileSize}
             </span>
           </div>
 
@@ -113,7 +91,7 @@ const Resources = () => (
             Also available
           </p>
           <ul className="mt-5 border-t border-gray-200">
-            {OTHER_DOCUMENTS.map((doc) => (
+            {DOCUMENTS.map((doc) => (
               <li key={doc.fileName}>
                 <a
                   href={doc.fileUrl}

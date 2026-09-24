@@ -1,0 +1,25 @@
+P | 2027 GENERAL ELECTION TIMETABLE
+ROW | DATE || ACTIVITY
+ROW | 11th Feb. 2026 || Notice of Election
+ROW | 1st - 21st Apr. 2026 || Submission of Political Parties'Register to the commission
+ROW | 23rd Apr - 30th May 2026 || Conduct of Party Primaries and Resolution of Disputes
+ROW | 27th Jun. - 11th Jul. 2026 || Presidential and National AssemblySubmission of Forms EC9, EC9A, 9B and 9E on online nomination portal
+ROW | 18th Jul. - 8th Aug. 2026 || Governorship and State AssemblySubmission of Forms EC9, EC9A, 9B and 9E on online nomination portal
+ROW | 1st Aug. 2026 || Presidential and National AssemblyPublication of Personal Particulars of Candidates (EC9)by the commission
+ROW | 19th Aug. 2026 || Presidential and National AssemblyCommencement of Campaign by Political Parties in Public
+ROW | 22nd Aug. 2026 || Presidential and National Assembly Last day for withdrawal by candidate(s)/replacement ofwithdrawn candidate(s) by Political Parties
+ROW | 29th Aug. 2026 || Governorship and State House of AssemblyPublication of Personal Particulars of Candidates (EC9) by the commission
+ROW | 29th Aug. 2026 || Presidential and National AssemblyLast day for submission of Nomination forms (EC13A, 13B, 13C, 13D and
+ROW | 9th Sep. 2026 || Governorship and State House of AssemblyCommencement of Campaign by Political Parties
+ROW | 12th Sep. 2026 || Presidential and National AssemblyPublication of final list of nominated candidates by the commission
+ROW | 19th Sep. 2026 || Governorship and State House of AssemblyLast day for withdrawal by candidate(s)/replacement of withdrawn candidate(s) by Political parties
+ROW | 26th Sep. 2026 || Governorship and State Houses of AssemblyLast day for submission of Nomination forms (EC13A, 13B, 13C, 13D and 13E) by Political Parties
+ROW | 10th Oct. 2026 || Governorship and State House of AssemblyPublication of final list of nominated candidates by the Commission
+ROW | 10th Dec. 2026 || Presidential and National AssemblyLast day for submission of names of polling agents to the Electoral Officer of the Local Government Area by Political Parties
+ROW | 15th Dec. 2026 || Publication of the official register of voters by the commission
+ROW | 29th Dec. 2026 || Publication of Notice of Poll by the commission
+ROW | 6th Jan. 2027 || Governorship and State House of AssemblyLast day for submission of names of polling agents to the Electoral Officer of the Local Government Area by Political Parties
+ROW | 14th Jan. 2027 || Presidential and National AssemblyLast day of Campaign by political parties
+ROW | 16th Jan. 2027 || Presidential and National AssemblyDate of Election
+ROW | 4th Feb. 2027 || Governorship and State House of AssemblyLast day for campaigns by Political Parties
+ROW | 6th Feb. 2027 || Governorship and State House of AssemblyDate of Election
