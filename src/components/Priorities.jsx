@@ -20,7 +20,7 @@ const LEAD =
 const PRIORITIES = [
   {
     title: 'Structure to the last polling unit',
-    body: 'Lagos is won and lost at the polling unit, not the podium. Every ward executive active, reachable and accountable for its own units — not a name on a list at the secretariat.',
+    body: 'Lagos is won and lost at the polling unit, not the podium. Every ward executive active, reachable and accountable for its own units, not a name on a list at the secretariat.',
   },
   {
     title: 'A membership register worth the name',
@@ -33,7 +33,7 @@ const PRIORITIES = [
   },
   {
     title: 'A party that answers to Lagosians',
-    body: 'Structure exists to serve residents, not itself. Ward-level channels that carry complaints up to the officials we elected — and report back on what came of them.',
+    body: 'Structure exists to serve residents, not itself. Ward-level channels that carry complaints up to the officials we elected, and report back on what came of them.',
   },
 ];
 

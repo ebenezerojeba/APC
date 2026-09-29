@@ -39,7 +39,7 @@ const Gallery = () => {
             Moments
           </h2>
           <p className="mt-5 max-w-xl leading-relaxed text-white/60">
-            {PHOTOS.length} photographs from the Chairman&apos;s work across Lagos State — at the
+            {PHOTOS.length} photographs from the Chairman&apos;s work across Lagos State: at the
             podium, in the field, and around the table.
           </p>
         </header>

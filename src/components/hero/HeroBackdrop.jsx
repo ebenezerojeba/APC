@@ -17,8 +17,20 @@ const HeroBackdrop = ({ index, reducedMotion }) => {
   const next = (index + 1) % count;
   const isMounted = (i) => i === index || i === next || i === prev;
 
+  /*
+    Below sm the frame is a band across the top, not the whole viewport, and
+    the photograph is CONTAINED inside it.
+
+    These are 3:2 landscapes. Filling a ~0.46 phone viewport with object-cover
+    threw away roughly 70% of the width, which cut the Chairman out of the
+    frame he shares with the President entirely. Containing it keeps every
+    subject in shot; the copy then sits on solid ground beneath.
+  */
   return (
-    <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
+    <div
+      className="absolute inset-x-0 top-0 h-[38vh] overflow-hidden sm:inset-0 sm:h-auto"
+      aria-hidden="true"
+    >
       {HERO_SLIDES.map((slide, i) => {
         const active = i === index;
         if (!isMounted(i)) return null;
@@ -32,15 +44,20 @@ const HeroBackdrop = ({ index, reducedMotion }) => {
             fetchPriority={i === 0 ? 'high' : 'low'}
             loading={i === 0 ? 'eager' : 'lazy'}
             decoding="async"
-            className="absolute inset-0 h-full w-full object-cover will-change-transform"
+            className="absolute inset-0 h-full w-full scale-100 object-contain object-top will-change-transform sm:scale-[var(--kb)] sm:object-cover sm:object-[var(--focus)]"
             style={{
-              objectPosition: slide.focus,
-              opacity: active ? 1 : 0,
+              // Custom property so the per-slide focal point applies only from
+              // sm up, where the image is cropped; an inline objectPosition
+              // would also hit the contained mobile frame.
+              '--focus': slide.focus,
               // Ken Burns: the slow push only runs while the slide is showing.
-              transform: reducedMotion ? 'none' : `scale(${active ? 1.075 : 1})`,
+              // Applied from sm up only — scaling a CONTAINED image would push
+              // it past the clip and undo the point of containing it.
+              '--kb': reducedMotion || !active ? 1 : 1.075,
+              opacity: active ? 1 : 0,
               transition: reducedMotion
                 ? `opacity ${FADE_MS}ms ease`
-                : `opacity ${FADE_MS}ms ease, transform ${SLIDE_MS + FADE_MS}ms linear`,
+                : `opacity ${FADE_MS}ms ease, scale ${SLIDE_MS + FADE_MS}ms linear`,
             }}
           />
         );

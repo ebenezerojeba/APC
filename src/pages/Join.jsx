@@ -169,7 +169,7 @@ const SuccessScreen = ({ name, lga, onReset }) => {
                 {[
              
                   ['Step 1', 'A representative will contact you to verify'],
-                  ['Step 2', 'Membership activated — you\'re officially in'],
+                  ['Step 2', 'Membership activated. You\'re officially in'],
                 ].map(([label, text], i) => (
                   <div key={i} className="flex items-start gap-3">
                     <span className={`mt-0.5 shrink-0 text-[10px] font-black px-2 py-0.5 rounded-sm
@@ -321,7 +321,7 @@ const Join = () => {
                 <span className="text-[#006B3F]">The Progress</span>
               </h2>
               <p className="text-lg text-gray-500 mb-10 leading-relaxed">
-                The Lagos APC is more than a party — it is a movement of over 4 million
+                The Lagos APC is more than a party. It is a movement of over 4 million
                 Lagosians. Volunteer and help shape a greater state.
               </p>
 

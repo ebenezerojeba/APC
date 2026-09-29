@@ -4,7 +4,7 @@ import {
   MapPin, Phone, Mail, ArrowUpRight, Facebook, Twitter, Instagram,
   CheckCircle2, Loader2, ChevronRight,
 } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 /* ─────────────────────────────────────────────
    DATA
@@ -302,7 +302,7 @@ function NewsletterForm() {
             exit={{ opacity: 0 }}
             style={{ marginTop: '0.75rem', fontSize: '0.78rem', color: '#4ade80', fontWeight: 600 }}
           >
-            Welcome aboard — expect your first briefing shortly.
+            Welcome aboard. Expect your first briefing shortly.
           </motion.p>
         )}
       </AnimatePresence>
@@ -498,9 +498,35 @@ const Contact = () => {
                 paddingBottom: isMobile ? 0 : '0.5rem',
               }}
             >
-              Questions, partnerships, or press enquiries — reach out to the APC Lagos State administrative office directly.
+              For questions, partnerships or press enquiries, reach out to the APC Lagos State administrative office directly.
+              {' '}To meet the Chairman in person, request an appointment below.
             </motion.p>
           </div>
+
+          {/* Booking is the highest-intent action on this section, so it gets
+              its own line rather than sitting inside the contact card list. */}
+          <Link
+            to="/appointment"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              minHeight: 44,
+              padding: '0.75rem 1.75rem',
+              marginBottom: '2.5rem',
+              background: '#008A44',
+              color: '#fff',
+              fontSize: '0.7rem',
+              fontWeight: 900,
+              letterSpacing: '0.2em',
+              textTransform: 'uppercase',
+              textDecoration: 'none',
+              borderRadius: 9999,
+            }}
+          >
+            Request an appointment
+            <ArrowUpRight size={15} />
+          </Link>
 
           {/* ═══════════ BODY GRID ═══════════ */}
           <div style={{

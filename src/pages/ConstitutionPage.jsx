@@ -198,7 +198,7 @@ const ConstitutionPage = () => {
           </h2>
           <p className="mt-2 max-w-2xl text-sm leading-relaxed text-gray-500">
             A structured summary of the Party&apos;s aims, the obligations and rights of members,
-            how it is organised and the powers of its organs. This is an overview — the full
+            how it is organised and the powers of its organs. This is an overview. The full
             Constitution is the {CONSTITUTION_META.pages}-page document above.
           </p>
         </div>
@@ -286,7 +286,7 @@ const ConstitutionPage = () => {
 
             <p className="mt-10 border-t border-gray-200 pt-6 text-xs leading-relaxed text-gray-400">
               Provisions are reproduced as supplied, without paraphrase or interpretation. This
-              overview does not reproduce the Constitution in full — refer to{' '}
+              overview does not reproduce the Constitution in full. Refer to{' '}
               {CONSTITUTION_META.fileName} above for the complete text.
             </p>
           </div>

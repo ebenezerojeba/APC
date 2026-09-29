@@ -19,7 +19,7 @@ const Navbar = ({ scrollToSection }) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'about', 'priorities', 'news', 'events', 'contact'];
+      const sections = ['home', 'about', 'priorities', 'gallery', 'news', 'events', 'road-ahead', 'resources', 'contact'];
       const current = sections.find(section => {
         const element = document.getElementById(section);
         if (element) {
@@ -36,11 +36,25 @@ const Navbar = ({ scrollToSection }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = ['Home', 'About', 'Priorities', 'News', 'Events', 'Contact'];
+  /*
+    Label and id are separate now: "2027" scrolls to #road-ahead, "Documents"
+    to #resources. Deriving the id from the label silently broke both.
+    NAV_FULL is the mobile list; the desktop bar shows a subset that fits.
+  */
+  const NAV_FULL = [
+    { label: 'About', id: 'about' },
+    { label: 'Priorities', id: 'priorities' },
+    { label: 'Gallery', id: 'gallery' },
+    { label: 'News', id: 'news' },
+    { label: 'Events', id: 'events' },
+    { label: '2027', id: 'road-ahead' },
+    { label: 'Documents', id: 'resources' },
+    { label: 'Contact', id: 'contact' },
+  ];
+  const NAV_DESKTOP = NAV_FULL.filter((n) => n.id !== 'events' && n.id !== 'resources');
 
   // FIXED: Explicitly handle scrolling and state
-  const handleNavClick = (item) => {
-    const id = item.toLowerCase();
+  const handleNavClick = (id) => {
     scrollToSection(id);
     setActiveSection(id); // Immediate UI feedback
     setMobileMenuOpen(false);
@@ -68,34 +82,43 @@ const Navbar = ({ scrollToSection }) => {
   />
 </motion.div>
           {/* Desktop Navigation */}
-          <ul className="hidden lg:flex space-x-6">
-            {navLinks.map((item) => (
-              <li key={item}>
+          <ul className="hidden lg:flex lg:space-x-4 xl:space-x-6">
+            {NAV_DESKTOP.map(({ label, id }) => (
+              <li key={id}>
                 <button
-                  onClick={() => handleNavClick(item)}
-                  className={`px-2 py-1 font-bold text-sm uppercase transition-colors relative group ${
-                    activeSection === item.toLowerCase() ? 'text-[#008A44]' : 'text-gray-600 hover:text-[#008A44]'
+                  onClick={() => handleNavClick(id)}
+                  className={`px-1.5 py-1 font-bold text-sm uppercase transition-colors relative group ${
+                    activeSection === id ? 'text-[#008A44]' : 'text-gray-600 hover:text-[#008A44]'
                   }`}
                 >
-                  {item}
+                  {label}
                   {/* Underline Indicator */}
                   <span className={`absolute bottom-0 left-0 h-0.5 bg-amber-400 transition-all duration-300 ${
-                    activeSection === item.toLowerCase() ? 'w-full' : 'w-0 group-hover:w-full'
+                    activeSection === id ? 'w-full' : 'w-0 group-hover:w-full'
                   }`} />
                 </button>
               </li>
             ))}
           </ul>
 
-          {/* CTA Button */}
-          <motion.button
-            onClick={() => navigate('/join')}
-            className="hidden lg:block bg-[#008A44] cursor-pointer text-white px-6 py-2.5 rounded-full font-bold text-sm shadow-md hover:bg-emerald-800 transition-all"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            VOLUNTEER
-          </motion.button>
+          {/* CTAs — booking is a primary action, so it lives in the bar and
+              is reachable from every page, not buried in one section. */}
+          <div className="hidden lg:flex items-center gap-2.5">
+            <button
+              onClick={() => navigate('/appointment')}
+              className="cursor-pointer whitespace-nowrap rounded-full border-2 border-[#008A44] px-5 py-2 text-sm font-bold text-[#008A44] transition-colors hover:bg-[#008A44] hover:text-white focus-visible:ring-2 focus-visible:ring-[#008A44] focus-visible:ring-offset-2"
+            >
+              APPOINTMENT
+            </button>
+            <motion.button
+              onClick={() => navigate('/join')}
+              className="bg-[#008A44] cursor-pointer whitespace-nowrap text-white px-5 py-2.5 rounded-full font-bold text-sm shadow-md hover:bg-emerald-800 transition-all"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              VOLUNTEER
+            </motion.button>
+          </div>
 
           {/* Mobile Menu Toggle */}
           <button
@@ -117,24 +140,26 @@ const Navbar = ({ scrollToSection }) => {
             className="absolute top-full left-0 right-0 bg-white border-b-4 border-amber-400 shadow-2xl lg:hidden"
           >
             <div className="p-6 flex flex-col gap-4">
-              {navLinks.map((item) => (
+              {NAV_FULL.map(({ label, id }) => (
                 <button
-                  key={item}
-                  onClick={() => handleNavClick(item)}
-                  className={`text-left py-3 text-sm font-black uppercase border-b border-gray-100 ${
-                    activeSection === item.toLowerCase() ? 'text-[#008A44]' : 'text-gray-600'
+                  key={id}
+                  onClick={() => handleNavClick(id)}
+                  className={`text-left min-h-11 py-3 text-sm font-black uppercase border-b border-gray-100 ${
+                    activeSection === id ? 'text-[#008A44]' : 'text-gray-600'
                   }`}
                 >
-                  {item}
+                  {label}
                 </button>
               ))}
               <button
-                onClick={() =>{
-                  setMobileMenuOpen(false)
-                  navigate('/join') 
-                }  }
-                className="mt-4 bg-amber-400 cursor-pointer text-gray-900 py-4 rounded-xl font-black uppercase text-center"
-              
+                onClick={() => { setMobileMenuOpen(false); navigate('/appointment'); }}
+                className="mt-4 min-h-11 cursor-pointer rounded-xl border-2 border-[#008A44] py-4 text-center font-black uppercase text-[#008A44]"
+              >
+                Book an Appointment
+              </button>
+              <button
+                onClick={() => { setMobileMenuOpen(false); navigate('/join'); }}
+                className="min-h-11 bg-amber-400 cursor-pointer text-gray-900 py-4 rounded-xl font-black uppercase text-center"
               >
                 Become a Member
               </button>

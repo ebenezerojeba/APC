@@ -60,7 +60,7 @@ const Hero = () => {
       </div>
 
       {/* ── Composition ─────────────────────────────────────────────── */}
-      <div className="relative z-10 mx-auto flex w-full max-w-[1500px] flex-1 flex-col justify-end px-5 pb-10 pt-28 sm:px-8 sm:pb-12 lg:px-20 lg:pb-16">
+      <div className="relative z-10 mx-auto flex w-full max-w-[1500px] flex-1 flex-col justify-end px-5 pb-10 pt-[calc(38vh+1.5rem)] sm:px-8 sm:pb-12 sm:pt-28 lg:px-20 lg:pb-16">
 
         <div className="max-w-3xl">
           <div className="mb-6 flex items-center gap-3 sm:mb-8">

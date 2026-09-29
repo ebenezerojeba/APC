@@ -21,7 +21,7 @@ const FIGURES = [
     unit: 'M',
     label: 'Registered voters',
     context: 'Lagos State',
-    source: 'INEC — 2026 Voters in Lagos State',
+    source: 'Source: INEC, 2026',
     historical: false,
     order: 1,
     isActive: true,
@@ -32,7 +32,7 @@ const FIGURES = [
     unit: '',
     label: 'Polling units',
     context: 'Lagos State',
-    source: 'INEC — 2026, Lagos State',
+    source: 'Source: INEC, 2026',
     historical: false,
     order: 2,
     isActive: true,
@@ -102,8 +102,8 @@ const LagosData = () => (
 
       <p className="mt-8 max-w-2xl text-[11px] leading-relaxed text-white/30">
         Voter and polling-unit figures are INEC records for Lagos State. Continuous voter
-        registration remains open — the official register for the 2027 general election is
-        published by the Commission on 15 December 2026.
+        registration remains open, and the Commission publishes the official register for the
+        2027 general election on 15 December 2026.
       </p>
     </div>
 

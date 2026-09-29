@@ -30,7 +30,7 @@
 export const CONSTITUTION_META = {
   title: 'APC Constitution',
   description:
-    'The constitutional framework of the All Progressives Congress — its aims and objectives, the obligations and rights of members, how the Party is organised, and the powers of its organs.',
+    'The constitutional framework of the All Progressives Congress: its aims and objectives, the obligations and rights of members, how the Party is organised, and the powers of its organs.',
   fileName: 'APC-Constitution.pdf',
   fileUrl: '/APC-Constitution.pdf',
   fileType: 'PDF',
@@ -46,7 +46,7 @@ export const CONSTITUTION_META = {
 export const DOCUMENTS = [
   {
     id: 'final-publication',
-    title: 'APC Lagos State — Final Publication',
+    title: 'APC Lagos State Final Publication',
     fileUrl: '/APC-Lagos-Final-Publication.pdf',
     fileName: 'APC-Lagos-Final-Publication.pdf',
     fileType: 'PDF',
