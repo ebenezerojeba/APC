@@ -28,8 +28,10 @@ const HeroBackdrop = ({ index, reducedMotion }) => {
       {HERO_SLIDES.map((slide, i) => {
         const active = i === index;
         if (!isMounted(i)) return null;
+        // display:contents so <picture> adds no box of its own and the
+        // absolutely-positioned img still resolves against the frame.
         return (
-          <picture key={slide.id}>
+          <picture key={slide.id} className="contents">
             <source media="(max-width: 639px)" srcSet={slide.mobileSrc} />
             <img
               src={slide.src}

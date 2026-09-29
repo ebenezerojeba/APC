@@ -50,7 +50,7 @@ const Priorities = () => (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
       <motion.header {...reveal} className="max-w-3xl">
-        <SectionLabel tone="green" onDark={false} className="mb-4">
+        <SectionLabel tone="green" className="mb-4">
           The Agenda
         </SectionLabel>
         <h2

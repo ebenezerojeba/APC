@@ -8,7 +8,7 @@ const Resources = () => (
   <section id="resources" className="bg-white py-20 sm:py-28">
     <div className="mx-auto max-w-[1500px] px-5 sm:px-8 lg:px-20">
 
-      <SectionLabel tone="green" onDark={false} className="mb-10 sm:mb-14">
+      <SectionLabel tone="green" className="mb-10 sm:mb-14">
         Official Documents
       </SectionLabel>
 

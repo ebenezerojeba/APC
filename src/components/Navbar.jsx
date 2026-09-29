@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import LagosMark from './LagosMark';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import assets from '../assets/assets';
@@ -63,7 +64,7 @@ const Navbar = ({ scrollToSection }) => {
   return (
     <motion.header
       style={{ backgroundColor: headerBg }}
-      className="fixed top-0 left-0 right-0 z-100 border-b-4 border-[#0B5FA5] shadow-lg backdrop-blur-md"
+      className="fixed top-0 left-0 right-0 z-100 shadow-lg backdrop-blur-md"
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
         <div className="flex justify-between items-center">
@@ -130,6 +131,9 @@ const Navbar = ({ scrollToSection }) => {
         </div>
       </nav>
 
+      {/* Lagos State colours, replacing the flat amber rule. */}
+      <LagosMark className="h-1 w-full" />
+
       {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {mobileMenuOpen && (
@@ -137,7 +141,7 @@ const Navbar = ({ scrollToSection }) => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="absolute top-full left-0 right-0 bg-white border-b-4 border-[#0B5FA5] shadow-2xl lg:hidden"
+            className="absolute top-full left-0 right-0 border-b-4 border-[#007A31] bg-white shadow-2xl lg:hidden"
           >
             <div className="p-6 flex flex-col gap-4">
               {NAV_FULL.map(({ label, id }) => (

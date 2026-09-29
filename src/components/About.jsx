@@ -44,7 +44,7 @@ const About = () => (
     <div className="mx-auto max-w-[1500px] px-5 sm:px-8 lg:px-20">
 
       <motion.div {...reveal} className="mb-12 sm:mb-16">
-        <SectionLabel tone="green" onDark={false}>Profile</SectionLabel>
+        <SectionLabel tone="green">Profile</SectionLabel>
       </motion.div>
 
       <div className="lg:flex lg:items-start lg:gap-16">
