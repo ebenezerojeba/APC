@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Download, FileText, ChevronDown } from 'lucide-react';
 
+import SectionLabel from '../components/SectionLabel';
 import {
   CONSTITUTION_META,
   SECTIONS,
@@ -91,12 +92,9 @@ const ConstitutionPage = () => {
             Back to home
           </Link>
 
-          <div className="mt-8 flex items-center gap-3">
-            <span className="h-px w-8 bg-[#D4A574]" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#D4A574] sm:text-[11px]">
-              Official Documents / 01
-            </span>
-          </div>
+          <SectionLabel as="p" tone="gold" className="mt-8">
+            Official Documents / 01
+          </SectionLabel>
 
           <h1
             className="mt-5 font-black uppercase leading-[0.9] text-white"
@@ -116,11 +114,11 @@ const ConstitutionPage = () => {
           {/* Motto and slogan, as stated at the head of the document */}
           <dl className="mt-8 flex flex-wrap gap-x-12 gap-y-5">
             <div>
-              <dt className="text-[10px] uppercase tracking-[0.25em] text-white/40">Motto</dt>
+              <dt className="text-[10px] uppercase tracking-[0.14em] text-white/40">Motto</dt>
               <dd className="mt-1 text-sm font-bold uppercase tracking-wider text-white">{MOTTO}</dd>
             </div>
             <div>
-              <dt className="text-[10px] uppercase tracking-[0.25em] text-white/40">Slogan</dt>
+              <dt className="text-[10px] uppercase tracking-[0.14em] text-white/40">Slogan</dt>
               <dd className="mt-1 text-sm font-bold uppercase tracking-wider text-[#D4A574]">{SLOGAN}</dd>
             </div>
           </dl>
@@ -151,7 +149,7 @@ const ConstitutionPage = () => {
       <section aria-label="Constitution document viewer" className="bg-gray-100 px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
         <div className="mx-auto max-w-5xl">
           <div className="mb-4 flex flex-wrap items-baseline justify-between gap-2">
-            <h2 className="text-[10px] font-bold uppercase tracking-[0.25em] text-gray-500">
+            <h2 className="text-[10px] font-bold uppercase tracking-[0.14em] text-gray-500">
               Read the full document
             </h2>
             <a

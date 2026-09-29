@@ -1,3 +1,9 @@
+import tinubuM from '../assets/gallery/ojtinubu-m.jpg';
+import rallyM from '../assets/gallery/oj5-m.jpg';
+import forumM from '../assets/gallery/oj10-m.jpg';
+import officeM from '../assets/gallery/ojelabi31-m.jpg';
+import ribbonM from '../assets/gallery/oj11-m.jpg';
+import deskM from '../assets/gallery/ojelabi39-m.jpg';
 import tinubu800 from '../assets/gallery/ojtinubu-800.jpg';
 import tinubu1280 from '../assets/gallery/ojtinubu-1280.jpg';
 import rally800 from '../assets/gallery/oj5-800.jpg';
@@ -26,6 +32,7 @@ import desk1280 from '../assets/gallery/ojelabi39-1280.jpg';
 export const HERO_SLIDES = [
   {
     id: 'leadership',
+    mobileSrc: tinubuM,
     category: 'Leadership',
     caption: 'With the President of the Federal Republic',
     src: tinubu1280,
@@ -36,6 +43,7 @@ export const HERO_SLIDES = [
   },
   {
     id: 'mobilisation',
+    mobileSrc: rallyM,
     category: 'Mobilisation',
     caption: 'Addressing party faithful across the State',
     src: rally1080,
@@ -46,6 +54,7 @@ export const HERO_SLIDES = [
   },
   {
     id: 'party',
+    mobileSrc: forumM,
     category: 'The Party',
     caption: 'Among party stakeholders and progressive governors',
     src: forum915,
@@ -56,6 +65,7 @@ export const HERO_SLIDES = [
   },
   {
     id: 'office',
+    mobileSrc: officeM,
     category: 'The Office',
     caption: 'Party business at the State secretariat',
     src: office1280,
@@ -66,6 +76,7 @@ export const HERO_SLIDES = [
   },
   {
     id: 'community',
+    mobileSrc: ribbonM,
     category: 'Community',
     caption: 'At a commissioning in the community',
     src: ribbon1080,
@@ -76,6 +87,7 @@ export const HERO_SLIDES = [
   },
   {
     id: 'consultation',
+    mobileSrc: deskM,
     category: 'Consultation',
     caption: 'Working session with party leadership',
     src: desk1280,

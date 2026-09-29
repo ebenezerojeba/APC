@@ -1,3 +1,5 @@
+import SectionLabel from './SectionLabel';
+
 /*
   Scale-of-Lagos figures.
 
@@ -56,12 +58,9 @@ const LagosData = () => (
   <section id="lagos-data" className="relative bg-[#04100A] pb-20 pt-16 sm:pb-24 sm:pt-20">
     <div className="mx-auto max-w-[1500px] px-5 sm:px-8 lg:px-20">
 
-      <div className="mb-10 flex items-center gap-3 sm:mb-14">
-        <span className="h-px w-7 bg-[#D4A574] sm:w-10" />
-        <h2 className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#D4A574] sm:text-[11px]">
-          The scale of Lagos
-        </h2>
-      </div>
+      <SectionLabel tone="gold" className="mb-10 sm:mb-14">
+        The scale of Lagos
+      </SectionLabel>
 
       <dl className="grid grid-cols-1 border-t border-white/12 sm:grid-cols-3">
         {active.map((f) => (

@@ -4,7 +4,7 @@ import { ArrowLeft } from 'lucide-react';
 const NotFound = () => (
   <main className="flex min-h-[70vh] items-center bg-[#06170D] px-5 py-24 sm:px-8">
     <div className="mx-auto w-full max-w-2xl">
-      <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#D4A574]">
+      <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#D4A574]">
         Error 404
       </p>
 

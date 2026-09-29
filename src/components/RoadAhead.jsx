@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { Download } from 'lucide-react';
 
 import { TIMETABLE, TRACKS, POLL_DATES, TIMETABLE_META } from '../data/electionTimetable';
+import SectionLabel from './SectionLabel';
 
 const FILTERS = [{ id: 'all', label: 'All activities' }, ...Object.entries(TRACKS).map(([id, label]) => ({ id, label }))];
 
@@ -23,12 +24,9 @@ const RoadAhead = () => {
     <section id="road-ahead" className="bg-[#04100A] py-20 sm:py-28">
       <div className="mx-auto max-w-[1500px] px-5 sm:px-8 lg:px-20">
 
-        <div className="mb-10 flex items-center gap-3 sm:mb-14">
-          <span className="h-px w-7 bg-[#D4A574] sm:w-10" />
-          <h2 className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#D4A574] sm:text-[11px]">
-            The Road Ahead
-          </h2>
-        </div>
+        <SectionLabel tone="gold" className="mb-10 sm:mb-14">
+          The Road Ahead
+        </SectionLabel>
 
         <div className="lg:flex lg:gap-16">
           {/* Poll dates, lifted out of the table because they are the two
@@ -43,7 +41,7 @@ const RoadAhead = () => {
             >
               2027
             </p>
-            <p className="mt-3 text-sm font-bold uppercase tracking-[0.25em] text-white/70">
+            <p className="mt-3 text-sm font-bold uppercase tracking-[0.14em] text-white/70">
               General Election
             </p>
 

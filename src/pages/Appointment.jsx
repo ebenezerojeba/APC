@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Check, Loader2, AlertCircle } from 'lucide-react';
+import SectionLabel from '../components/SectionLabel';
 
 const PURPOSE_OPTIONS = [
   'Party Affairs & Governance',
@@ -111,12 +112,9 @@ const Appointment = () => {
         </Link>
 
         <header className="mt-8">
-          <div className="flex items-center gap-3">
-            <span className="h-px w-8 bg-[#D4A574]" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#D4A574] sm:text-[11px]">
-              Office of the Chairman
-            </span>
-          </div>
+          <SectionLabel as="p" tone="gold">
+            Office of the Chairman
+          </SectionLabel>
 
           <h1
             className="mt-5 font-black uppercase leading-[0.9] text-white"

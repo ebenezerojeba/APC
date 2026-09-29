@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
+import SectionLabel from './SectionLabel';
 
 /*
   DRAFTED COPY — needs the Chairman's sign-off before it is treated as his word.
@@ -49,10 +50,9 @@ const Priorities = () => (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
       <motion.header {...reveal} className="max-w-3xl">
-        <div className="mb-4 flex items-center gap-3 text-sm font-bold uppercase tracking-widest text-[#008A44]">
-          <span className="h-1 w-8 bg-[#008A44]" />
+        <SectionLabel tone="green" onDark={false} className="mb-4">
           The Agenda
-        </div>
+        </SectionLabel>
         <h2
           className="text-4xl font-black uppercase leading-tight text-gray-900 md:text-6xl"
           style={{ fontFamily: "'Bebas Neue', 'Arial Black', sans-serif" }}

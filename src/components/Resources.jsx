@@ -2,17 +2,15 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Download, FileText } from 'lucide-react';
 
 import { CONSTITUTION_META, SECTIONS, DOCUMENTS } from '../data/constitution';
+import SectionLabel from './SectionLabel';
 
 const Resources = () => (
   <section id="resources" className="bg-white py-20 sm:py-28">
     <div className="mx-auto max-w-[1500px] px-5 sm:px-8 lg:px-20">
 
-      <div className="mb-10 flex items-center gap-3 sm:mb-14">
-        <span className="h-px w-7 bg-[#008A44] sm:w-10" />
-        <h2 className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#008A44] sm:text-[11px]">
-          Official Documents
-        </h2>
-      </div>
+      <SectionLabel tone="green" onDark={false} className="mb-10 sm:mb-14">
+        Official Documents
+      </SectionLabel>
 
       <div className="lg:flex lg:gap-16">
         {/* Feature: the Constitution */}
@@ -62,7 +60,7 @@ const Resources = () => (
 
         {/* Document structure + the other files that exist */}
         <div className="mt-14 min-w-0 flex-1 lg:mt-0">
-          <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-gray-400">
+          <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-gray-400">
             Document structure
           </p>
           <ol className="mt-5 border-t border-gray-200">
@@ -87,7 +85,7 @@ const Resources = () => (
             ))}
           </ol>
 
-          <p className="mt-10 text-[10px] font-bold uppercase tracking-[0.25em] text-gray-400">
+          <p className="mt-10 text-[10px] font-bold uppercase tracking-[0.14em] text-gray-400">
             Also available
           </p>
           <ul className="mt-5 border-t border-gray-200">

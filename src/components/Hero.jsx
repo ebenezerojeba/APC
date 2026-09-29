@@ -4,6 +4,7 @@ import { ArrowDown } from 'lucide-react';
 import { HERO_SLIDES, SLIDE_MS } from '../data/heroSlides';
 import usePrefersReducedMotion from '../hooks/usePrefersReducedMotion';
 import HeroBackdrop from './hero/HeroBackdrop';
+import SectionLabel from './SectionLabel';
 
 const scrollTo = (id) =>
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -60,15 +61,12 @@ const Hero = () => {
       </div>
 
       {/* ── Composition ─────────────────────────────────────────────── */}
-      <div className="relative z-10 mx-auto flex w-full max-w-[1500px] flex-1 flex-col justify-end px-5 pb-10 pt-[calc(38vh+1.5rem)] sm:px-8 sm:pb-12 sm:pt-28 lg:px-20 lg:pb-16">
+      <div className="relative z-10 mx-auto flex w-full max-w-[1500px] flex-1 flex-col justify-end px-5 pb-10 pt-28 sm:px-8 sm:pb-12 lg:px-20 lg:pb-16">
 
         <div className="max-w-3xl">
-          <div className="mb-6 flex items-center gap-3 sm:mb-8">
-            <span className="h-px w-7 bg-[#D4A574] sm:w-10" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#D4A574] sm:text-[11px]">
-              APC Lagos State
-            </span>
-          </div>
+          <SectionLabel as="p" tone="gold" className="mb-6 sm:mb-8">
+            APC Lagos State
+          </SectionLabel>
 
           {/* Editorial scale: three deliberately different weights and sizes. */}
           <p className="text-[11px] font-bold uppercase tracking-[0.5em] text-white/55 sm:text-sm">
@@ -131,7 +129,7 @@ const Hero = () => {
               <span className="text-[11px] tabular-nums text-white/35">
                 / {String(HERO_SLIDES.length).padStart(2, '0')}
               </span>
-              <span className="ml-1 truncate text-[10px] font-bold uppercase tracking-[0.25em] text-[#D4A574] sm:text-[11px]">
+              <span className="ml-1 truncate text-[10px] font-bold uppercase tracking-[0.14em] text-[#D4A574] sm:text-[11px]">
                 {slide.category}
               </span>
             </div>

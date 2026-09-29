@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 
 import lead800 from '../assets/gallery/ojtinubu-800.jpg';
 import lead1280 from '../assets/gallery/ojtinubu-1280.jpg';
+import SectionLabel from './SectionLabel';
 
 /*
   TODO: this section is capped by missing facts, not layout. Each step needs
@@ -42,11 +43,8 @@ const About = () => (
   <section id="about" className="bg-white py-20 sm:py-28">
     <div className="mx-auto max-w-[1500px] px-5 sm:px-8 lg:px-20">
 
-      <motion.div {...reveal} className="mb-12 flex items-center gap-3 sm:mb-16">
-        <span className="h-px w-7 bg-[#008A44] sm:w-10" />
-        <h2 className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#008A44] sm:text-[11px]">
-          Profile
-        </h2>
+      <motion.div {...reveal} className="mb-12 sm:mb-16">
+        <SectionLabel tone="green" onDark={false}>Profile</SectionLabel>
       </motion.div>
 
       <div className="lg:flex lg:items-start lg:gap-16">
@@ -78,7 +76,7 @@ const About = () => (
           </div>
 
           {/* The record: hairlines and numerals, no cards. */}
-          <p className="mt-12 text-[10px] font-bold uppercase tracking-[0.25em] text-gray-400">
+          <p className="mt-12 text-[10px] font-bold uppercase tracking-[0.14em] text-gray-400">
             The path
           </p>
 

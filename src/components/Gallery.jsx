@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 
 import { PHOTOS, CATEGORIES } from '../data/galleryPhotos';
 import Lightbox from './gallery/Lightbox';
+import SectionLabel from './SectionLabel';
 
 const Gallery = () => {
   const [filter, setFilter] = useState('all');
@@ -28,10 +29,9 @@ const Gallery = () => {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
         <header className="max-w-3xl">
-          <div className="mb-4 flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.25em] text-[#D4A574]">
-            <span className="h-px w-8 bg-[#D4A574]" />
+          <SectionLabel tone="gold" className="mb-4">
             The Archive
-          </div>
+          </SectionLabel>
           <h2
             className="text-4xl font-black uppercase leading-[0.95] text-white md:text-6xl"
             style={{ fontFamily: "'Bebas Neue', 'Arial Black', sans-serif" }}
