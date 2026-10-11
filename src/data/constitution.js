@@ -42,7 +42,63 @@ export const CONSTITUTION_META = {
 /*
   Other documents held in public/. Listed only because the files exist —
   nothing here is aspirational. Sizes are the real byte counts.
-*/
+// */
+// export const DOCUMENTS = [
+//   {
+//     id: 'final-publication',
+//     title: 'APC Lagos State Final Publication',
+//     fileUrl: '/APC-Lagos-Final-Publication.pdf',
+//     fileName: 'APC-Lagos-Final-Publication.pdf',
+//     fileType: 'PDF',
+//     fileSize: '12.4 MB',
+//     order: 1,
+//     isActive: true,
+//   },
+//   {
+//     id: 'ra-composition',
+//     title: 'Lagos State RA Composition',
+//     description: 'Registration Area (ward) composition across Lagos State.',
+//     fileUrl: '/Lagos-State-RA-Composition.xlsx',
+//     fileName: 'Lagos-State-RA-Composition.xlsx',
+//     fileType: 'XLSX',
+//     fileSize: '21 KB',
+//     order: 2,
+//     isActive: true,
+//   },
+//   {
+//     id: 'election-timetable',
+//     title: '2027 General Election Timetable',
+//     description: 'INEC timetable of activities for the 2027 general election.',
+//     fileUrl: '/General-Election-Timetable-2027.docx',
+//     fileName: 'General-Election-Timetable-2027.docx',
+//     fileType: 'DOCX',
+//     fileSize: '16 KB',
+//     order: 3,
+//     isActive: true,
+//   },
+//   {
+//     id: 'electoral-act',
+//     title: 'Electoral Act',
+//     fileUrl: '/ElectoralAct2026.pdf',
+//     fileName: 'ElectoralAct2026.pdf',
+//     fileType: 'PDF',
+//     fileSize: '1.4 MB',
+//     order: 4,
+//     isActive: true,
+//   },
+//   {
+//     id: 'state-officers',
+//     title: '2026 State Officers',
+//     fileUrl: '/LIST_OF_2026_STATE_OFFICERS.pdf',
+//     fileName: 'LIST_OF_2026_STATE_OFFICERS.pdf',
+//     fileType: 'PDF',
+//     fileSize: '47 KB',
+//     order: 5,
+//     isActive: true,
+//   },
+// ].filter((d) => d.isActive).sort((a, b) => a.order - b.order);
+
+
 export const DOCUMENTS = [
   {
     id: 'final-publication',
@@ -87,16 +143,30 @@ export const DOCUMENTS = [
     isActive: true,
   },
   {
+    id: 'inec-pvc-collection-centres',
+    title: 'INEC PVC Collection Centres',
+    description: 'PDF document containing information on PVC collection centres.',
+    fileUrl: '/INECPVCCollection-Centres.pdf',
+    fileName: 'INECPVCCollection-Centres.pdf',
+    fileType: 'PDF',
+    fileSize: 'Unknown',
+    order: 5,
+    isActive: true,
+  },
+  {
     id: 'state-officers',
     title: '2026 State Officers',
     fileUrl: '/LIST_OF_2026_STATE_OFFICERS.pdf',
     fileName: 'LIST_OF_2026_STATE_OFFICERS.pdf',
     fileType: 'PDF',
     fileSize: '47 KB',
-    order: 5,
+    order: 6,
     isActive: true,
   },
-].filter((d) => d.isActive).sort((a, b) => a.order - b.order);
+]
+  .filter((d) => d.isActive)
+  .sort((a, b) => a.order - b.order);
+
 
 export const MOTTO = 'JUSTICE, PEACE AND UNITY';
 export const SLOGAN = 'CHANGE';

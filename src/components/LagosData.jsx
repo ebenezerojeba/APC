@@ -19,7 +19,7 @@ import SectionLabel from './SectionLabel';
 const FIGURES = [
   {
     id: 'voters',
-    value: '7.06',
+    value: '7.4',
     unit: 'M',
     label: 'Registered voters',
     context: 'Lagos State',
