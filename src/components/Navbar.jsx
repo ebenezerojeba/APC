@@ -3,13 +3,15 @@ import LagosMark from './LagosMark';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import assets from '../assets/assets';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Navbar = ({ scrollToSection }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const { scrollYProgress } = useScroll();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const isActive = (id) => (pathname === '/campaign' ? id === 'campaign' : activeSection === id);
   
   // Subtle transparency effect on scroll
   const headerBg = useTransform(
@@ -20,7 +22,7 @@ const Navbar = ({ scrollToSection }) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'about', 'priorities', 'gallery', 'news', 'events', 'road-ahead', 'resources', 'contact'];
+      const sections = ['home', 'about', 'priorities', 'campaign', 'gallery', 'news', 'events', 'road-ahead', 'resources', 'contact'];
       const current = sections.find(section => {
         const element = document.getElementById(section);
         if (element) {
@@ -45,6 +47,7 @@ const Navbar = ({ scrollToSection }) => {
   const NAV_FULL = [
     { label: 'About', id: 'about' },
     { label: 'Priorities', id: 'priorities' },
+    { label: 'Campaign', id: 'campaign', route: '/campaign' },
     { label: 'Gallery', id: 'gallery' },
     { label: 'News', id: 'news' },
     { label: 'Events', id: 'events' },
@@ -56,6 +59,12 @@ const Navbar = ({ scrollToSection }) => {
 
   // FIXED: Explicitly handle scrolling and state
   const handleNavClick = (id) => {
+    const item = NAV_FULL.find((n) => n.id === id);
+    if (item?.route) {
+      navigate(item.route);
+      setMobileMenuOpen(false);
+      return;
+    }
     scrollToSection(id);
     setActiveSection(id); // Immediate UI feedback
     setMobileMenuOpen(false);
@@ -89,13 +98,13 @@ const Navbar = ({ scrollToSection }) => {
                 <button
                   onClick={() => handleNavClick(id)}
                   className={`px-1.5 py-1 font-bold text-sm uppercase transition-colors relative group ${
-                    activeSection === id ? 'text-[#008A44]' : 'text-gray-600 hover:text-[#008A44]'
+                    isActive(id) ? 'text-[#008A44]' : 'text-gray-600 hover:text-[#008A44]'
                   }`}
                 >
                   {label}
                   {/* Underline Indicator */}
                   <span className={`absolute bottom-0 left-0 h-0.5 bg-amber-400 transition-all duration-300 ${
-                    activeSection === id ? 'w-full' : 'w-0 group-hover:w-full'
+                    isActive(id) ? 'w-full' : 'w-0 group-hover:w-full'
                   }`} />
                 </button>
               </li>
@@ -149,7 +158,7 @@ const Navbar = ({ scrollToSection }) => {
                   key={id}
                   onClick={() => handleNavClick(id)}
                   className={`text-left min-h-11 py-3 text-sm font-black uppercase border-b border-gray-100 ${
-                    activeSection === id ? 'text-[#008A44]' : 'text-gray-600'
+                    isActive(id) ? 'text-[#008A44]' : 'text-gray-600'
                   }`}
                 >
                   {label}

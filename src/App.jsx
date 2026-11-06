@@ -7,6 +7,7 @@ import Join from './pages/Join'
 import Appointment from './pages/Appointment'
 import NotFound from './pages/NotFound'
 import ConstitutionPage from './pages/ConstitutionPage'
+import CampaignPage from './pages/CampaignPage'
 import ScrollToTop from './components/ScrollToTop'
 
 const App = () => {
@@ -46,6 +47,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/join" element={<Join />} />
         <Route path="/appointment" element={<Appointment />} />
+        <Route path="/campaign" element={<CampaignPage />} />
         <Route path="/resources/apc-constitution" element={<ConstitutionPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

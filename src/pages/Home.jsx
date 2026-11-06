@@ -5,6 +5,7 @@ import Priorities from '../components/Priorities'
 import Gallery from '../components/Gallery'
 import News from '../components/News'
 import Event from '../components/Event'
+import CampaignTrail from '../components/CampaignTrail'
 import RoadAhead from '../components/RoadAhead'
 import Resources from '../components/Resources'
 import Contact from '../components/Contact'
@@ -28,6 +29,7 @@ const Home = () => {
       <LagosData />
       <About />
       <Priorities />
+      <CampaignTrail />
       <Gallery />
       <News />
       <Event />
