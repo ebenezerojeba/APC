@@ -2,9 +2,9 @@ import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowDown, Star } from 'lucide-react';
 
-import { POLLS, RALLIES } from '../data/campaign';
-import { daysUntil, fmt, fmtLong, useNow } from '../components/campaign/dates';
-import Countdown from '../components/campaign/Countdown';
+import { RALLIES } from '../data/campaign';
+import { daysUntil, fmt, useNow } from '../components/campaign/dates';
+import PollCountdowns from '../components/campaign/PollCountdowns';
 import RallyTracker from '../components/campaign/RallyTracker';
 import PresidentialTour from '../components/campaign/PresidentialTour';
 import LagosTrail from '../components/campaign/LagosTrail';
@@ -24,7 +24,6 @@ const SECTIONS = [
 
 const CampaignPage = () => {
   const now = useNow();
-  const poll = POLLS.find((p) => daysUntil(p.date, now) >= 0) || POLLS.at(-1);
   const nextRally = RALLIES.find((r) => daysUntil(r.date, now) >= 0);
 
   useEffect(() => {
@@ -66,19 +65,17 @@ const CampaignPage = () => {
             <span className="text-[#4ADE80]">Campaign Trail</span>
           </motion.h1>
 
-          <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_auto] lg:items-end">
+          <div className="mt-10 grid gap-10 2xl:grid-cols-[1fr_auto] 2xl:items-end">
             <div>
-              <p className="text-[10px] font-black uppercase tracking-[0.24em] text-[#D4A574]">Countdown to the polls</p>
-              <p className="mt-2 text-lg font-bold text-white sm:text-xl">{poll.label}</p>
-              <p className="text-sm text-white/50">{fmtLong(poll.date)}</p>
-              <Countdown iso={poll.date} className="mt-5" />
+              <p className="mb-5 text-[10px] font-black uppercase tracking-[0.24em] text-white/45">Countdown to the polls</p>
+              <PollCountdowns layout="row" />
             </div>
 
             {nextRally && (
               <button
                 type="button"
                 onClick={() => jump('rallies')}
-                className="group border border-white/15 bg-white/[0.04] p-5 text-left transition-colors hover:border-[#D4A574] lg:w-80"
+                className="group border border-white/15 bg-white/[0.04] p-5 text-left transition-colors hover:border-[#D4A574] sm:max-w-md 2xl:w-80"
               >
                 <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/45">Next presidential campaign rally</p>
                 <p className="mt-2 leading-none text-white" style={{ ...BEBAS, fontSize: '2.5rem' }}>{nextRally.city}</p>

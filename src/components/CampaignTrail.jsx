@@ -2,9 +2,9 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight, Star, MapPin } from 'lucide-react';
 
-import { POLLS, RALLIES, LAGOS_ITINERARY, ZONES } from '../data/campaign';
+import { RALLIES, LAGOS_ITINERARY, ZONES } from '../data/campaign';
 import { daysUntil, fmt, relative, useNow } from './campaign/dates';
-import Countdown from './campaign/Countdown';
+import PollCountdowns from './campaign/PollCountdowns';
 import SectionLabel from './SectionLabel';
 
 const BEBAS = { fontFamily: "'Bebas Neue', 'Arial Black', sans-serif" };
@@ -16,7 +16,6 @@ const BEBAS = { fontFamily: "'Bebas Neue', 'Arial Black', sans-serif" };
 */
 const CampaignTrail = () => {
   const now = useNow();
-  const poll = POLLS.find((p) => daysUntil(p.date, now) >= 0) || POLLS.at(-1);
   const upcoming = RALLIES.filter((r) => daysUntil(r.date, now) >= 0).slice(0, 4);
   const held = RALLIES.length - RALLIES.filter((r) => daysUntil(r.date, now) >= 0).length;
   const lagos = LAGOS_ITINERARY.filter((e) => daysUntil(e.date, now) >= 0 && e.kind !== 'poll').slice(0, 3);
@@ -48,10 +47,7 @@ const CampaignTrail = () => {
               {held > 0 && ` ${held} held so far.`}
             </p>
 
-            <p className="mt-9 text-[10px] font-black uppercase tracking-[0.24em] text-[#D4A574]">
-              {poll.short} election · {fmt(poll.date, { day: 'numeric', month: 'long', year: 'numeric' })}
-            </p>
-            <Countdown iso={poll.date} className="mt-4" />
+            <PollCountdowns layout="stack" className="mt-9" />
 
             <Link
               to="/campaign"
