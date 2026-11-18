@@ -115,7 +115,7 @@ function ContactCard({ item, index }) {
   const ref    = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-40px' });
   const { isMobile } = useBreakpoint();
-  const { icon: Icon, label, sublabel, value, href, tag } = item;
+  const { icon: Icon, sublabel, value, href, tag } = item;
 
   return (
     <motion.a
