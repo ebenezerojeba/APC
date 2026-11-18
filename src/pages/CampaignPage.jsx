@@ -9,6 +9,7 @@ import RallyTracker from '../components/campaign/RallyTracker';
 import PresidentialTour from '../components/campaign/PresidentialTour';
 import LagosTrail from '../components/campaign/LagosTrail';
 import RallyGuidelines from '../components/campaign/RallyGuidelines';
+import PromiseTeaser from '../components/campaign/PromiseTeaser';
 import LagosMark from '../components/LagosMark';
 import SectionLabel from '../components/SectionLabel';
 
@@ -16,6 +17,7 @@ const BEBAS = { fontFamily: "'Bebas Neue', 'Arial Black', sans-serif" };
 const jump = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
 const SECTIONS = [
+  ['lagos-promise', 'The Lagos PROMISE'],
   ['rallies', 'Nationwide rallies'],
   ['presidential-tour', 'Presidential tour'],
   ['lagos-trail', 'Lagos itinerary'],
@@ -107,6 +109,7 @@ const CampaignPage = () => {
       </section>
       <LagosMark className="h-1.5 w-full" />
 
+      <PromiseTeaser />
       <RallyTracker />
       <PresidentialTour />
       <LagosTrail />

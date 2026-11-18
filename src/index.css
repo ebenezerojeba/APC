@@ -30,3 +30,12 @@ html {
 @media (prefers-reduced-motion: reduce) {
   .news-marquee { animation: none; }
 }
+
+/* Slow push-in on the Lagos PROMISE pillar photos. */
+@keyframes promise-zoom {
+  from { transform: scale(1.12); }
+  to { transform: scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  [class*='promise-zoom'] { animation: none !important; }
+}

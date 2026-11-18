@@ -8,6 +8,7 @@ import Appointment from './pages/Appointment'
 import NotFound from './pages/NotFound'
 import ConstitutionPage from './pages/ConstitutionPage'
 import CampaignPage from './pages/CampaignPage'
+import PromisePage from './pages/PromisePage'
 import ScrollToTop from './components/ScrollToTop'
 
 const App = () => {
@@ -48,6 +49,7 @@ const App = () => {
         <Route path="/join" element={<Join />} />
         <Route path="/appointment" element={<Appointment />} />
         <Route path="/campaign" element={<CampaignPage />} />
+        <Route path="/lagos-promise" element={<PromisePage />} />
         <Route path="/resources/apc-constitution" element={<ConstitutionPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

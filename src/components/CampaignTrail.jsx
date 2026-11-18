@@ -56,6 +56,12 @@ const CampaignTrail = () => {
               Follow the campaign
               <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
             </Link>
+            <Link
+              to="/lagos-promise"
+              className="ml-0 mt-3 inline-flex min-h-12 items-center gap-2 border border-white/25 px-7 py-3 text-[11px] font-black uppercase tracking-[0.22em] text-white transition-colors hover:border-white hover:bg-white hover:text-[#0b0b0b] sm:ml-3"
+            >
+              Read the Lagos PROMISE
+            </Link>
           </motion.div>
 
           <div className="space-y-8">
