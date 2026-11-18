@@ -17,6 +17,7 @@ import authRoutes from './routes/authRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
 import appointmentRouter from './routes/appointmentRoute.js';
 import newsRouter from './routes/newsRoute.js';
+import { newsImagePublicRouter, newsImageAdminRouter } from './routes/newsImageRoute.js';
 
 
 const app = express();
@@ -43,6 +44,9 @@ app.use(cors({
 
 // ── General Middleware ────────────────────────────────────────────
 app.use(compression());
+// Photo uploads need a bigger body than the 10 KB cap below, so they go first.
+app.use('/api/admin/news-images', newsImageAdminRouter);
+
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev', {
@@ -67,6 +71,7 @@ app.use('/api/admin/appointments', appointmentRouter);
 app.use('/api/news', newsRouter);
 // Admin CRUD
 app.use('/api/admin/news', newsRouter);
+app.use('/api/news-images', newsImagePublicRouter);
 
 // Root + Health
 app.get('/', (req, res) => res.send('API Working Perfectly'));

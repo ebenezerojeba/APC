@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import {
   Plus, Edit2, Trash2, Eye, X, Save,
   RefreshCw, Search, FileText, Tag,
-  ChevronLeft, ChevronRight, AlertCircle,
+  ChevronLeft, ChevronRight, AlertCircle, Image as ImageIcon,
 } from 'lucide-react';
 import useAuthStore from '../store/authStore.js';
 
@@ -53,6 +53,140 @@ const api = async (path, options = {}) => {
   const data = await res.json();
   if (!res.ok) throw new Error(data.message || 'Request failed');
   return data;
+};
+
+/* ── PHOTO UPLOAD ───────────────────────── */
+// Shrinks a photo in the browser (longest side 1600px, JPEG) so uploads are
+// small and fast even on mobile data, then returns it as a data URL.
+const MAX_SIDE = 1600;
+const shrinkImage = (file) => new Promise((resolve, reject) => {
+  if (!/^image\/(jpeg|png|webp|heic|heif)$/i.test(file.type) && !/\.(jpe?g|png|webp)$/i.test(file.name)) {
+    reject(new Error('Please choose a JPG, PNG or WebP photo.'));
+    return;
+  }
+  const url = URL.createObjectURL(file);
+  const img = new Image();
+  img.onload = () => {
+    const scale = Math.min(1, MAX_SIDE / Math.max(img.width, img.height));
+    const canvas = document.createElement('canvas');
+    canvas.width = Math.round(img.width * scale);
+    canvas.height = Math.round(img.height * scale);
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#fff'; // flatten transparent PNGs onto white
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    URL.revokeObjectURL(url);
+    resolve(canvas.toDataURL('image/jpeg', 0.82));
+  };
+  img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('That file could not be read as a photo.')); };
+  img.src = url;
+});
+
+const PhotoPicker = ({ value, caption, onChange, onCaption }) => {
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState('');
+  const [drag, setDrag] = useState(false);
+  const [showLink, setShowLink] = useState(false);
+  const inputRef = React.useRef(null);
+
+  const upload = async (file) => {
+    if (!file) return;
+    setErr(''); setBusy(true);
+    try {
+      const dataUrl = await shrinkImage(file);
+      const res = await api('/admin/news-images', { method: 'POST', body: JSON.stringify({ dataUrl }) });
+      onChange(res.data.url);
+    } catch (e) {
+      setErr(e.message || 'Upload failed. Please try again.');
+    } finally {
+      setBusy(false);
+      if (inputRef.current) inputRef.current.value = '';
+    }
+  };
+
+  const btn = { padding: '8px 14px', borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: 'pointer', border: `1px solid ${C.borderHi}`, background: 'transparent', color: C.text };
+
+  return (
+    <div style={{ marginBottom: 20 }}>
+      <label style={labelStyle}>Cover Photo</label>
+      <p style={{ color: C.muted, fontSize: 11, margin: '0 0 10px', lineHeight: 1.5 }}>
+        A photo of what the story is about. Landscape works best. Without one, the website shows a file photo of the Chairman.
+      </p>
+
+      {value ? (
+        <div style={{ display: 'flex', gap: 14, alignItems: 'flex-start', flexWrap: 'wrap' }}>
+          <img
+            src={value}
+            alt="Cover preview"
+            style={{ width: 260, aspectRatio: '16 / 10', objectFit: 'cover', borderRadius: 10, background: '#000', border: `1px solid ${C.border}` }}
+            onError={e => { e.currentTarget.style.opacity = 0.25; }}
+          />
+          <div style={{ flex: 1, minWidth: 220 }}>
+            <Field label="Photo Caption (optional)">
+              <input
+                value={caption || ''}
+                onChange={e => onCaption(e.target.value)}
+                maxLength={160}
+                placeholder="e.g. The Chairman at the Lagos Central rally, Onikan"
+                style={inputStyle(false)}
+              />
+            </Field>
+            <div style={{ display: 'flex', gap: 8, marginTop: 10, flexWrap: 'wrap' }}>
+              <button type="button" style={btn} disabled={busy} onClick={() => inputRef.current?.click()}>
+                {busy ? 'Uploading…' : 'Replace photo'}
+              </button>
+              <button type="button" style={{ ...btn, color: C.red, borderColor: 'rgba(248,113,113,0.35)' }} onClick={() => { onChange(''); onCaption(''); }}>
+                Remove
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div
+          role="button"
+          tabIndex={0}
+          onClick={() => !busy && inputRef.current?.click()}
+          onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && inputRef.current?.click()}
+          onDragOver={e => { e.preventDefault(); setDrag(true); }}
+          onDragLeave={() => setDrag(false)}
+          onDrop={e => { e.preventDefault(); setDrag(false); upload(e.dataTransfer.files?.[0]); }}
+          style={{
+            border: `2px dashed ${drag ? C.green : C.borderHi}`,
+            background: drag ? 'rgba(34,197,94,0.06)' : C.surface,
+            borderRadius: 12, padding: '28px 16px', textAlign: 'center', cursor: busy ? 'wait' : 'pointer',
+            transition: 'all .15s',
+          }}
+        >
+          <ImageIcon size={26} color={drag ? C.green : C.textDim} style={{ margin: '0 auto 8px', display: 'block' }} />
+          <p style={{ color: C.text, fontSize: 13, fontWeight: 700, margin: 0 }}>
+            {busy ? 'Uploading photo…' : 'Click to choose a photo, or drag one here'}
+          </p>
+          <p style={{ color: C.muted, fontSize: 11, margin: '4px 0 0' }}>JPG, PNG or WebP · resized automatically</p>
+        </div>
+      )}
+
+      <input ref={inputRef} type="file" accept="image/jpeg,image/png,image/webp" hidden onChange={e => upload(e.target.files?.[0])} />
+      {err && <p style={{ color: C.red, fontSize: 12, marginTop: 8 }}>{err}</p>}
+
+      {!value && (
+        <div style={{ marginTop: 10 }}>
+          {showLink ? (
+            <input
+              type="url"
+              placeholder="https://… link to a photo already online"
+              onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); onChange(e.currentTarget.value.trim()); } }}
+              onBlur={e => e.currentTarget.value.trim() && onChange(e.currentTarget.value.trim())}
+              style={inputStyle(false)}
+            />
+          ) : (
+            <button type="button" onClick={() => setShowLink(true)} style={{ background: 'none', border: 'none', color: C.textDim, fontSize: 12, cursor: 'pointer', padding: 0, textDecoration: 'underline' }}>
+              or paste a link instead
+            </button>
+          )}
+        </div>
+      )}
+    </div>
+  );
 };
 
 /* ── EMPTY FORM STATE ───────────────────── */
@@ -277,46 +411,12 @@ const ArticleForm = ({ initial, onSave, onClose, saving }) => {
           </div>
 
           {/* Cover photo */}
-          <div style={{ marginBottom: 20 }}>
-            <Field label="Cover Photo Link (optional)">
-              <input
-                type="url"
-                value={form.image || ''}
-                onChange={e => set('image', e.target.value)}
-                placeholder="https://… (Cloudinary, Imgur, or any public image link)"
-                style={inputStyle(focused === 'image')}
-                onFocus={() => setFocused('image')}
-                onBlur={() => setFocused('')}
-              />
-            </Field>
-            <p style={{ color: C.muted, fontSize: 11, margin: '6px 0 10px', lineHeight: 1.5 }}>
-              Paste a direct image link that starts with https://. Landscape photos look best.
-              Leave empty and the website shows a file photo of the Chairman instead.
-            </p>
-            {form.image?.trim() && (
-              <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start', flexWrap: 'wrap' }}>
-                <img
-                  src={form.image.trim()}
-                  alt="Cover preview"
-                  style={{ width: 220, aspectRatio: '16 / 9', objectFit: 'cover', borderRadius: 8, background: '#222' }}
-                  onError={e => { e.currentTarget.style.opacity = 0.25; e.currentTarget.alt = 'Image could not be loaded'; }}
-                />
-                <div style={{ flex: 1, minWidth: 200 }}>
-                  <Field label="Photo Caption">
-                    <input
-                      value={form.imageCaption || ''}
-                      onChange={e => set('imageCaption', e.target.value)}
-                      maxLength={160}
-                      placeholder="e.g. The Chairman at the Lagos Central rally, Onikan"
-                      style={inputStyle(focused === 'imageCaption')}
-                      onFocus={() => setFocused('imageCaption')}
-                      onBlur={() => setFocused('')}
-                    />
-                  </Field>
-                </div>
-              </div>
-            )}
-          </div>
+          <PhotoPicker
+            value={form.image}
+            caption={form.imageCaption}
+            onChange={v => set('image', v)}
+            onCaption={v => set('imageCaption', v)}
+          />
 
           {/* Paragraphs */}
           <div style={{ marginBottom: 8 }}>
@@ -540,9 +640,12 @@ const AdminsNews = () => {
     // Map DB shape → form shape
     setEditTarget({
       ...article,
-      paragraphs: article.fullContent?.paragraphs || [''],
-      author: article.fullContent?.author || '',
-      role: article.fullContent?.role || '',
+      // The API sends these at the top level; fullContent is the old shape.
+      paragraphs: article.paragraphs?.length ? article.paragraphs : (article.fullContent?.paragraphs || ['']),
+      author: article.author || article.fullContent?.author || '',
+      role: article.role || article.fullContent?.role || '',
+      image: article.image || '',
+      imageCaption: article.imageCaption || '',
     });
     setShowForm(true);
   };
@@ -665,13 +768,22 @@ const AdminsNews = () => {
               onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
             >
               {/* Title + excerpt */}
-              <div style={{ minWidth: 0, paddingRight: 12 }}>
-                <p style={{ color: C.text, fontSize: 13, fontWeight: 700, margin: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                  {article.title}
-                </p>
-                <p style={{ color: C.muted, fontSize: 11, margin: '3px 0 0', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                  {article.excerpt}
-                </p>
+              <div style={{ minWidth: 0, paddingRight: 12, display: 'flex', alignItems: 'center', gap: 12 }}>
+                {article.image ? (
+                  <img src={article.image} alt="" style={{ width: 56, height: 40, objectFit: 'cover', borderRadius: 6, flexShrink: 0, background: '#000' }} />
+                ) : (
+                  <span title="No cover photo yet" style={{ width: 56, height: 40, borderRadius: 6, flexShrink: 0, border: `1px dashed ${C.borderHi}`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <ImageIcon size={14} color={C.muted} />
+                  </span>
+                )}
+                <div style={{ minWidth: 0 }}>
+                  <p style={{ color: C.text, fontSize: 13, fontWeight: 700, margin: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    {article.title}
+                  </p>
+                  <p style={{ color: C.muted, fontSize: 11, margin: '3px 0 0', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    {article.excerpt}
+                  </p>
+                </div>
               </div>
 
               <div><Badge category={article.category} /></div>

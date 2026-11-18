@@ -85,7 +85,7 @@ const assignCovers = (articles) => {
   const out = {};
   articles.forEach((a, n) => {
     const id = idOf(a);
-    if (/^https:\/\//i.test(a.image || '')) {
+    if (/^https?:\/\//i.test(a.image || '')) {
       out[id] = { src: a.image, alt: a.imageCaption || a.title, caption: a.imageCaption, file: false };
       return;
     }

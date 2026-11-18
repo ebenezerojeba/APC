@@ -44,8 +44,8 @@ const newsSchema = new mongoose.Schema(
       trim:    true,
       default: '',
       validate: {
-        validator: (v) => !v || /^https:\/\/\S+$/i.test(v),
-        message:   'Image must be a full https:// link.',
+        validator: (v) => !v || /^https?:\/\/\S+$/i.test(v),
+        message:   'Image must be a full web link (https://…).',
       },
     },
     imageCaption: {
