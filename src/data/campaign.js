@@ -2,7 +2,9 @@
   2027 campaign data, typed in from three documents:
 
   1. "APC Campaign Rally Calendar v1.2" — APC Presidential Campaign Council.
-  2. "KOH Executive Master Activity Plan" — the Lagos itinerary.
+  2. "KOH Executive Master Activity Plan" — the Lagos itinerary, with rally
+     dates and venues overridden by the newer "PBAT-KOH 2027 Campaign
+     Secretariat" schedule (rallies, key engagements and election dates).
   3. Circular APC/PCC/DG/XXVI X/23 of 3 November 2026 — rally guidelines.
 
   The rally calendar's cover page disagrees with its own master list in a few
@@ -137,7 +139,6 @@ export const LAGOS_ITINERARY = [
   { date: '2026-11-17', time: '10:00 AM', title: 'Guest Speaker, 38th Convocation Lecture of Yaba College of Technology', venue: 'Yusuf Grillo Auditorium, Yaba College of Technology', kind: 'engagement' },
   { date: '2026-11-18', time: '6:00 PM', title: 'KOH-NECT: An Evening of Connection', venue: 'Zaza Lagos, Victoria Island', kind: 'engagement' },
   { date: '2026-11-18', time: 'TBC', title: 'Assembly of Awori Groups', venue: 'Awori House, Oregun', kind: 'engagement' },
-  { date: '2026-11-19', time: '10:00 AM', title: 'Senatorial Rally: Lagos Central', venue: 'Teslim Balogun Stadium', kind: 'rally' },
   { date: '2026-11-20', time: '11:00 AM', title: 'FinTech Town Hall', venue: 'The George Hotel, Ikoyi', kind: 'townhall' },
   { date: '2026-11-20', time: 'TBC', title: 'Meeting with Body of Professionals', venue: 'Venue to be announced', kind: 'engagement' },
   { date: '2026-11-21', time: '10:00 AM', title: 'Oyo State Rally', venue: 'Ibadan, Oyo State', kind: 'rally', confirmed: true },
@@ -150,22 +151,26 @@ export const LAGOS_ITINERARY = [
   { date: '2026-11-24', time: '9:00 AM', title: 'Building a Future-Ready Health Workforce', venue: 'Eko Hotel, Victoria Island', kind: 'engagement' },
   { date: '2026-11-26', time: '10:00 AM', title: 'BRF Group', venue: 'Venue to be announced', kind: 'engagement' },
   { date: '2026-11-27', time: '10:00 AM', title: 'Ayewa Music Group', venue: 'Victoria Event Centre, Assibiff Road, Alausa, Ikeja', kind: 'engagement' },
-  { date: '2026-11-28', time: '10:00 AM', title: 'Senatorial Rally: Lagos West 1', venue: 'Sky Power', kind: 'rally' },
+  { date: '2026-11-23', time: '11:00 AM', title: 'Senatorial Rally: Lagos Central', venue: 'Onikan Stadium', kind: 'rally', confirmed: true },
+  { date: '2026-11-24', time: '12:00 PM', title: 'Isolo LG Rally', venue: 'Isolo', kind: 'rally', confirmed: true },
+  { date: '2026-11-25', time: '10:00 AM', title: 'Rally: PBAT/KOH Women Directorate (East)', venue: 'Epe', kind: 'rally', confirmed: true },
+  { date: '2026-11-30', time: '10:00 AM', title: 'Senatorial Rally: Lagos West 1', venue: 'Venue to be announced', kind: 'rally', confirmed: true },
 
   { date: '2026-12-01', time: '11:00 AM', title: 'Lawyers Guild', venue: 'Providence Hotel, GRA, Ikeja', kind: 'engagement' },
   { date: '2026-12-01', time: '7:00 PM', title: 'LBBS Dinner', venue: 'Venue to be announced', kind: 'engagement' },
   { date: '2026-12-02', time: 'TBC', title: 'Formal Sector Summit', venue: 'Venue to be announced', note: 'Business leaders, professionals, entrepreneurs and organised private-sector groups', kind: 'engagement' },
   { date: '2026-12-03', time: '10:00 AM', title: 'Ogun State Rally', venue: 'Abeokuta, Ogun State', kind: 'rally', confirmed: true },
   { date: '2026-12-04', time: 'TBC', title: 'Women Summit', venue: 'Venue to be announced', note: 'Date: first week of December. High-level meeting with women in business and the professions', kind: 'engagement' },
+  { date: '2026-12-06', time: '2:00 PM', title: 'Jimi Benson’s Rally', venue: 'Ikorodu', kind: 'rally', confirmed: true },
   { date: '2026-12-09', time: '10:00 AM', title: 'Osun State Rally', venue: 'Osogbo, Osun State', kind: 'rally', confirmed: true },
-  { date: '2026-12-12', time: '10:00 AM', title: 'Senatorial Rally: Lagos West 2', venue: 'Ijanikin Playground', kind: 'rally' },
+  { date: '2026-12-12', time: '10:00 AM', title: 'Senatorial Rally: Lagos West 2', venue: 'Ijanikin Playground', kind: 'rally', confirmed: true },
   { date: '2026-12-17', time: '10:00 AM', title: 'Youth Rally', venue: 'Onikan Stadium', kind: 'rally' },
 
-  { date: '2027-01-07', time: '10:00 AM', title: 'Oloja Day', venue: 'Agege', kind: 'engagement' },
-  { date: '2027-01-09', time: '10:00 AM', title: 'Lagos State Rally', venue: 'Lagos State', note: 'Major closing rally, with the President', kind: 'rally', confirmed: true, highlight: true },
-  { date: '2027-01-14', time: '10:00 AM', title: 'State Mega Rally', venue: 'Teslim Balogun Stadium', kind: 'rally' },
+  { date: '2027-01-07', time: '10:00 AM', title: 'Oloja Day', venue: 'Agege Stadium', kind: 'engagement', confirmed: true },
+  { date: '2027-01-09', time: '10:00 AM', title: 'PCC Lagos State Rally', venue: 'Tafawa Balewa Stadium', note: 'Major closing rally, with the President', kind: 'rally', confirmed: true, highlight: true },
   { date: '2027-01-16', time: 'All day', title: 'Presidential Election', venue: 'Nationwide', kind: 'poll', highlight: true },
   { date: '2027-02-01', dateEnd: '2027-02-04', time: '10:00 AM', title: 'Door-to-Door Engagement', venue: 'Statewide', kind: 'engagement' },
+  { date: '2027-02-04', time: 'TBC', title: 'State Mega Rally', venue: 'Venue to be announced', kind: 'rally', confirmed: true, highlight: true },
   { date: '2027-02-06', time: 'All day', title: 'Governorship & State Assembly Election', venue: 'Lagos State', kind: 'poll', highlight: true },
 ];
 

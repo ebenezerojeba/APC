@@ -4,7 +4,6 @@ import About from '../components/About'
 import Priorities from '../components/Priorities'
 import Gallery from '../components/Gallery'
 import News from '../components/News'
-import Event from '../components/Event'
 import CampaignTrail from '../components/CampaignTrail'
 import RoadAhead from '../components/RoadAhead'
 import Resources from '../components/Resources'
@@ -12,15 +11,8 @@ import Contact from '../components/Contact'
 
 /*
   This is the Chairman's site, so it carries only what is about him.
-
-  The party-institutional sections are still in src/components/ and still
-  work — they are unmounted here, not deleted, ready to lift into the party
-  site: Vision (the APC constitution), Leadership (executive officers),
-  ElectionTimetable, ElectoralGuildlines, GovernorshipPrimaryResult,
-  DocumentsViewer and CongratsTicker.
-
-  News and Event are judgement calls — keep them here if they cover his
-  press and his engagements, move them if they are secretariat output.
+  Party-wide material (constitution, executives, results) belongs on the
+  party site; the 2027 campaign lives on its own page at /campaign.
 */
 const Home = () => {
   return (
@@ -32,7 +24,6 @@ const Home = () => {
       <CampaignTrail />
       <Gallery />
       <News />
-      <Event />
       <RoadAhead />
       <Resources />
       <Contact />

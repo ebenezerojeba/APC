@@ -101,6 +101,69 @@ const ItemRow = ({ e, now }) => {
   );
 };
 
+/*
+  Lagos rallies and election days, from the Campaign Secretariat schedule,
+  as one horizontal road. Only what is still ahead, so it shortens itself.
+*/
+const RallyRoad = ({ now }) => {
+  const stops = ITEMS.filter(
+    (e) => (e.kind === 'rally' || e.kind === 'poll') && daysUntil(e.dateEnd || e.date, now) >= 0,
+  );
+  if (stops.length === 0) return null;
+
+  return (
+    <div className="mt-12">
+      <div className="mb-4 flex items-baseline justify-between gap-4">
+        <h3 className="text-[11px] font-black uppercase tracking-[0.2em] text-gray-900">
+          Rallies &amp; election days
+        </h3>
+        <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-gray-400">
+          {stops.length} ahead · scroll →
+        </span>
+      </div>
+      <div className="-mx-5 overflow-x-auto px-5 pb-3 sm:mx-0 sm:px-0" tabIndex={0} aria-label="Upcoming Lagos rallies and election days">
+        <ol className="flex w-max gap-3">
+          {stops.map((e, i) => {
+            const poll = e.kind === 'poll';
+            const d = daysUntil(e.date, now);
+            return (
+              <li
+                key={`${e.date}-${e.title}`}
+                className={`relative flex w-56 flex-col overflow-hidden p-4 ${
+                  poll
+                    ? 'bg-[#EB001F] text-white'
+                    : i === 0
+                      ? 'bg-[#04100A] text-white'
+                      : e.highlight
+                        ? 'bg-[#008A44] text-white'
+                        : 'border border-gray-200 bg-white text-gray-900'
+                }`}
+              >
+                <div className="flex items-baseline gap-2">
+                  <span className="leading-none tabular-nums" style={{ ...BEBAS, fontSize: '2.75rem' }}>
+                    {fmtDayNum(e.date)}
+                  </span>
+                  <span className="text-[10px] font-black uppercase tracking-[0.16em] opacity-60">
+                    {fmtDay(e.date)} · {fmtMonth(e.date)}
+                  </span>
+                </div>
+                <p className="mt-2 font-black leading-snug">{e.title}</p>
+                <p className="mt-1 flex items-start gap-1 text-xs opacity-70">
+                  <MapPin size={12} className="mt-0.5 shrink-0" /> {e.venue}
+                </p>
+                <p className="mt-auto pt-3 text-[10px] font-black uppercase tracking-[0.16em] opacity-80">
+                  {e.time !== 'TBC' && e.time !== 'All day' ? `${e.time} · ` : ''}
+                  {relative(d)}
+                </p>
+              </li>
+            );
+          })}
+        </ol>
+      </div>
+    </div>
+  );
+};
+
 const LagosTrail = () => {
   const now = useNow();
   const todayIso = (() => {
@@ -160,6 +223,8 @@ const LagosTrail = () => {
             </div>
           )}
         </div>
+
+        <RallyRoad now={now} />
 
         {/* Week picker */}
         <div className="-mx-5 mt-12 overflow-x-auto px-5 sm:mx-0 sm:px-0">
@@ -235,7 +300,7 @@ const LagosTrail = () => {
         </div>
 
         <p className="mt-10 text-[11px] leading-relaxed text-gray-400">
-          Source: KOH Team Executive Master Activity Plan. Items marked “To be confirmed” are planned
+          Sources: PBAT-KOH 2027 Campaign Secretariat schedule and KOH Team Executive Master Activity Plan. Items marked “To be confirmed” are planned
           but not yet approved; times and venues may change.
         </p>
       </div>

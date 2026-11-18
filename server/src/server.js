@@ -31,7 +31,9 @@ app.set('trust proxy', 1);
 app.use(cors({
   origin: (origin, callback) => {
     const allowed = [process.env.CLIENT_URL, process.env.ADMIN_URL, 'http://localhost:5173', 'http://localhost:5174','https://apc-inky.vercel.app', 'https://apc-lbo4.vercel.app', 'https://admin.honcorneliusojelabi.com', 'https://honcorneliusojelabi.com', 'https://www.honcorneliusojelabi.com'].filter(Boolean);
-    if (!origin || allowed.includes(origin)) return callback(null, true);
+    // Any localhost port is fine: dev servers move ports, and `vite preview` uses 4173.
+    const isLocal = /^http:\/\/(localhost|127\.0\.0\.1):\d+$/.test(origin || '');
+    if (!origin || isLocal || allowed.includes(origin)) return callback(null, true);
     callback(new Error(`CORS: Origin ${origin} not allowed`));
   },
   credentials: true,

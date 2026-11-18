@@ -1,133 +1,53 @@
-// import React from 'react';
-// import { motion } from 'framer-motion';
-// import assets from '../assets/assets';
-
-// const Footer = ({ scrollToSection }) => {
-//   const currentYear = new Date().getFullYear();
-//   const footerLinks = ['Home', 'About', 'Vision', 'News', 'Events', 'Join Us'];
-
-//   return (
-//     <footer className="bg-[#0a0f0d] text-white py-12 border-t border-white/5">
-//       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-//         <div className="flex flex-col items-center">
-          
-//           {/* Minimal Logo */}
-//           <motion.img 
-//             src={assets.apc2} 
-//             alt="APC Logo" 
-//             className="h-12 w-auto mb-8 opacity-80 hover:opacity-100 transition-opacity cursor-pointer"
-//             onClick={() => scrollToSection('home')}
-//           />
-
-//           {/* Navigation */}
-//           <nav className="flex flex-wrap justify-center gap-x-8 gap-y-4 mb-10">
-//             {footerLinks.map((link) => (
-//               <motion.button
-//                 key={link}
-//                 onClick={() => scrollToSection(link.toLowerCase().replace(/\s+/g, ''))}
-//                 className="text-gray-400 hover:text-amber-400 transition-colors text-sm font-bold uppercase tracking-widest"
-//                 whileHover={{ y: -2 }}
-//                 whileTap={{ scale: 0.95 }}
-//               >
-//                 {link}
-//               </motion.button>
-//             ))}
-//           </nav>
-
-//           {/* Divider */}
-//           <div className="w-full max-w-md h-px bg-linear-to-r from-transparent via-gray-700 to-transparent mb-8" />
-
-//           {/* Copyright & Credits */}
-//           <div className="text-center space-y-2">
-//             <p className="text-gray-500 text-xs uppercase tracking-[0.2em]">
-//               &copy; {currentYear} APC Lagos State. All Rights Reserved.
-//             </p>
-//             <p className="text-[10px] text-gray-600 uppercase tracking-tighter">
-//               Built for the people, by the people.
-//             </p>
-//           </div>
-//         </div>
-//       </div>
-//     </footer>
-//   );
-// };
-
-// export default Footer;
-
-
-import React from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import assets from '../assets/assets';
 
-const Footer = ({ scrollToSection }) => {
-  const currentYear = new Date().getFullYear();
-  const footerLinks = ['Home', 'About', 'Priorities', 'News', 'Events', 'Join Us'];
+/*
+  `id` scrolls to a home-page section (navigating home first if needed);
+  `to` opens another page.
+*/
+const LINKS = [
+  { label: 'Home', id: 'home' },
+  { label: 'About', id: 'about' },
+  { label: 'Priorities', id: 'priorities' },
+  { label: 'Campaign', to: '/campaign' },
+  { label: 'News', id: 'news' },
+  { label: 'Contact', id: 'contact' },
+  { label: 'Join Us', to: '/join' },
+];
 
-  // const developers = [
-  //   { name: 'Alabi', url: 'https://portfolio-website-opal-nine-30.vercel.app/' },
-  //   { name: 'Ojeba', url: 'https://ebenezerojeba.vercel.app/' },
-  // ];
+const Footer = ({ scrollToSection }) => {
+  const navigate = useNavigate();
+  const go = ({ id, to }) => (to ? navigate(to) : scrollToSection(id));
 
   return (
-    <footer className="bg-[#0a0f0d] text-white py-12 border-t border-white/5">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <footer className="border-t border-white/5 bg-[#0a0f0d] py-12 text-white">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center">
+          <button type="button" onClick={() => scrollToSection('home')} aria-label="Back to top" className="mb-8">
+            <img src={assets.apc2} alt="APC Logo" className="h-12 w-auto opacity-80 transition-opacity hover:opacity-100" />
+          </button>
 
-          {/* Minimal Logo */}
-          <motion.img
-            src={assets.apc2}
-            alt="APC Logo"
-            className="h-12 w-auto mb-8 opacity-80 hover:opacity-100 transition-opacity cursor-pointer"
-            onClick={() => scrollToSection('home')}
-          />
-
-          {/* Navigation */}
-          <nav className="flex flex-wrap justify-center gap-x-8 gap-y-4 mb-10">
-            {footerLinks.map((link) => (
+          <nav aria-label="Footer" className="mb-10 flex flex-wrap justify-center gap-x-8 gap-y-4">
+            {LINKS.map((link) => (
               <motion.button
-                key={link}
-                onClick={() => scrollToSection(link.toLowerCase().replace(/\s+/g, ''))}
-                className="text-gray-400 hover:text-amber-400 transition-colors text-sm font-bold uppercase tracking-widest"
+                key={link.label}
+                type="button"
+                onClick={() => go(link)}
+                className="text-sm font-bold uppercase tracking-widest text-gray-400 transition-colors hover:text-amber-400"
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.95 }}
               >
-                {link}
+                {link.label}
               </motion.button>
             ))}
           </nav>
 
-          {/* Divider */}
-          <div className="w-full max-w-md h-px bg-linear-to-r from-transparent via-gray-700 to-transparent mb-8" />
+          <div className="mb-8 h-px w-full max-w-md bg-linear-to-r from-transparent via-gray-700 to-transparent" />
 
-          {/* Copyright & Credits */}
-          <div className="text-center space-y-2">
-            <p className="text-gray-500 text-xs uppercase tracking-[0.2em]">
-              &copy; {currentYear} APC Lagos State. All Rights Reserved.
-            </p>
-       
-
-            {/* Developer Credits */}
-            {/* <p className="text-[10px] text-gray-600 uppercase tracking-tighter pt-1">
-              Designed &amp; Built by{' '}
-              {developers.map((dev, index) => (
-                <React.Fragment key={dev.name}>
-                  <motion.a
-                    href={dev.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-amber-500 hover:text-amber-400 transition-colors duration-200 underline underline-offset-2 decoration-dotted"
-                    whileHover={{ y: -1 }}
-                  >
-                    {dev.name}
-                  </motion.a>
-                  {index < developers.length - 1 && (
-                    <span className="text-gray-700 mx-1">&amp;</span>
-                  )}
-                </React.Fragment>
-              ))}
-            </p> */}
-          </div>
-
+          <p className="text-center text-xs uppercase tracking-[0.2em] text-gray-500">
+            &copy; {new Date().getFullYear()} APC Lagos State. All Rights Reserved.
+          </p>
         </div>
       </div>
     </footer>

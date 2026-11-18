@@ -18,3 +18,15 @@ html {
   margin: 0;
   padding: 0;
 } */
+
+/* News headline ticker: the list is rendered twice, so -50% loops seamlessly. */
+@keyframes news-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.news-marquee {
+  animation: news-marquee 45s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .news-marquee { animation: none; }
+}
