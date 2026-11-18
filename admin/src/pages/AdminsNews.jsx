@@ -63,6 +63,8 @@ const emptyForm = () => ({
   date: new Date().toISOString().split('T')[0],
   author: '',
   role: '',
+  image: '',
+  imageCaption: '',
   paragraphs: [''],  // array of paragraph strings
 });
 
@@ -272,6 +274,48 @@ const ArticleForm = ({ initial, onSave, onClose, saving }) => {
                 onBlur={() => setFocused('')}
               />
             </Field>
+          </div>
+
+          {/* Cover photo */}
+          <div style={{ marginBottom: 20 }}>
+            <Field label="Cover Photo Link (optional)">
+              <input
+                type="url"
+                value={form.image || ''}
+                onChange={e => set('image', e.target.value)}
+                placeholder="https://… (Cloudinary, Imgur, or any public image link)"
+                style={inputStyle(focused === 'image')}
+                onFocus={() => setFocused('image')}
+                onBlur={() => setFocused('')}
+              />
+            </Field>
+            <p style={{ color: C.muted, fontSize: 11, margin: '6px 0 10px', lineHeight: 1.5 }}>
+              Paste a direct image link that starts with https://. Landscape photos look best.
+              Leave empty and the website shows a file photo of the Chairman instead.
+            </p>
+            {form.image?.trim() && (
+              <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start', flexWrap: 'wrap' }}>
+                <img
+                  src={form.image.trim()}
+                  alt="Cover preview"
+                  style={{ width: 220, aspectRatio: '16 / 9', objectFit: 'cover', borderRadius: 8, background: '#222' }}
+                  onError={e => { e.currentTarget.style.opacity = 0.25; e.currentTarget.alt = 'Image could not be loaded'; }}
+                />
+                <div style={{ flex: 1, minWidth: 200 }}>
+                  <Field label="Photo Caption">
+                    <input
+                      value={form.imageCaption || ''}
+                      onChange={e => set('imageCaption', e.target.value)}
+                      maxLength={160}
+                      placeholder="e.g. The Chairman at the Lagos Central rally, Onikan"
+                      style={inputStyle(focused === 'imageCaption')}
+                      onFocus={() => setFocused('imageCaption')}
+                      onBlur={() => setFocused('')}
+                    />
+                  </Field>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Paragraphs */}

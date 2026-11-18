@@ -1,14 +1,19 @@
 import { useState, useCallback, useEffect, useMemo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowUpRight, ArrowRight, Play, X, Clock, Link2, Check, Quote } from 'lucide-react';
+import { ArrowUpRight, ArrowRight, Play, X, Clock, Link2, Check, Camera } from 'lucide-react';
 
 import SectionLabel from './SectionLabel';
 import LagosMark from './LagosMark';
+import { PHOTOS } from '../data/galleryPhotos';
 
 /*
-  The newsroom. Articles come from the admin API and carry no images, so the
-  design leans on type and colour instead: a headline ticker, a lead story
-  set large, numbered "more stories", and a card grid for the rest.
+  The newsroom. Articles come from the admin API.
+
+  Every story gets a picture. If the admin attached one (`image`, an https
+  link) that is used; otherwise the story borrows a landscape photo of the
+  Chairman from the gallery, picked from its id so it never changes between
+  visits, never repeats within the section, and is labelled "File photo" so
+  no one reads it as a picture of that event.
 
   Each story is shareable: opening one puts ?story=<id> in the address bar,
   and loading the site with that parameter opens it straight away.
@@ -17,12 +22,12 @@ import LagosMark from './LagosMark';
 const BEBAS = { fontFamily: "'Bebas Neue', 'Arial Black', sans-serif" };
 
 const CATEGORY = {
-  'Official Statement': { colour: '#008A44', soft: 'bg-emerald-50 text-emerald-800' },
-  Mobilization: { colour: '#0239AE', soft: 'bg-blue-50 text-blue-800' },
-  Registration: { colour: '#D97706', soft: 'bg-amber-50 text-amber-800' },
-  Obituary: { colour: '#4B5563', soft: 'bg-gray-100 text-gray-700' },
+  'Official Statement': '#008A44',
+  Mobilization: '#0239AE',
+  Registration: '#D97706',
+  Obituary: '#4B5563',
 };
-const cat = (c) => CATEGORY[c] || CATEGORY['Official Statement'];
+const colourOf = (c) => CATEGORY[c] || CATEGORY['Official Statement'];
 
 const VIDEO = {
   id: 'RhQ0YFfNF6c',
@@ -32,6 +37,9 @@ const VIDEO = {
 
 const _raw = import.meta.env.VITE_API_URL;
 const API_BASE = _raw && _raw !== 'undefined' ? _raw.replace(/\/$/, '') : 'https://apcbackend.vercel.app/api';
+
+// Landscape, non-portrait frames crop cleanly to 16:9 and 4:3 slots.
+const FILE_PHOTOS = PHOTOS.filter((p) => p.width > p.height * 1.25 && p.category !== 'portrait');
 
 // ── helpers ────────────────────────────────────────────────────────────────
 
@@ -66,6 +74,33 @@ const initials = (name) =>
     .map((w) => w[0])
     .join('') || 'AP';
 
+const hash = (s) => [...s].reduce((h, ch) => (h * 31 + ch.charCodeAt(0)) >>> 0, 7);
+
+/*
+  One cover per story: its own image if set, else a file photo. Walks the
+  list in order so file photos are handed out without repeats.
+*/
+const assignCovers = (articles) => {
+  const used = new Set();
+  const out = {};
+  articles.forEach((a, n) => {
+    const id = idOf(a);
+    if (/^https:\/\//i.test(a.image || '')) {
+      out[id] = { src: a.image, alt: a.imageCaption || a.title, caption: a.imageCaption, file: false };
+      return;
+    }
+    if (FILE_PHOTOS.length === 0) return;
+    // The lead story fills a wide slot, so it only draws from sharp, large frames.
+    const ok = (k) => !used.has(k) && (n > 0 || FILE_PHOTOS[k].width >= 1200);
+    let i = hash(id) % FILE_PHOTOS.length;
+    for (let tries = 0; !ok(i) && tries < FILE_PHOTOS.length; tries += 1) i = (i + 1) % FILE_PHOTOS.length;
+    used.add(i);
+    const p = FILE_PHOTOS[i];
+    out[id] = { src: p.full, srcSet: p.srcSet, alt: p.alt, caption: '', file: true };
+  });
+  return out;
+};
+
 const storyUrl = (a) => `${window.location.origin}/?story=${encodeURIComponent(idOf(a))}`;
 
 // ── pieces ─────────────────────────────────────────────────────────────────
@@ -73,13 +108,55 @@ const storyUrl = (a) => `${window.location.origin}/?story=${encodeURIComponent(i
 const CategoryTag = ({ category, onDark = false }) => (
   <span
     className={`inline-flex items-center gap-1.5 text-[10px] font-black uppercase tracking-[0.18em] ${
-      onDark ? 'text-white/80' : 'text-gray-500'
+      onDark ? 'text-white/85' : 'text-gray-500'
     }`}
   >
-    <span className="h-2 w-2" style={{ backgroundColor: cat(category).colour }} />
+    <span className="h-2 w-2" style={{ backgroundColor: colourOf(category) }} />
     {category}
   </span>
 );
+
+const CategoryChip = ({ category }) => (
+  <span
+    className="inline-block px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.18em] text-white"
+    style={{ backgroundColor: colourOf(category) }}
+  >
+    {category}
+  </span>
+);
+
+/*
+  The picture itself. Fills its parent; the parent sets the shape. If an
+  admin's link is broken, it falls back to the dark brand panel rather than
+  showing a broken-image icon.
+*/
+const Cover = ({ cover, category, sizes = '100vw', className = '', zoom = true, eager = false }) => {
+  const [failed, setFailed] = useState(false);
+  if (!cover || failed) {
+    return <span className={`absolute inset-0 bg-[#04100A] ${className}`} aria-hidden="true" />;
+  }
+  return (
+    <img
+      src={cover.src}
+      srcSet={cover.srcSet}
+      sizes={cover.srcSet ? sizes : undefined}
+      alt={cover.alt}
+      loading={eager ? 'eager' : 'lazy'}
+      decoding="async"
+      onError={() => setFailed(true)}
+      className={`absolute inset-0 h-full w-full object-cover ${
+        zoom ? 'transition-transform duration-[1.2s] ease-out group-hover:scale-[1.06]' : ''
+      } ${category === 'Obituary' ? 'grayscale' : ''} ${className}`}
+    />
+  );
+};
+
+const FileTag = ({ cover }) =>
+  cover?.file ? (
+    <span className="pointer-events-none absolute right-3 top-3 z-10 inline-flex items-center gap-1 bg-black/45 px-2 py-1 text-[9px] font-bold uppercase tracking-[0.14em] text-white/80 backdrop-blur-sm">
+      <Camera size={10} /> File photo
+    </span>
+  ) : null;
 
 const Byline = ({ article, onDark = false }) => {
   const author = authorOf(article);
@@ -88,7 +165,7 @@ const Byline = ({ article, onDark = false }) => {
     <div className="flex items-center gap-3">
       <span
         className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-[11px] font-black ${
-          onDark ? 'bg-white/10 text-white' : 'bg-gray-900 text-white'
+          onDark ? 'bg-white/15 text-white backdrop-blur-sm' : 'bg-gray-900 text-white'
         }`}
       >
         {initials(author)}
@@ -96,7 +173,7 @@ const Byline = ({ article, onDark = false }) => {
       <div className="min-w-0">
         <p className={`truncate text-sm font-bold ${onDark ? 'text-white' : 'text-gray-900'}`}>{author}</p>
         {roleOf(article) && (
-          <p className={`truncate text-xs ${onDark ? 'text-white/50' : 'text-gray-500'}`}>{roleOf(article)}</p>
+          <p className={`truncate text-xs ${onDark ? 'text-white/60' : 'text-gray-500'}`}>{roleOf(article)}</p>
         )}
       </div>
     </div>
@@ -113,7 +190,7 @@ const Ticker = ({ articles, onOpen }) => {
         Latest
       </span>
       <div className="group relative flex-1 overflow-hidden">
-        <ul className="news-marquee flex w-max items-center group-hover:[animation-play-state:paused] motion-reduce:animate-none">
+        <ul className="news-marquee flex w-max items-center group-hover:[animation-play-state:paused]">
           {loop.map((a, i) => (
             <li key={`${idOf(a)}-${i}`} className="flex items-center" aria-hidden={i >= articles.length || undefined}>
               <button
@@ -133,74 +210,62 @@ const Ticker = ({ articles, onOpen }) => {
   );
 };
 
-const LeadStory = ({ article, onOpen }) => {
+// Full-bleed photo with the headline set over it, like a front page.
+const LeadStory = ({ article, cover, onOpen }) => {
   const d = parseDate(article.date);
   return (
-    <motion.article
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative isolate flex h-full flex-col overflow-hidden bg-[#04100A] text-white"
-    >
-      <div
+    <article className="group relative isolate flex min-h-[520px] flex-col overflow-hidden bg-[#04100A] text-white sm:min-h-[600px] lg:h-full">
+      <Cover cover={cover} category={article.category} sizes="(min-width: 1024px) 58vw, 100vw" eager />
+      <span
         aria-hidden="true"
-        className="absolute inset-0 -z-10 transition-opacity duration-500 group-hover:opacity-100 opacity-80"
-        style={{
-          background:
-            'radial-gradient(70% 60% at 100% 0%, rgba(0,138,68,0.45), transparent 70%), radial-gradient(50% 50% at 0% 100%, rgba(212,165,116,0.16), transparent 70%)',
-        }}
+        className="absolute inset-0 bg-gradient-to-t from-[#04100A] via-[#04100A]/75 to-[#04100A]/10"
       />
-      <Quote
-        aria-hidden="true"
-        className="absolute -right-6 -top-6 -z-10 h-56 w-56 rotate-180 text-white/[0.04] sm:h-72 sm:w-72"
-        strokeWidth={1}
-      />
-      <LagosMark className="h-1.5 w-full" />
+      <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-[#04100A]/60 to-transparent" />
+      <FileTag cover={cover} />
 
-      <div className="flex flex-1 flex-col p-6 sm:p-10">
+      <LagosMark className="relative h-1.5 w-full" />
+
+      <div className="relative flex flex-1 flex-col p-6 sm:p-10">
         <div className="flex items-start justify-between gap-6">
-          <div>
-            <span className="inline-block bg-[#D4A574] px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.2em] text-[#111]">
-              Top story
-            </span>
-            <div className="mt-4">
-              <CategoryTag category={article.category} onDark />
-            </div>
-          </div>
+          <span className="inline-flex items-center gap-2 bg-[#D4A574] px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.2em] text-[#111]">
+            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#111]" /> Top story
+          </span>
           {d && (
-            <div className="text-right leading-none">
-              <span className="block text-white" style={{ ...BEBAS, fontSize: 'clamp(3.5rem, 8vw, 5.5rem)' }}>
+            <div className="mt-8 text-right leading-none drop-shadow-lg">
+              <span className="block text-white" style={{ ...BEBAS, fontSize: 'clamp(3.25rem, 7vw, 5rem)' }}>
                 {d.getDate()}
               </span>
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/50">
+              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/70">
                 {fmtDate(article.date, { month: 'short', year: 'numeric' })}
               </span>
             </div>
           )}
         </div>
 
-        <h3
-          className="mt-8 font-black leading-[1.08] tracking-tight text-white sm:mt-10"
-          style={{ fontSize: 'clamp(1.6rem, 3.4vw, 2.6rem)' }}
-        >
-          <button type="button" onClick={() => onOpen(article)} className="text-left outline-none after:absolute after:inset-0 focus-visible:underline">
-            {article.title}
-          </button>
-        </h3>
-        <p className="mt-5 max-w-2xl text-[15px] leading-relaxed text-white/65 line-clamp-4">{article.excerpt}</p>
+        <div className="mt-auto pt-16">
+          <CategoryTag category={article.category} onDark />
+          <h3
+            className="mt-4 font-black leading-[1.06] tracking-tight text-white drop-shadow-xl"
+            style={{ fontSize: 'clamp(1.6rem, 3.3vw, 2.6rem)' }}
+          >
+            <button type="button" onClick={() => onOpen(article)} className="text-left outline-none after:absolute after:inset-0 focus-visible:underline">
+              {article.title}
+            </button>
+          </h3>
+          <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-white/75 line-clamp-3">{article.excerpt}</p>
 
-        <div className="mt-auto flex flex-wrap items-end justify-between gap-6 pt-10">
-          <Byline article={article} onDark />
-          <span className="relative z-10 inline-flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.2em] text-[#4ADE80]">
-            <Clock size={13} /> {readMinutes(article)} min read
-            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#4ADE80] text-[#04100A] transition-transform duration-300 group-hover:-rotate-45">
-              <ArrowRight size={18} />
+          <div className="mt-8 flex flex-wrap items-end justify-between gap-6 border-t border-white/15 pt-6">
+            <Byline article={article} onDark />
+            <span className="relative z-10 inline-flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.2em] text-[#4ADE80]">
+              <Clock size={13} /> {readMinutes(article)} min read
+              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#4ADE80] text-[#04100A] transition-transform duration-300 group-hover:-rotate-45">
+                <ArrowRight size={18} />
+              </span>
             </span>
-          </span>
+          </div>
         </div>
       </div>
-    </motion.article>
+    </article>
   );
 };
 
@@ -229,7 +294,7 @@ const VideoCard = () => {
             loading="lazy"
             className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
-          <span className="absolute inset-0 bg-gradient-to-t from-[#04100A] via-[#04100A]/50 to-transparent" />
+          <span className="absolute inset-0 bg-gradient-to-t from-[#04100A] via-[#04100A]/40 to-transparent" />
           <span className="absolute left-1/2 top-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[#EB001F] shadow-2xl transition-transform group-hover:scale-110">
             <span className="absolute inset-0 animate-ping rounded-full bg-[#EB001F]/40 motion-reduce:animate-none" />
             <Play size={22} className="relative ml-1 fill-white text-white" />
@@ -244,21 +309,25 @@ const VideoCard = () => {
   );
 };
 
-const NumberedStory = ({ article, n, onOpen }) => (
-  <li className="group relative flex gap-4 border-t border-gray-900/10 py-5">
-    <span
-      className="w-12 shrink-0 leading-none text-transparent transition-colors duration-300 group-hover:text-[#008A44]"
-      style={{ ...BEBAS, fontSize: '3rem', WebkitTextStroke: '1.5px #008A44' }}
-      aria-hidden="true"
-    >
-      {String(n).padStart(2, '0')}
-    </span>
-    <div className="min-w-0">
+// Thumbnail + headline row for the side column.
+const SideStory = ({ article, cover, n, onOpen }) => (
+  <li className="group relative flex gap-4 border-t border-gray-900/10 py-4">
+    <div className="relative aspect-[4/3] w-28 shrink-0 overflow-hidden bg-gray-200 sm:w-32">
+      <Cover cover={cover} category={article.category} sizes="128px" />
+      <span
+        className="absolute bottom-0 left-0 bg-[#04100A] px-1.5 pt-0.5 leading-none text-white"
+        style={{ ...BEBAS, fontSize: '1.4rem' }}
+        aria-hidden="true"
+      >
+        {String(n).padStart(2, '0')}
+      </span>
+    </div>
+    <div className="min-w-0 py-0.5">
       <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
         <CategoryTag category={article.category} />
         <span className="text-[10px] font-bold uppercase tracking-[0.14em] text-gray-400">{fmtDate(article.date)}</span>
       </div>
-      <h4 className="mt-1.5 font-black leading-snug text-gray-900 transition-colors group-hover:text-[#008A44]">
+      <h4 className="mt-1.5 line-clamp-3 font-black leading-snug text-gray-900 transition-colors group-hover:text-[#008A44]">
         <button type="button" onClick={() => onOpen(article)} className="text-left outline-none after:absolute after:inset-0 focus-visible:underline">
           {article.title}
         </button>
@@ -267,30 +336,35 @@ const NumberedStory = ({ article, n, onOpen }) => (
   </li>
 );
 
-const StoryCard = ({ article, onOpen, i }) => (
+const StoryCard = ({ article, cover, onOpen, i }) => (
   <motion.article
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, margin: '-40px' }}
+    viewport={{ once: true, amount: 0.1 }}
     transition={{ duration: 0.45, delay: (i % 3) * 0.07 }}
-    className="group relative flex flex-col bg-white p-6 shadow-sm ring-1 ring-gray-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/10"
+    className="group relative flex flex-col overflow-hidden bg-white shadow-sm ring-1 ring-gray-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/15"
   >
-    <span className="absolute inset-x-0 top-0 h-1 origin-left scale-x-[0.25] transition-transform duration-500 group-hover:scale-x-100" style={{ backgroundColor: cat(article.category).colour }} />
-    <div className="flex items-center justify-between gap-3">
-      <CategoryTag category={article.category} />
-      <span className="text-[10px] font-bold uppercase tracking-[0.14em] text-gray-400">{fmtDate(article.date)}</span>
+    <div className="relative aspect-[16/10] overflow-hidden bg-gray-200">
+      <Cover cover={cover} category={article.category} sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw" />
+      <span className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" aria-hidden="true" />
+      <FileTag cover={cover} />
+      <span className="absolute bottom-3 left-3"><CategoryChip category={article.category} /></span>
     </div>
-    <h4 className="mt-4 text-lg font-black leading-snug text-gray-900 transition-colors group-hover:text-[#008A44]">
-      <button type="button" onClick={() => onOpen(article)} className="text-left outline-none after:absolute after:inset-0 focus-visible:underline">
-        {article.title}
-      </button>
-    </h4>
-    <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-gray-500">{article.excerpt}</p>
-    <div className="mt-auto flex items-center justify-between pt-6 text-[10px] font-black uppercase tracking-[0.18em]">
-      <span className="text-gray-400">{readMinutes(article)} min read</span>
-      <span className="inline-flex items-center gap-1 text-[#008A44]">
-        Read <ArrowUpRight size={14} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-      </span>
+    <span className="h-1 w-full origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100" style={{ backgroundColor: colourOf(article.category) }} />
+    <div className="flex flex-1 flex-col p-6">
+      <span className="text-[10px] font-bold uppercase tracking-[0.14em] text-gray-400">{fmtDate(article.date)}</span>
+      <h4 className="mt-2 text-lg font-black leading-snug text-gray-900 transition-colors group-hover:text-[#008A44]">
+        <button type="button" onClick={() => onOpen(article)} className="text-left outline-none after:absolute after:inset-0 focus-visible:underline">
+          {article.title}
+        </button>
+      </h4>
+      <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-gray-500">{article.excerpt}</p>
+      <div className="mt-auto flex items-center justify-between pt-6 text-[10px] font-black uppercase tracking-[0.18em]">
+        <span className="text-gray-400">{readMinutes(article)} min read</span>
+        <span className="inline-flex items-center gap-1 text-[#008A44]">
+          Read <ArrowUpRight size={14} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+        </span>
+      </div>
     </div>
   </motion.article>
 );
@@ -327,7 +401,7 @@ const ShareBar = ({ article }) => {
   );
 };
 
-const Reader = ({ article, onClose }) => {
+const Reader = ({ article, cover, onClose }) => {
   const scroller = useRef(null);
   const [progress, setProgress] = useState(0);
   const paras = paragraphsOf(article);
@@ -352,7 +426,7 @@ const Reader = ({ article, onClose }) => {
 
   return (
     <motion.div
-      className="fixed inset-0 z-[200] flex items-end justify-center bg-black/70 backdrop-blur-sm sm:items-center sm:p-6"
+      className="fixed inset-0 z-[200] flex items-end justify-center bg-black/75 backdrop-blur-sm sm:items-center sm:p-6"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -367,9 +441,8 @@ const Reader = ({ article, onClose }) => {
         exit={{ y: 40, opacity: 0, transition: { duration: 0.15 } }}
         className="relative flex max-h-[94dvh] w-full max-w-3xl flex-col overflow-hidden bg-white shadow-2xl sm:max-h-[90vh]"
       >
-        {/* reading progress */}
-        <div className="absolute inset-x-0 top-0 z-20 h-1 bg-gray-100">
-          <div className="h-full bg-[#008A44] transition-[width] duration-150" style={{ width: `${progress * 100}%` }} />
+        <div className="absolute inset-x-0 top-0 z-20 h-1 bg-black/20">
+          <div className="h-full bg-[#4ADE80] transition-[width] duration-150" style={{ width: `${progress * 100}%` }} />
         </div>
 
         <button
@@ -383,24 +456,26 @@ const Reader = ({ article, onClose }) => {
         </button>
 
         <div ref={scroller} onScroll={onScroll} className="overflow-y-auto overscroll-contain">
-          <header className="relative isolate overflow-hidden bg-[#04100A] px-6 pb-8 pt-12 text-white sm:px-12 sm:pt-14">
-            <div
-              aria-hidden="true"
-              className="absolute inset-0 -z-10"
-              style={{ background: 'radial-gradient(70% 80% at 100% 0%, rgba(0,138,68,0.4), transparent 70%)' }}
-            />
+          <header className="relative isolate flex min-h-[300px] flex-col justify-end overflow-hidden bg-[#04100A] px-6 pb-8 pt-20 text-white sm:min-h-[380px] sm:px-12">
+            <Cover cover={cover} category={article.category} sizes="768px" zoom={false} className="-z-10" eager />
+            <span aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-t from-[#04100A] via-[#04100A]/80 to-[#04100A]/20" />
             <CategoryTag category={article.category} onDark />
-            <h2 id="reader-title" className="mt-4 pr-8 text-2xl font-black leading-tight sm:text-4xl">
+            <h2 id="reader-title" className="mt-4 pr-8 text-2xl font-black leading-tight drop-shadow-lg sm:text-4xl">
               {article.title}
             </h2>
             <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
               <Byline article={article} onDark />
-              <span className="text-[10px] font-black uppercase tracking-[0.18em] text-white/50">
+              <span className="text-[10px] font-black uppercase tracking-[0.18em] text-white/60">
                 {fmtDate(article.date, { day: 'numeric', month: 'long', year: 'numeric' })} · {readMinutes(article)} min read
               </span>
             </div>
           </header>
           <LagosMark className="h-1 w-full" />
+          {cover && (cover.caption || cover.file) && (
+            <p className="flex items-center gap-1.5 border-b border-gray-100 px-6 py-2.5 text-[11px] text-gray-500 sm:px-12">
+              <Camera size={12} /> {cover.file ? 'File photo: Pastor Cornelius Ojelabi' : cover.caption}
+            </p>
+          )}
 
           <div className="px-6 py-8 sm:px-12 sm:py-10">
             {paras.length === 0 && <p className="text-gray-700">{article.excerpt}</p>}
@@ -434,10 +509,15 @@ const Reader = ({ article, onClose }) => {
 
 const Skeleton = () => (
   <div className="grid animate-pulse gap-6 lg:grid-cols-12">
-    <div className="h-[420px] bg-gray-900/10 lg:col-span-7" />
+    <div className="h-[560px] bg-gray-900/10 lg:col-span-7" />
     <div className="space-y-4 lg:col-span-5">
       <div className="aspect-video bg-gray-900/10" />
-      {[0, 1, 2].map((i) => <div key={i} className="h-16 bg-gray-900/5" />)}
+      {[0, 1, 2].map((i) => (
+        <div key={i} className="flex gap-4">
+          <div className="aspect-[4/3] w-28 bg-gray-900/10" />
+          <div className="flex-1 space-y-2 py-1"><div className="h-3 w-1/3 bg-gray-900/10" /><div className="h-4 bg-gray-900/10" /><div className="h-4 w-2/3 bg-gray-900/10" /></div>
+        </div>
+      ))}
     </div>
   </div>
 );
@@ -493,6 +573,8 @@ const News = () => {
     window.history.replaceState(null, '', url);
   }, []);
 
+  // Covers are assigned over the full list, so filtering never reshuffles them.
+  const covers = useMemo(() => assignCovers(articles), [articles]);
   const categories = useMemo(() => [...new Set(articles.map((a) => a.category))], [articles]);
   const shown = useMemo(
     () => (filter === 'all' ? articles : articles.filter((a) => a.category === filter)),
@@ -501,6 +583,7 @@ const News = () => {
   const [lead, ...rest] = shown;
   const side = rest.slice(0, 3);
   const grid = rest.slice(3);
+  const coverOf = (a) => covers[idOf(a)];
 
   return (
     <>
@@ -570,7 +653,7 @@ const News = () => {
               <>
                 <div className="grid gap-6 lg:grid-cols-12 lg:gap-10">
                   <div className="lg:col-span-7">
-                    <LeadStory article={lead} onOpen={open} />
+                    <LeadStory article={lead} cover={coverOf(lead)} onOpen={open} />
                   </div>
                   <div className="lg:col-span-5">
                     <VideoCard />
@@ -580,7 +663,7 @@ const News = () => {
                         <p className="mb-1 mt-8 text-[10px] font-black uppercase tracking-[0.22em] text-gray-900">More stories</p>
                         <ol>
                           {side.map((a, i) => (
-                            <NumberedStory key={idOf(a)} article={a} n={i + 2} onOpen={open} />
+                            <SideStory key={idOf(a)} article={a} cover={coverOf(a)} n={i + 2} onOpen={open} />
                           ))}
                         </ol>
                       </>
@@ -589,11 +672,17 @@ const News = () => {
                 </div>
 
                 {grid.length > 0 && (
-                  <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                    {grid.map((a, i) => (
-                      <StoryCard key={idOf(a)} article={a} onOpen={open} i={i} />
-                    ))}
-                  </div>
+                  <>
+                    <div className="mb-6 mt-16 flex items-center gap-4">
+                      <p className="text-[10px] font-black uppercase tracking-[0.22em] text-gray-900">Earlier stories</p>
+                      <span className="h-px flex-1 bg-gray-900/10" />
+                    </div>
+                    <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                      {grid.map((a, i) => (
+                        <StoryCard key={idOf(a)} article={a} cover={coverOf(a)} onOpen={open} i={i} />
+                      ))}
+                    </div>
+                  </>
                 )}
               </>
             )}
@@ -601,7 +690,9 @@ const News = () => {
         </div>
       </section>
 
-      <AnimatePresence>{selected && <Reader article={selected} onClose={close} />}</AnimatePresence>
+      <AnimatePresence>
+        {selected && <Reader article={selected} cover={coverOf(selected)} onClose={close} />}
+      </AnimatePresence>
     </>
   );
 };

@@ -38,6 +38,22 @@ const newsSchema = new mongoose.Schema(
       trim:    true,
       default: '',
     },
+    // Optional cover photo: a public https link (e.g. Cloudinary, a social post).
+    image: {
+      type:    String,
+      trim:    true,
+      default: '',
+      validate: {
+        validator: (v) => !v || /^https:\/\/\S+$/i.test(v),
+        message:   'Image must be a full https:// link.',
+      },
+    },
+    imageCaption: {
+      type:    String,
+      trim:    true,
+      default: '',
+      maxlength: [160, 'Image caption cannot exceed 160 characters.'],
+    },
     paragraphs: {
       type:     [String],
       required: [true, 'At least one paragraph is required.'],

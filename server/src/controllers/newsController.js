@@ -173,7 +173,7 @@ export const getAdminNewsById = async (req, res) => {
  */
 export const createNews = async (req, res) => {
   try {
-    const { title, excerpt, category, date, author, role, paragraphs } = req.body;
+    const { title, excerpt, category, date, author, role, paragraphs, image, imageCaption } = req.body;
 
     // Validate required fields explicitly (mirrors appointmentController pattern)
     if (!title?.trim() || !excerpt?.trim() || !author?.trim()) {
@@ -197,6 +197,8 @@ export const createNews = async (req, res) => {
       date:       date || new Date().toISOString().split('T')[0],
       author:     author.trim(),
       role:       role?.trim() || '',
+      image:      image?.trim() || '',
+      imageCaption: imageCaption?.trim() || '',
       paragraphs: paragraphs.map((p) => p.trim()).filter(Boolean),
       publishedBy: req.admin._id,
     });
@@ -222,7 +224,7 @@ export const createNews = async (req, res) => {
  */
 export const updateNews = async (req, res) => {
   try {
-    const { title, excerpt, category, date, author, role, paragraphs } = req.body;
+    const { title, excerpt, category, date, author, role, paragraphs, image, imageCaption } = req.body;
 
     if (!title?.trim() || !excerpt?.trim() || !author?.trim()) {
       return res.status(400).json({
@@ -247,6 +249,8 @@ export const updateNews = async (req, res) => {
         date:       date || new Date().toISOString().split('T')[0],
         author:     author.trim(),
         role:       role?.trim() || '',
+        image:      image?.trim() || '',
+        imageCaption: imageCaption?.trim() || '',
         paragraphs: paragraphs.map((p) => p.trim()).filter(Boolean),
         updatedBy:  req.admin._id,
       },
