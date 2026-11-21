@@ -183,14 +183,14 @@ const PromisePage = () => {
               >
                 Explore the pledges <ArrowDown size={15} />
               </button>
-              <a
+              {/* <a
                 href={META.fullUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex min-h-12 items-center justify-center gap-2 border border-white/30 px-7 text-[11px] font-black uppercase tracking-[0.22em] text-white transition-colors hover:border-white hover:bg-white hover:text-black"
               >
                 Full manifesto <ArrowUpRight size={15} />
-              </a>
+              </a> */}
             </div>
           </div>
 
