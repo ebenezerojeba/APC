@@ -9,6 +9,8 @@ import NotFound from './pages/NotFound'
 import ConstitutionPage from './pages/ConstitutionPage'
 import CampaignPage from './pages/CampaignPage'
 import PromisePage from './pages/PromisePage'
+import GalleryPage from './pages/GalleryPage'
+import RenewedHopePage from './pages/RenewedHopePage'
 import ScrollToTop from './components/ScrollToTop'
 
 const App = () => {
@@ -50,6 +52,8 @@ const App = () => {
         <Route path="/appointment" element={<Appointment />} />
         <Route path="/campaign" element={<CampaignPage />} />
         <Route path="/lagos-promise" element={<PromisePage />} />
+        <Route path="/gallery" element={<GalleryPage />} />
+        <Route path="/renewed-hope" element={<RenewedHopePage />} />
         <Route path="/resources/apc-constitution" element={<ConstitutionPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

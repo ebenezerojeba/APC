@@ -471,9 +471,9 @@ const PromisePage = () => {
         </p>
         <p className="mt-6 text-white/60">{META.start}</p>
         <div className="mt-10 flex flex-col items-center justify-center gap-3 px-5 sm:flex-row">
-          <a href={META.fullUrl} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-12 items-center gap-2 bg-[#FFC700] px-7 text-[11px] font-black uppercase tracking-[0.22em] text-black hover:bg-white">
+          {/* <a href={META.fullUrl} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-12 items-center gap-2 bg-[#FFC700] px-7 text-[11px] font-black uppercase tracking-[0.22em] text-black hover:bg-white">
             Read the full manifesto <ArrowUpRight size={15} />
-          </a>
+          </a> */}
           <Link to="/campaign" className="inline-flex min-h-12 items-center gap-2 border border-white/30 px-7 text-[11px] font-black uppercase tracking-[0.22em] hover:border-white hover:bg-white hover:text-black">
             Follow the campaign
           </Link>
