@@ -475,7 +475,7 @@ const PromisePage = () => {
             Read the full manifesto <ArrowUpRight size={15} />
           </a> */}
           <Link to="/campaign" className="inline-flex min-h-12 items-center gap-2 border border-white/30 px-7 text-[11px] font-black uppercase tracking-[0.22em] hover:border-white hover:bg-white hover:text-black">
-            Follow the campaign
+            The campaign
           </Link>
         </div>
         <p className="mx-auto mt-10 max-w-xl px-5 text-[11px] leading-relaxed text-white/35">
