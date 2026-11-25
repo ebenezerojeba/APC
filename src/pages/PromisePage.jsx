@@ -444,12 +444,12 @@ const PromisePage = () => {
             <LagosMark className="absolute bottom-0 h-1.5 w-full" />
           </div>
           <div>
-            <SectionLabel tone="green" className="mb-5">Standing with him</SectionLabel>
+            <SectionLabel tone="green" className="mb-2">His running mate</SectionLabel>
             <h2 className="uppercase leading-[0.9] text-gray-900" style={{ ...BEBAS, fontSize: 'clamp(2.5rem, 6vw, 4.5rem)' }}>
               {RUNNING_MATE.name}
             </h2>
             <p className="mt-2 text-sm font-black uppercase tracking-[0.2em] text-[#008A44]">{RUNNING_MATE.role}</p>
-            <ul className="mt-6 space-y-3">
+            <ul className="mt-6 space-y-6">
               {RUNNING_MATE.lines.map((l) => (
                 <li key={l} className="flex gap-3 text-[15px] leading-relaxed text-gray-600">
                   <span className="mt-2.5 h-1.5 w-1.5 shrink-0 bg-[#008A44]" /> {l}
